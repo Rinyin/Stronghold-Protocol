@@ -75,3 +75,28 @@ node --test test/match/shop-comeback.test.js test/match/pool.test.js test/match/
 npx eslint server/match/shopComeback.js server/match/pool.js server/match/PlayerState.js server/match/player/economy.js server/match/match/settle.js server/match/match/bossRounds.js server/match/bandCommandEffects.js test/match/shop-comeback.test.js
 npm run typecheck
 ```
+
+---
+
+## #2 · 2026-11-23 · 调整商店刷新提权机制的解除保护判定
+
+### 2.1 变更原因
+
+调整 `#1` 的退出保护条件，区分「自己彻底守住不漏怪」与「自己漏怪但依靠队友联防兜住不扣血」两种情况，使保护解除更贴合真实战力恢复节奏。
+
+### 2.2 新解除规则（替代 `#1` 中的 1.2 第 2 条）
+
+开启保护（`active = true`）后，满足以下**任意一条**即立即解除保护（`active = false`，`noLossStreak = 0`）：
+
+1. **单回合没漏怪（队友兜住不算）**：己方本回合战斗无有效漏怪且未扣血（`perfect === true && battleLoss === 0`，即 `counted === 0 && r.perfect !== false`），**1 个回合**立即解除保护。
+2. **连续两回合不扣血（含队友联防兜住）**：即使己方有漏怪，但连续 `COMEBACK_NO_LOSS_STOP = 2` 个回合实际战斗扣血 `battleLoss === 0`（如队友联防将漏怪全部拦截），第 2 回合结算后解除保护；中途任一回合发生战斗扣血（`battleLoss > 0`）则 `noLossStreak` 清零重计。
+
+其余触发条件（首次血量 `< 8` 或连续两回合总扣血 `≥ 15`）、提权对象与权重倍率（`×1.60` / `×1.35` / 未激活盟约 75% 折算）保持 `#1` 不变。
+
+### 2.3 代码与常量变更
+
+| 文件 | 变更说明 |
+|---|---|
+| `server/match/shopComeback.js` | 常量 `COMEBACK_PERFECT_STOP` 改为 `COMEBACK_NO_LOSS_STOP = 2`；状态字段 `perfectStreak` 改为 `noLossStreak`；`recordComebackRound()` 改为单回合 `perfect && battleLoss === 0` 立即关闭、否则 `battleLoss === 0` 累计至 2 回合关闭 |
+| `test/match/shop-comeback.test.js` | 更新并扩充单测，验证单回合无漏怪秒解、队友兜住 1 回合保持 / 连续 2 回合解除、中途扣血打断计数及休整期自扣血后两种解除路径 |
+

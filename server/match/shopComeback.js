@@ -4,13 +4,14 @@
 //       - operators currently on the player's board (×1.60), and
 //       - operators belonging to the player's top 3 bonds by layers (inactive bonds ranked at 75% of their layers, ×1.35).
 //     Operators matching both receive both multipliers (×2.16).
-//   * Deactivates once the player achieves any 2 consecutive perfect rounds after activation.
+//   * Deactivates once the player either clears a single round with no own leaks (teammate 联防 cover does not count),
+//     or goes 2 consecutive rounds without losing combat LP (including teammate 联防 cover).
 
 import { computeBonds } from './bondsMeta.js';
 
 export const COMEBACK_LOW_HP = 8;
 export const COMEBACK_TWO_ROUND_LOSS = 15;
-export const COMEBACK_PERFECT_STOP = 2;
+export const COMEBACK_NO_LOSS_STOP = 2;
 export const COMEBACK_TOP_BONDS = 3;
 export const COMEBACK_INACTIVE_BOND_RATIO = 0.75;
 export const COMEBACK_BOARD_WEIGHT_MUL = 1.6;
@@ -23,7 +24,7 @@ export function createComebackState() {
     lowHpTriggered: false,
     prevRoundLoss: 0,
     prepLoss: 0,
-    perfectStreak: 0,
+    noLossStreak: 0,
   };
 }
 
@@ -40,7 +41,7 @@ export function recordComebackPrepLpLoss(state, { lp, loss = 0 }) {
   if (curLoss > 0) state.prepLoss = (state.prepLoss || 0) + curLoss;
   if (curLp <= 0) {
     state.active = false;
-    state.perfectStreak = 0;
+    state.noLossStreak = 0;
     return state;
   }
   let triggered = false;
@@ -53,13 +54,14 @@ export function recordComebackPrepLpLoss(state, { lp, loss = 0 }) {
   }
   if (triggered) {
     state.active = true;
-    state.perfectStreak = 0;
+    state.noLossStreak = 0;
   }
   return state;
 }
 
 /**
  * Record a settled combat round for the player and update the comeback state.
+ * `perfect` means the player's own battle had no counted leaks (teammate 联防 saving leaks is false).
  * @param {ReturnType<typeof createComebackState>} state
  * @param {{ lp: number, loss?: number, perfect?: boolean }} info
  */
@@ -71,19 +73,24 @@ export function recordComebackRound(state, { lp, loss = 0, perfect = false }) {
   const curLp = Number.isFinite(lp) ? lp : 0;
   if (curLp <= 0) {
     state.active = false;
-    state.perfectStreak = 0;
+    state.noLossStreak = 0;
     state.prevRoundLoss = totalRoundLoss;
     return state;
   }
   if (state.active) {
-    if (perfect) {
-      state.perfectStreak += 1;
-      if (state.perfectStreak >= COMEBACK_PERFECT_STOP) {
+    if (perfect && battleLoss === 0) {
+      // Single round with no own leaks immediately ends protection.
+      state.active = false;
+      state.noLossStreak = 0;
+    } else if (battleLoss === 0) {
+      // Leaked but covered by teammates (0 LP loss): 2 consecutive no-loss rounds end protection.
+      state.noLossStreak += 1;
+      if (state.noLossStreak >= COMEBACK_NO_LOSS_STOP) {
         state.active = false;
-        state.perfectStreak = 0;
+        state.noLossStreak = 0;
       }
     } else {
-      state.perfectStreak = 0;
+      state.noLossStreak = 0;
     }
   }
   let triggered = false;
@@ -96,7 +103,7 @@ export function recordComebackRound(state, { lp, loss = 0, perfect = false }) {
   }
   if (triggered) {
     state.active = true;
-    state.perfectStreak = 0;
+    state.noLossStreak = 0;
   }
   state.prevRoundLoss = totalRoundLoss;
   return state;
