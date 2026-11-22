@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { loadData } from '../../server/data.js';
 import { setGameData } from '../../server/sim/content/support/index.js';
 import { acquireTargets } from '../../server/sim/ai.js';
+import { enemyStealthed } from '../../server/sim/targeting.js';
 import { makeBattle, chessRec, enemyRec } from '../helpers/battleHarness.js';
 import { payKjeragIce, tempBondLayers, EFFECT_KEYED_BONDS } from '../../server/sim/content/bonds/regulation.js';
 import { bondBb } from '../../server/sim/content/bonds/addon/battle.js';
@@ -1323,6 +1324,78 @@ describe('规程·序列Ⅰ bonds', { concurrency: 1 }, () => {
     assertLethaniaRuntime(h);
   });
 
+  test('莱塔尼亚: notes and choruses hold 禁疗 (cannot be directly healed, still benefit from hpRegen)', (t) => {
+    const base = v3();
+    const agoatId = Object.keys(base.chess).find((k) => base.chess[k]?.charId === 'char_1016_agoat2' && k.endsWith('_a'));
+    assert.ok(agoatId, '纯烬艾雅法拉 exists in 规程 chess data');
+    for (const { count, layers, expectedId } of [
+      { count: 3, layers: 0, expectedId: NOTE },
+      { count: 6, layers: 700, expectedId: CHORUS },
+    ]) {
+      const data = {
+        ...base,
+        enemies: {
+          ...base.enemies,
+          reg_tank: enemyRec({ key: 'reg_tank', hp: 1e7, def: 0, res: 0, atk: 0, speed: 0 }),
+        },
+      };
+      setGameData(data);
+      t.after(() => setGameData(null));
+      const h = makeBattle({
+        seed: 1,
+        data,
+        timeLimit: 40,
+        autoFinish: false,
+        bonds: { lethaniaShip: bond(count, layers) },
+        units: [
+          { chessId: agoatId, row: 10, col: 7, skillIndex: 1 }, // 纯烬艾雅法拉 S2 (云霭荫佑: AoE direct heal)
+          { chessId: 'chess_char_1_19_a', row: 10, col: 8, skillIndex: 0 }, // 莱塔尼亚 normal injured ally in range
+        ],
+      });
+      h.step();
+      const agoat = h.unit(agoatId);
+      const ally = h.unit('chess_char_1_19_a');
+      assert.ok(agoat && ally, '纯烬艾雅法拉 and ally deployed');
+      const corpse = tank(h, [10, 8]);
+      h.b.kill(corpse, null);
+      const [summon] = lethaniaSummons(h);
+      assert.ok(summon && summon.defId === expectedId, `summoned ${expectedId}`);
+      assert.ok(Array.isArray(summon.def.abnormal) && summon.def.abnormal.includes('healFree'), `${expectedId} carries abnormal healFree`);
+      assert.equal(!!summon.s.flags.noHeal, true, `${expectedId} sets noHeal`);
+      assert.equal(!!summon.s.flags.healFree, true, `${expectedId} sets healFree`);
+
+      // Injure summon and keep ally at full HP: 纯烬艾雅法拉 must not target summon for normal healing
+      summon.hp = summon.s.maxHp * 0.5;
+      ally.hp = ally.s.maxHp;
+      assert.equal(h.b.injuredAlliesInKeys(agoat.rangeKeys, agoat).includes(summon), false, `${expectedId} excluded from injuredAlliesInKeys`);
+      assert.equal(acquireTargets(h.b, agoat, agoat.profile).includes(summon), false, `${expectedId} excluded from healer acquireTargets`);
+
+      // Direct heal (normal & self non-regen) returns 0 and never applies 氤氲
+      const hpBeforeDirect = summon.hp;
+      assert.equal(h.b.heal(agoat, summon, 500), 0, `${expectedId} blocks direct heal from 纯烬艾雅法拉`);
+      assert.equal(h.b.heal(summon, summon, 500), 0, `${expectedId} blocks self direct heal`);
+      assert.equal(summon.hp, hpBeforeDirect, `${expectedId} HP unchanged after blocked direct heals`);
+      assert.equal(summon.findBuff(`agoat2:mist:${agoat.id}`), null, `${expectedId} does not receive 氤氲`);
+
+      // 纯烬艾雅法拉 S2 AoE heal heals the normal injured ally in range, but does NOT heal the summon
+      ally.hp = ally.s.maxHp * 0.5;
+      const allyBeforeS2 = ally.hp;
+      const summonBeforeS2 = summon.hp;
+      agoat.skill.setSpTotal(999);
+      assert.equal(agoat.skill.activate('manual'), true, '纯烬艾雅法拉 activates S2');
+      assert.ok(ally.hp > allyBeforeS2, 'S2 still heals ordinary allies in range');
+      assert.equal(summon.hp, summonBeforeS2, `S2 AoE direct heal does not heal ${expectedId}`);
+
+      // HP regeneration (生命回复速度) still works on both NOTE and CHORUS (even with 10%/s self bleed)
+      const regenRate = summon.s.maxHp * 0.3;
+      h.b.addBuff(summon, { key: 'test:lethaniaRegen', duration: 3, mods: { hpRegen: regenRate } });
+      const hpBeforeRegen = summon.hp;
+      h.run(0.5);
+      assert.ok(summon.hp > hpBeforeRegen + summon.s.maxHp * 0.1, `${expectedId} recovers HP from hpRegen (${hpBeforeRegen} → ${summon.hp})`);
+      assertLethaniaRuntime(h);
+    }
+  });
+
   test('聚合: stacked heals, element recovery, shelter is the strongest not the sum', (t) => {
     const bb = params(v3().bonds.docShip, 'act3autochess_bond_eff_doc');
     assert.equal(bb.heal_base, 0.16);
@@ -1389,7 +1462,74 @@ describe('规程·序列Ⅰ bonds', { concurrency: 1 }, () => {
     assert.ok(res);
     close(res.mods.resFlat, -2, 'the phys hit and the rider each drop RES');
     h.b.applyStatus(tnk, 'stealth', { duration: 5, source: null });
-    assert.equal(!!tnk.s.flags.stealth, false);
+    assert.equal(enemyStealthed(tnk), false, 'applied inside the range: 隐匿失效');
+    assert.equal(!!tnk.s.flags.stealth, true, '失效, not a dispel');
+  });
+
+  test('奥术 RES uses the area max, including a sourceless hit', (t) => {
+    const h = fight(t, {
+      players: [
+        { playerId: 'p1', seat: 0, side: 'L', colOffset: 0, bonds: { arcaneShip: bond(3, 0, 2) } },
+        { playerId: 'p2', seat: 1, side: 'R', colOffset: 0, bonds: { arcaneShip: bond(2, 200, 1) } },
+      ],
+      pieces: [
+        piece('reg_ar_lo', ['arcaneShip'], { ownerId: 'p1', col: 4, skill: null }),
+        piece('reg_ar_hi', ['arcaneShip'], { ownerId: 'p2', col: 5, skill: null }),
+      ],
+    });
+    h.step();
+    const e = tank(h, [9, 2]);
+    const src = h.unit('reg_ar_lo');
+    for (let i = 0; i < 35; i++) h.b.dealDamage({ source: src, target: e, amount: 1, type: 'phys' });
+    const res = e.findBuff('bond:arcane:res');
+    assert.ok(res, 'the low-layer player who has 3 members still shreds');
+    // 35 phys hits plus the rider's arts hit each: 70 steps. Floor at layers 200 is −40, at layers 0 is −30.
+    close(res.mods.resFlat, -40, 'cap is the max layers in this battle, not the hitter\'s 0');
+    const bare = tank(h, [8, 2]);
+    h.b.dealDamage({ source: null, target: bare, amount: 1, type: 'true' });
+    const bareRes = bare.findBuff('bond:arcane:res');
+    assert.ok(bareRes, 'a sourceless hit shreds once anyone in the battle has 3');
+    close(bareRes.mods.resFlat, -1, 'one qualifying hit');
+
+    const low = fight(t, {
+      players: [
+        { playerId: 'p1', seat: 0, side: 'L', colOffset: 0, bonds: { arcaneShip: bond(2, 200, 1) } },
+        { playerId: 'p2', seat: 1, side: 'R', colOffset: 0, bonds: { arcaneShip: bond(2, 200, 1) } },
+      ],
+      pieces: [piece('reg_ar_no', ['arcaneShip'], { skill: null })],
+    });
+    low.step();
+    const quiet = tank(low, [9, 2]);
+    low.b.dealDamage({ source: low.unit('reg_ar_no'), target: quiet, amount: 50, type: 'phys' });
+    assert.equal(quiet.findBuff('bond:arcane:res'), null, 'two players at 2 do not sum to 3');
+  });
+
+  test('奥术 隐匿 already on an enemy fails inside the range and returns outside it', (t) => {
+    const h = fight(t, {
+      bonds: { arcaneShip: bond(3, 0, 2) },
+      pieces: [piece('reg_ar_st', ['arcaneShip'], { rangeGrid: [[0, 0], [-1, 0]], skill: null })],
+    });
+    h.step();
+    const e = tank(h, [9, 8]);
+    h.b.applyStatus(e, 'stealth', { duration: 8, source: null });
+    assert.equal(enemyStealthed(e), true, 'outside the range, 隐匿 holds');
+    e.x = 4;
+    h.run(0.3);
+    assert.equal(enemyStealthed(e), false, 'an enemy that walks in is not hidden');
+    e.x = 8;
+    h.run(0.3);
+    assert.equal(enemyStealthed(e), true, 'leaving the range restores 隐匿');
+
+    // Permanent INVISIBLE-style stealth buff (not via statusApplied) also fails in range and returns outside
+    const perm = tank(h, [9, 8]);
+    h.b.addBuff(perm, { key: 'enemy:invisible', flags: { stealth: true }, duration: Infinity, persist: true });
+    assert.equal(enemyStealthed(perm), true, 'permanent stealth holds outside range');
+    perm.x = 4;
+    h.run(0.3);
+    assert.equal(enemyStealthed(perm), false, 'permanent stealth fails inside 3-arcane range');
+    perm.x = 8;
+    h.run(0.3);
+    assert.equal(enemyStealthed(perm), true, 'permanent stealth returns after leaving range');
   });
 
   test('精准 迅捷 灵巧 坚守 助力 use the season blackboards', (t) => {
