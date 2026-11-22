@@ -100,3 +100,26 @@ npm run typecheck
 | `server/match/shopComeback.js` | 常量 `COMEBACK_PERFECT_STOP` 改为 `COMEBACK_NO_LOSS_STOP = 2`；状态字段 `perfectStreak` 改为 `noLossStreak`；`recordComebackRound()` 改为单回合 `perfect && battleLoss === 0` 立即关闭、否则 `battleLoss === 0` 累计至 2 回合关闭 |
 | `test/match/shop-comeback.test.js` | 更新并扩充单测，验证单回合无漏怪秒解、队友兜住 1 回合保持 / 连续 2 回合解除、中途扣血打断计数及休整期自扣血后两种解除路径 |
 
+---
+
+## #3 · 2026-11-23 · 规程三奥术反隐与莱塔尼亚召唤物禁疗修复（同步 dev 与 master）
+
+### 3.1 修复内容
+
+1. **三奥术攻击范围内敌人隐匿失效 & 法抗削减按本场最大人数/层数（直接移植上游 `dev` 提交 `8e0fbaa3`）**
+   - **根因**：旧实现仅在 `statusApplied('stealth')` 触发瞬间检查敌人是否在奥术干员攻击范围内并直接移除 `stealth`，对自带常驻隐匿或先隐匿后走进攻击范围的敌人不生效；法抗削减亦未按官方模板的本场最大人数/层数及无来源攻击口径计算。
+   - **修复**（`server/sim/content/bonds/regulation.js`）：新增 `ARCANE_REVEAL`、`arcaneArea()` 与 `syncArcaneStealth()`，每 `0.2s` 及 `statusApplied('stealth')` 时复查，为处于 3 奥术玩家在场成员攻击范围内的隐匿敌人施加反隐标记（`reveal: true`）而非驱散隐匿，离开范围恢复；法抗削减改按本场最大奥术人数与最大层数计算，任意非元素/非生命流失伤害（含无来源）均可触发。
+2. **莱塔尼亚“一个小节” / “一个乐部”持有禁疗（PRTS 规则，上游尚未修复）**
+   - **根因**：`server/sim/content/bonds/lethania.js` 从敌方数据构造盟约召唤物 `enemy_9025_aclts`（“一个小节”）与 `enemy_9026_acltm`（“一个乐部”）时未附加 `禁疗` 异常效果，导致纯烬艾雅法拉等治疗干员可直接选中并治疗它们（并触发氤氲等治疗衍生效果）。
+   - **修复**（`server/sim/content/bonds/lethania.js`）：为两者在 `def` 补充 `abnormal: ['healFree']`，并在 `summonKit.install()` 中挂载常驻 `trait:abnormal`（`flags: { noHeal: true, healFree: true }`）。直接治疗（含纯烬艾雅法拉普攻/S1/S2/S3/氤氲与其他治疗干员）均无法选中或治疗，生命回复速度（`hpRegen` / `regen` 通道）仍正常生效。
+
+### 3.2 涉及文件
+
+| 文件 | 变更说明 |
+|---|---|
+| `server/sim/content/bonds/regulation.js` | 移植上游 `8e0fbaa3`：三奥术 `ARCANE_REVEAL` 反隐轮询与本场最大人数/层数法抗削减 |
+| `server/sim/content/bonds/lethania.js` | 为“一个小节”与“一个乐部”补充 `abnormal: ['healFree']` 及常驻 `noHeal` + `healFree` 禁疗标记 |
+| `test/bonds/regulation.test.js` | 移植 `8e0fbaa3` 奥术用例（并补测常驻隐匿进出范围）；新增莱塔尼亚召唤物禁疗与 `hpRegen` 回复单测（覆盖纯烬艾雅法拉普攻/S2/氤氲） |
+| `docs/design/engine.md`、`docs/SIM.md`、`docs/history/0.4.0.md` | 同步补充规则与变更记录 |
+| `test/golden/act3autochess-v3_1/*.json` | 随玩法修复重生成规程黄金摘要（其余 4 个版本不变） |
+
