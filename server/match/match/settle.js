@@ -10,6 +10,7 @@ import { FLOW_TICKER_PRIORITY, DELAYS } from './common.js';
 import { msg } from '../../../shared/i18n.js';
 import { onSettle, resetRoundCounters } from '../botEmotes.js';
 import { creditedKillsOf } from '../../sim/spec.js';
+import { recordComebackRound } from '../shopComeback.js';
 
 export class MatchSettle {
   settle(plan, uniteResult) {
@@ -51,6 +52,8 @@ export class MatchSettle {
       // A leaker whose counted leaks a teammate's 联防 stopped (loss 0) still ends it: its own battle let enemies through
       // (the owner, 2026-11-14 「自己漏了但是队友成功联防漏怪的人的完美连胜也该中断」, §37.201)
       ps.stats.perfectStreak = loss > 0 || counted > 0 ? 0 : (ps.stats.perfectStreak || 0) + 1;
+      const isPerfect = loss === 0 && counted === 0 && r.perfect !== false;
+      recordComebackRound(ps.shopComeback, { lp: ps.lp, loss, perfect: isPerfect });
       // bounty coins (own battle + unite kills) are credited to the next prep
       let coins = Math.max(0, Math.trunc(Number(r.coins) || 0));
       const up = uniteResult && uniteResult.perPlayer && uniteResult.perPlayer[ps.playerId];

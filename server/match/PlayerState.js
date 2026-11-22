@@ -138,6 +138,7 @@ import { PlayerRound } from './player/round.js';
 import { PlayerViews } from './player/views.js';
 import { PlayerDiy, DiyStock } from './player/diy.js';
 import { PlayerCommands } from './player/commands.js';
+import { createComebackState } from './shopComeback.js';
 
 export class PlayerState {
   /**
@@ -206,6 +207,8 @@ export class PlayerState {
     this.skins = Object.freeze({});
     if (!this.isBot && seat.skins) this.setSkins(seat.skins);
     this.shop = { level: 1, upgradePrice: this.gd.upgradeBase(1) ?? 0, slots: [], frozen: false, freeRefreshes: 0 };
+    /** comeback shop-refresh boost tracker (shopComeback.js) */
+    this.shopComeback = createComebackState();
     /** reward offers queue (merge rewards, special refreshes): { tier, source, label, slots: [{ kind, id, price, sold }] } */
     this.offers = [];
     /** @type {Array<any>} */

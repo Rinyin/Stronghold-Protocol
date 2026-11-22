@@ -113,14 +113,17 @@ export class SharedPool {
    * pairs of the same shape — a player's 自选 stock) under the same filters. Explicit extra tierExempt entries bypass
    * maxTier only, retaining their real tier; exact-tier draws and ordinary pool entries never bypass the gate.
    */
-  _eligible({ maxTier = 6, tier = null, filter = null, extra = null, ignoreCounts = false } = {}) {
+  _eligible({ maxTier = 6, tier = null, filter = null, extra = null, ignoreCounts = false, weightMul = null } = {}) {
     const out = [];
     const scan = (list, extraEntries = false) => {
       for (const [id, e] of list) {
         if (!ignoreCounts && e.left <= 0) continue;
         if (tier != null ? e.tier !== tier : e.tier > maxTier && !(extraEntries && e.tierExempt === true)) continue;
         if (filter && !filter(id, e)) continue;
-        out.push([id, ignoreCounts ? 1 : e.left]);
+        const base = ignoreCounts ? 1 : e.left;
+        const mul = weightMul ? weightMul(id, e) : 1;
+        const w = Number.isFinite(mul) && mul > 0 ? base * mul : base;
+        if (w > 0) out.push([id, w]);
       }
     };
     scan(this.entries);
@@ -132,7 +135,8 @@ export class SharedPool {
    * Copy-weighted roll: one copy uniformly among remaining copies of eligible chess. Returns a base id or null.
    * @param {Function} rng
    * @param {{ maxTier?: number, tier?: number|null, filter?: (id: string, e: object) => boolean,
-   *   extra?: Iterable<[string, { left: number, tier: number, tierExempt?: boolean }]>|null }} [opts]
+   *   extra?: Iterable<[string, { left: number, tier: number, tierExempt?: boolean }]>|null,
+   *   ignoreCounts?: boolean, weightMul?: ((id: string, e: object) => number)|null }} [opts]
    */
   roll(rng, opts = {}) {
     const el = this._eligible(opts);

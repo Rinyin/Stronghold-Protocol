@@ -13,6 +13,7 @@ import { pairPlayers, bossPairSalt, bossPoolHp, SharedBossPool, CreditPool, hidd
 import { cleanLeaderOps, syncFieldLeaderOps, leaderTopRows } from '../leaderRank.js';
 import { FieldRunner, HeadlessPacer, syntheticResult, BOSS_SILENCE_MS, CATCHUP_TICKS_PER_INTERVAL } from '../fields.js';
 import { FLOW_TICKER_PRIORITY, BOSS_CLOCK_MS, DELAYS } from './common.js';
+import { recordComebackRound } from '../shopComeback.js';
 
 /** b.pool broadcasts at most this often (ms). */
 const POOL_MIN_GAP_MS = 250;
@@ -567,6 +568,7 @@ export class MatchBoss {
     // the end condition the server registered first decides (client-side combat: _endFinal — pool 0 → victory, team LP 0
     // → defeat); a boss field's final result may never turn a defeat into a victory (user playtest #6 item 5)
     const victory = this._finalEnding ? this._finalEnding === 'cleared' : this.bossPool.hp <= 0;
+    const bossPerfect = new Map();
     for (const f of this.fields) {
       const res = resultOf(f);
       this._collectSimErrors(f, res);
@@ -588,12 +590,19 @@ export class MatchBoss {
           // of the player's own — "下场作战" — so a perfect-payout card pays as after a normal one]
           const perfect = victory && !res.synthetic && pp.perfect === true && !(pp.leaked || []).some((l) => l && l.counted !== false)
             && this._bossLeaksAgree(f, res, pid);
+          bossPerfect.set(pid, perfect);
           this._settleBossBounties(ps, pp, perfect);
         }
         if (pp && ps) this.dispatch(ps, 'onBattleResult', { result: pp, lpLoss: 0, perfect: !!pp.perfect, boss: true });
       }
     }
     this._syncTeamLp();
+    for (const [pid, perfect] of bossPerfect) {
+      const ps = this.players.get(pid);
+      if (!ps || !ps.alive) continue;
+      const loss = Math.max(0, (ps.lpAtFinal ?? ps.lp) - ps.lp);
+      recordComebackRound(ps.shopComeback, { lp: ps.lp, loss, perfect: perfect && loss === 0 });
+    }
     this.deadline = 0;
     this.overtimeAt = 0;
     this.markPublic();

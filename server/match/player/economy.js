@@ -10,6 +10,7 @@ import { freeSlot } from '../board.js';
 import { computeBonds } from '../bondsMeta.js';
 import { OK, fail } from './common.js';
 import { syncCommand } from '../bandCommands.js';
+import { shopComebackWeightMul } from '../shopComeback.js';
 
 export class PlayerEconomy {
   addFunds(n, { reason = '' } = {}) {
@@ -68,9 +69,13 @@ export class PlayerEconomy {
     return Number.isFinite(p) ? Math.max(0, Math.round(p)) : slot.basePrice;
   }
 
-  _rollChessSlot() {
+  _rollChessSlot(weightMul = null) {
     // the slotted 自选 pieces join the draw once the 调度中心 reaches their slot's level (player/diy.js diyRollEntries)
-    const id = this.m.pool.roll(this.m.rngShop, { maxTier: this.shop.level, extra: this.diyRollEntries() });
+    const id = this.m.pool.roll(this.m.rngShop, {
+      maxTier: this.shop.level,
+      extra: this.diyRollEntries(),
+      ...(weightMul ? { weightMul } : {}),
+    });
     return id ? { kind: 'chess', id, basePrice: this.gd.chessPrice(id), frozen: false, sold: false } : null;
   }
 
@@ -101,17 +106,18 @@ export class PlayerEconomy {
     const oldItems = old.slice(layout.chess);
     const keep = (s, kind) => (keepFrozen && s && s.kind === kind && !s.sold && s.frozen ? { ...s } : null);
     // frozen slots keep their position; sold / empty / unfrozen positions are rerolled
+    const weightMul = shopComebackWeightMul(this);
     const slots = [];
     const fresh = new Set();
     for (let i = 0; i < nChess; i++) {
       const kept = keep(oldChess[i], 'chess');
       if (kept) slots.push(kept);
-      else { slots.push(this._rollChessSlot()); fresh.add(i); }
+      else { slots.push(this._rollChessSlot(weightMul)); fresh.add(i); }
     }
     for (let i = 0; i < nItem; i++) slots.push(keep(oldItems[i], 'item') ?? this._rollItemSlot());
     this.shop.slots = slots;
     this.shop.layout = { chess: nChess, item: nItem };
-    this._applyBondRefresh(fresh, nChess);
+    this._applyBondRefresh(fresh, nChess, weightMul);
     for (const s of slots) if (s) s.frozen = this.shop.frozen;
     this.dirty();
   }
@@ -121,7 +127,7 @@ export class PlayerEconomy {
    * bond. The charge is consumed even when the filtered roll comes back empty. A queued test shop returns before this
    * (rollShop), so it does not spend a charge. Frozen kept slots are not replaced.
    */
-  _applyBondRefresh(fresh, nChess) {
+  _applyBondRefresh(fresh, nChess, weightMul = null) {
     const jobs = this.shop.bondRefresh;
     if (!Array.isArray(jobs) || !jobs.length) return;
     const job = jobs.shift();
@@ -148,6 +154,7 @@ export class PlayerEconomy {
           return !!(rec && Array.isArray(rec.bonds) && rec.bonds.includes(job.bond));
         },
         extra: this.diyRollEntries(),
+        ...(weightMul ? { weightMul } : {}),
       });
       if (!id) continue;
       this.shop.slots[i] = { kind: 'chess', id, basePrice: this.gd.chessPrice(id), frozen: false, sold: false };

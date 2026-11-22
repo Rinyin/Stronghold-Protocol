@@ -1,6 +1,7 @@
 // Preparation effects of 规程 commands. Official keys/blackboards select behaviour; no reused band ids.
 import { paramsOf, openSkillChangeDraft, reconcileCommandChests } from './bandCommands.js';
 import { pieceBonds as bondsOfPiece } from './bondsMeta.js';
+import { recordComebackPrepLpLoss } from './shopComeback.js';
 
 const slotsOf = ps => ps.shop.slots.flatMap((s, i) => s?.kind === 'chess' && !s.sold ? [i] : []);
 const mark = (ps, data) => (ps.commandMarks ||= []).push({ id: ps.m.nextUid(), round: ps.m.round, ...data });
@@ -68,6 +69,7 @@ export function commandPlan(ps, skill, target, ctx) {
         return { apply: () => {
           ps.lp = other.lp;
           ps.stats.lpLost += lost;
+          recordComebackPrepLpLoss(ps.shopComeback, { lp: ps.lp, loss: lost });
           ps.addFunds(gold, { reason: 'command' });
           mark(ps, { healPlayerId: other.playerId, heal: lost });
           ps.m.markPublic();
