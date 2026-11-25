@@ -505,9 +505,9 @@ export function install(battle) {
     });
   }
 
-  // live layers
+  // live layers (permanent and temporary)
   if (states.some((st) => Object.keys(st.tiers).some((id) => LAYERED.has(id)))) {
-    battle.on('layerGain', (c) => {
+    const schedule = (c) => {
       const st = byPid[c.playerId];
       if (!st || !st.tiers[c.bondId] || !LAYERED.has(c.bondId) || st.pending) return;
       st.pending = true;
@@ -516,7 +516,9 @@ export function install(battle) {
         applyPassives(battle, st);
         if (st.tiers[ID.skillful]) updateAura(battle, st);
       });
-    });
+    };
+    battle.on('layerGain', schedule);
+    battle.on('tempLayerGain', schedule);
   }
 
   // 灵巧 aura (deploy / death immediately, relocations through a cheap poll)
