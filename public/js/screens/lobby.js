@@ -63,6 +63,7 @@ import { t, tc, N_ } from '../../../shared/i18n.js';
 import { scriptOf } from '../../../shared/i18nPacks.js';
 import { NoticesButton } from '../ui/notices.js';
 import { VersionSwitch } from '../ui/versionPicker.js';
+import { ReplayEntryButton } from '../replay.js';
 import { contentSet, retryContentSet } from '../content.js';
 import { DEFAULT_VERSION, lobbyVersion, offeredDifficulties, fallbackDifficulty, ladderModes, ladderPick, seasonOf, soloTimedOf, soloTimeMsgid, versionLabel } from '../versions.js';
 
@@ -865,6 +866,7 @@ export function LobbyScreen() {
         </div>
       </div>
       <div class="topbar__right">
+        <${ReplayEntryButton} variant="secondary" size="sm" class="lobby-replay" />
         <${VersionSwitch} />
         <${ResumeMatchButton} />
       </div>

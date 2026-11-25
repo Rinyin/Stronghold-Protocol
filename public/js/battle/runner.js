@@ -640,6 +640,22 @@ export function createBattleRunner(deps) {
     schedule();
   }
 
+  /** Change playback speed smoothly without resetting battle progress (local native replay). */
+  function setSpeed(nextSpeed) {
+    const s = Number(nextSpeed);
+    if (!Number.isFinite(s) || s <= 0) return;
+    const t = clock();
+    for (const e of [...entries.values(), ...pending.values()]) {
+      if (e.battle && e.t0 != null) {
+        const ticks = Number(e.battle.tickCount) || 0;
+        e.t0 = t - ((ticks * TICK) / s) * 1000;
+      }
+      e.speed = s;
+    }
+    if (cur) publishState();
+    schedule();
+  }
+
   /** Advance one entry to its clock (bounded); render it when it is on screen. */
   function advance(e, t, render) {
     if (e.battle.finished) { if (!e.done) finished(e); return; }
@@ -1000,6 +1016,7 @@ export function createBattleRunner(deps) {
   // phase changes: combat fields live until the next prep; leaving the match drops everything
   let lastPhase = null;
   let lastRound = 0;
+  let lastPubPaused = false;
   if (store && typeof store.subscribe === 'function') {
     offs.push(store.subscribe((s) => {
       const pub = s && s.match && s.match.public ? s.match.public : null;
@@ -1009,8 +1026,12 @@ export function createBattleRunner(deps) {
         || (pub?.phase !== lastPhase && ['LOBBY', 'INFO_CHECK', 'BAND_DRAFT', 'CUSTOM_CHECK', 'BATTLE_CHECK'].includes(pub?.phase));
       if (resetMetrics) forgetCombat();
       lastRound = round;
-      // solo pause (DESIGN §14): the local battle clocks follow m.public.paused
-      setPaused(!!(pub && pub.paused));
+      // solo pause (DESIGN §14): follow changes in m.public.paused without clobbering local replay setPaused()
+      const pubPaused = !!(pub && pub.paused);
+      if (pubPaused !== lastPubPaused) {
+        lastPubPaused = pubPaused;
+        setPaused(pubPaused);
+      }
       const phase = pub ? pub.phase : null;
       if (phase === lastPhase && !resetMetrics) return;
       lastPhase = phase;
@@ -1137,7 +1158,7 @@ export function createBattleRunner(deps) {
     _entries: entries,
     _frame: frame,
     _pump: pump,
-    onStart, onPool, onEnd, clear, ensureSim, redeliver, setPaused,
+    onStart, onPool, onEnd, clear, ensureSim, redeliver, setPaused, setSpeed,
     dispose() {
       clear();
       releaseParked();

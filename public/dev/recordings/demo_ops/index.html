@@ -1,0 +1,2673 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>卫戍协议：规程 — 复奏+最佳局中运营实机进隐秘演示合集</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --bd:#30363d; --fg:#e6edf3; --muted:#8b949e; --accent:#58a6ff; --gold:#f2cc60; --ok:#3fb950; --r15:#d2a8ff; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:24px; background:var(--bg); color:var(--fg); font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; line-height:1.5; }
+  header { max-width:1280px; margin:0 auto 24px; padding:20px 24px; background:linear-gradient(135deg,#161b22,#1c2333); border:1px solid var(--bd); border-radius:12px; }
+  header h1 { margin:0 0 8px; font-size:22px; }
+  header p { margin:4px 0; color:var(--muted); font-size:14px; }
+  main { max-width:1280px; margin:0 auto; display:flex; flex-direction:column; gap:18px; }
+  .card { background:var(--card); border:1px solid var(--bd); border-radius:12px; padding:18px 20px; }
+  .card-head { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; }
+  .card-head h2 { margin:8px 0 0; font-size:18px; }
+  .tag-core,.tag-mode,.tag-ok,.tag-clear { display:inline-block; padding:2px 9px; border-radius:999px; font-size:12px; font-weight:600; margin-right:6px; }
+  .core-kjeragShip { background:#1f3a52; color:#79c0ff; }
+  .core-lethaniaShip { background:#3b2c1a; color:#f2cc60; }
+  .core-ursusShip { background:#442326; color:#ff7b72; }
+  .mode-solo { background:#21262d; color:#c9d1d9; border:1px solid #30363d; }
+  .mode-coop { background:#1b3329; color:#56d364; border:1px solid #2ea043; }
+  .tag-ok { background:#163822; color:#3fb950; }
+  .tag-clear { background:#3a2d0c; color:#f2cc60; }
+  .cta-group { display:flex; gap:8px; flex-wrap:wrap; }
+  .btn { text-decoration:none; padding:7px 13px; border-radius:8px; font-size:13px; font-weight:600; }
+  .btn-replay { background:linear-gradient(135deg,#238636,#2ea043); color:#fff; border:1px solid #3fb950; }
+  .btn-r14 { background:#1f6feb; color:#fff; }
+  .btn-r15 { background:#8957e5; color:#fff; }
+  .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin:14px 0; }
+  .kpi { background:#0d1117; border:1px solid #21262d; border-radius:8px; padding:10px 12px; }
+  .kpi .k { font-size:12px; color:var(--muted); }
+  .kpi .v { font-size:15px; font-weight:700; margin-top:2px; }
+  .mates { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 12px; }
+  .mate-pill { background:#0d1117; border:1px solid #30363d; border-radius:6px; padding:3px 8px; font-size:12px; color:#c9d1d9; }
+  .rounds-bar { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:10px 0 12px; }
+  .rounds-bar .lbl { font-size:13px; color:var(--muted); margin-right:4px; }
+  .chip { text-decoration:none; background:#21262d; color:#c9d1d9; border:1px solid #30363d; border-radius:6px; padding:3px 9px; font-size:12px; }
+  .chip:hover { border-color:var(--accent); color:#fff; }
+  .chip-r14 { background:#1a3052; border-color:#388bfd; color:#79c0ff; font-weight:600; }
+  .chip-r15 { background:#301e52; border-color:#a371f7; color:#d2a8ff; font-weight:700; }
+  .chip-unite { background:#3b2c1a; border-color:#d29922; color:#f2cc60; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; color:var(--accent); font-size:13px; font-weight:600; user-select:none; }
+  .tbl-wrap { overflow-x:auto; margin-top:10px; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  th,td { border-bottom:1px solid #21262d; padding:6px 8px; text-align:left; vertical-align:top; }
+  th { color:var(--muted); background:#0d1117; }
+  .badge-duet { background:#3b2c1a; color:#f2cc60; padding:1px 6px; border-radius:4px; font-weight:600; }
+  .watch-sm { color:var(--accent); text-decoration:none; font-weight:600; margin-left:4px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>卫戍协议：规程（序列Ⅰ）· 复奏 + 最佳局中运营实机进隐秘演示合集</h1>
+  <p>全部录像均在已载入 10 项修复的本地正式服（<code>127.0.0.1:3100</code>）通过 100% 合法 WS 对局实时录制并经 R15 隐秘核心门禁实盘核验。当前已实时发布 <b>14 / 12</b> 局（最后更新：2026-11-24T22:09:06.759Z）。</p>
+  <p>点击任意回合按钮即跳转 <code>/dev/render-demo.html?scene=...</code> 观看真实 3D/2D Spine 实机战斗回放。</p>
+</header>
+<main>
+  <section class="card">
+      <div class="card-head">
+        <div>
+          <span class="tag-core core-kjeragShip">谢拉格</span>
+          <span class="tag-mode mode-solo">单人规程20级</span>
+          <span class="tag-ok">✅ 已进R15隐秘</span>
+          <span class="tag-clear">🏆 隐秘斩杀</span>
+          <h2>谢拉格 · 单人规程20级 · 大模型实机操盘 (kjerag_solo_1)</h2>
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-replay" href="/?replay=kjerag_solo_1" target="_blank">🎮 游戏本体原生回放</a>
+          <a class="btn btn-r14" href="/dev/recordings/demo_ops/replay.html?match=kjerag_solo_1" target="_blank">🎬 网页版回放</a>
+          <a class="btn btn-r14" href="/dev/render-demo.html?scene=kjerag_solo_1_r14" target="_blank">▶ R14领袖战</a>
+          <a class="btn btn-r15" href="/dev/render-demo.html?scene=kjerag_solo_1_r15" target="_blank">▶ R15隐秘核心</a>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="k">R14激活总层数</div><div class="v">478</div></div>
+        <div class="kpi"><div class="k">R14领袖战</div><div class="v">阿利斯泰尔，帝国余晖 · 34.6s</div></div>
+        <div class="kpi"><div class="k">R15隐秘核心</div><div class="v">假想敌：械 ✅斩杀</div></div>
+        <div class="kpi"><div class="k">复奏双碰 / 地图</div><div class="v">6次 · act3autochess_m03</div></div>
+      </div>
+      <div class="mates">
+      <span class="mate-pill">0号位 复奏 · 谢拉格 (层478 / 伤3,700,000)</span>
+    </div>
+      <div class="rounds-bar"><span class="lbl">全回合实机回放：</span><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_1_r01" target="_blank">R1</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_1_r02" target="_blank">R2</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_1_r03" target="_blank">R3</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_1_r04" target="_blank">R4</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_1_r05" target="_blank">R5</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_1_r06" target="_blank">R6</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_1_r07" target="_blank">R7</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_1_r08" target="_blank">R8</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_1_r09" target="_blank">R9</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_1_r10" target="_blank">R10</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_1_r11" target="_blank">R11</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_1_r12" target="_blank">R12</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_1_r13" target="_blank">R13</a><a class="chip chip-r14" href="/dev/render-demo.html?scene=kjerag_solo_1_r14" target="_blank">R14领袖</a><a class="chip chip-r15" href="/dev/render-demo.html?scene=kjerag_solo_1_r15" target="_blank">R15隐秘</a></div>
+      <details>
+        <summary>展开逐回合运营与战斗账本（R1–R15）</summary>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>回合</th><th>本级</th><th>资金</th><th>复奏</th><th>血量</th><th>层数</th><th>运营要点</th><th>场上阵容</th><th>战况/录像</th></tr></thead>
+            <tbody><tr>
+        <td><b>R1</b></td>
+        <td>1本</td>
+        <td>4g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R01双霜叶对空稳开局听牌三连</td>
+        <td>霜叶、霜叶</td>
+        <td>✅完美0漏(35s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_1_r01" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R2</b></td>
+        <td>2本</td>
+        <td>5g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R02抢升2本冻住电狗，双霜叶迎战磨砻</td>
+        <td>霜叶、霜叶</td>
+        <td>漏5怪(52s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_1_r02" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R3</b></td>
+        <td>2本</td>
+        <td>6g</td>
+        <td>-</td>
+        <td>19</td>
+        <td><b>4</b></td>
+        <td>R03电狗配狙击镜亮灵巧，拉普兰德补法伤阻挡吃飞鳞赏金</td>
+        <td>承曦格雷伊、霜叶、霜叶、拉普兰德</td>
+        <td>漏1怪(54s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_1_r03" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R4</b></td>
+        <td>3本</td>
+        <td>7g</td>
+        <td>-</td>
+        <td>18</td>
+        <td><b>4</b></td>
+        <td>R04抢升3本并购入盟约之币存1g至下轮</td>
+        <td>承曦格雷伊、霜叶、霜叶、拉普兰德</td>
+        <td>漏3怪(48s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_1_r04" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R5</b></td>
+        <td>3本</td>
+        <td>8g</td>
+        <td>-</td>
+        <td>15</td>
+        <td><b>4</b></td>
+        <td>R05水灯心独行配空弦电狗7人发力，灵巧精准双亮启航</td>
+        <td>吉星、空弦、水灯心、承曦格雷伊、霜叶、霜叶、拉普兰德</td>
+        <td>✅完美0漏(46s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_1_r05" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R6</b></td>
+        <td>4本</td>
+        <td>9g</td>
+        <td>-</td>
+        <td>15</td>
+        <td><b>13</b></td>
+        <td>R06抢4本卖吉星白嫖拉普兰德听牌+吃玩偶存2g，7人对空迎击24飞机</td>
+        <td>空弦、水灯心、承曦格雷伊、霜叶、霜叶、拉普兰德、拉普兰德</td>
+        <td>✅完美0漏(52s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_1_r06" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R7</b></td>
+        <td>5本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>15</td>
+        <td><b>22</b></td>
+        <td>R07抢升5本，7人稳血迎战囚犯大军</td>
+        <td>空弦、水灯心、承曦格雷伊、霜叶、霜叶、拉普兰德、拉普兰德</td>
+        <td>漏7怪(67s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_1_r07" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R8</b></td>
+        <td>5本</td>
+        <td>11g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>8</td>
+        <td><b>31</b></td>
+        <td>R08拉普兰德精锐双6阶拿帕拉斯+妮芙，帕拉斯空弦贴水灯心单轮+39层，冻住圣聆初雪+凛御银灰+寻呼模块</td>
+        <td>妮芙、空弦、水灯心、帕拉斯、承曦格雷伊、霜叶、霜叶、拉普兰德★</td>
+        <td>✅完美0漏(73s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_1_r08" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R9</b></td>
+        <td>5本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>8</td>
+        <td><b>62</b></td>
+        <td>R09拟态碰霜叶双6阶拿缪尔赛思+机械师，寻呼精准狙击灵知，谢拉格灵巧迅捷五盟约齐亮冻杀大丑</td>
+        <td>圣聆初雪、灵知、妮芙、帕拉斯、凛御银灰、空弦、水灯心、机械师</td>
+        <td>✅完美0漏(86s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_1_r09" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R10</b></td>
+        <td>6本</td>
+        <td>17g</td>
+        <td>-</td>
+        <td>8</td>
+        <td><b>123</b></td>
+        <td>R10直冲6本凑4谢拉格锁死机械师印卡，双初雪+灵知+帕拉斯全面爆层</td>
+        <td>圣聆初雪、灵知、妮芙、帕拉斯、凛御银灰、水灯心、初雪、机械师</td>
+        <td>✅完美0漏(79s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_1_r10" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R11</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>8</td>
+        <td><b>165</b></td>
+        <td>R11拿人事部文档开9人口，精锐空弦双6阶拿第2帕拉斯，促销券爆动能加速器(+120攻速)给灵知永冻暴刷怪海</td>
+        <td>圣聆初雪、灵知、妮芙、帕拉斯、凛御银灰、水灯心、初雪、帕拉斯、机械师</td>
+        <td>✅完美0漏(81s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_1_r11" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R12</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>8</td>
+        <td><b>241</b></td>
+        <td>R12伊桑一发入魂合精锐灵知★，复奏双6阶拿维什戴尔+逻各斯，进阶不融冰+变形同构体造就[谢拉格·维什戴尔]，9人防空碾压39飞机海</td>
+        <td>圣聆初雪、灵知★、逻各斯、维什戴尔[自编]、妮芙、帕拉斯、凛御银灰、初雪、帕拉斯</td>
+        <td>✅完美0漏(69s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_1_r12" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R13</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>8</td>
+        <td><b>299</b></td>
+        <td>R13合出精锐初雪★+精锐帕拉斯★+2/3维什戴尔听牌，召唤6/6谢拉格雪山巨人狂刷46深池大军冲破400层，冻雪猎留R14双6阶</td>
+        <td>圣聆初雪、灵知★、逻各斯、维什戴尔[自编]、妮芙、凛御银灰、雪猎、初雪★、帕拉斯★</td>
+        <td>✅完美0漏(88s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_1_r13" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R14</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>8</td>
+        <td><b>424</b></td>
+        <td>R14终局大决战！拟态锁合精锐[谢拉格·维什戴尔]★+红装动能轰击弩精锐灵知★+6谢拉格200层+5绝技+424/351纯输出层，全军压右半场朝右永冻斩杀阿利斯泰尔！</td>
+        <td>初雪★、维什戴尔[自编]★、雪猎★、遥、逻各斯、帕拉斯★、凛御银灰、灵知★、圣聆初雪</td>
+        <td>🏆斩杀(34.6s,伤3,700,000) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_1_r14" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R15</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>8</td>
+        <td><b>512</b></td>
+        <td>R15隐秘终局！512层七输出盟约齐亮(6谢拉格221层+灵巧227层+5绝技+精准28层)，精锐[谢拉格·维什戴尔]★+6阶红装精锐灵知★+满装逻各斯+满装圣聆初雪全军集火假想敌：械！</td>
+        <td>初雪★、维什戴尔[自编]★、遥、逻各斯、雪猎★、帕拉斯★、凛御银灰、灵知★、圣聆初雪</td>
+        <td>🏆斩杀(61.5s,伤5,225,000) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_1_r15" target="_blank">▶观看</a></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+<section class="card">
+      <div class="card-head">
+        <div>
+          <span class="tag-core core-kjeragShip">谢拉格</span>
+          <span class="tag-mode mode-solo">单人规程20级</span>
+          <span class="tag-ok">✅ 已进R15隐秘</span>
+          <span class="tag-clear">🏆 隐秘斩杀</span>
+          <h2>谢拉格 · 单人规程20级 · 大模型实机操盘 (kjerag_solo_2)</h2>
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-replay" href="/?replay=kjerag_solo_2" target="_blank">🎮 游戏本体原生回放</a>
+          <a class="btn btn-r14" href="/dev/recordings/demo_ops/replay.html?match=kjerag_solo_2" target="_blank">🎬 网页版回放</a>
+          <a class="btn btn-r14" href="/dev/render-demo.html?scene=kjerag_solo_2_r14" target="_blank">▶ R14领袖战</a>
+          <a class="btn btn-r15" href="/dev/render-demo.html?scene=kjerag_solo_2_r15" target="_blank">▶ R15隐秘核心</a>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="k">R14激活总层数</div><div class="v">364</div></div>
+        <div class="kpi"><div class="k">R14领袖战</div><div class="v">假想敌：管 · 65s</div></div>
+        <div class="kpi"><div class="k">R15隐秘核心</div><div class="v">假想敌：管 ✅斩杀</div></div>
+        <div class="kpi"><div class="k">复奏双碰 / 地图</div><div class="v">4次 · act3autochess_m09</div></div>
+      </div>
+      <div class="mates">
+      <span class="mate-pill">0号位 复奏 · 谢拉格 (层364 / 伤4,200,000)</span>
+    </div>
+      <div class="rounds-bar"><span class="lbl">全回合实机回放：</span><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_2_r01" target="_blank">R1</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_2_r02" target="_blank">R2</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_2_r03" target="_blank">R3</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_2_r04" target="_blank">R4</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_2_r05" target="_blank">R5</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_2_r06" target="_blank">R6</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_2_r07" target="_blank">R7</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_2_r08" target="_blank">R8</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_2_r09" target="_blank">R9</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_2_r10" target="_blank">R10</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_2_r11" target="_blank">R11</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_2_r12" target="_blank">R12</a><a class="chip" href="/dev/render-demo.html?scene=kjerag_solo_2_r13" target="_blank">R13</a><a class="chip chip-r14" href="/dev/render-demo.html?scene=kjerag_solo_2_r14" target="_blank">R14领袖</a><a class="chip chip-r15" href="/dev/render-demo.html?scene=kjerag_solo_2_r15" target="_blank">R15隐秘</a></div>
+      <details>
+        <summary>展开逐回合运营与战斗账本（R1–R15）</summary>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>回合</th><th>本级</th><th>资金</th><th>复奏</th><th>血量</th><th>层数</th><th>运营要点</th><th>场上阵容</th><th>战况/录像</th></tr></thead>
+            <tbody><tr>
+        <td><b>R1</b></td>
+        <td>1本</td>
+        <td>4g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R01双杰克对子听牌，下路前后接敌稳血开局</td>
+        <td>杰克、杰克</td>
+        <td>✅完美0漏(45s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_2_r01" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R2</b></td>
+        <td>2本</td>
+        <td>5g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R02速升2本冻住杰克三连，备战R03首碰复奏双3阶</td>
+        <td>杰克、杰克</td>
+        <td>✅完美0漏(53s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_2_r02" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R3</b></td>
+        <td>2本</td>
+        <td>6g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R03精锐杰克★复奏拿初雪+伊桑，激活突袭+奥术稳杀折射III赏金</td>
+        <td>初雪、Miss.Christine、杰克★、伊桑</td>
+        <td>漏2怪(79s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_2_r03" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R4</b></td>
+        <td>3本</td>
+        <td>7g</td>
+        <td>-</td>
+        <td>22</td>
+        <td><b>3</b></td>
+        <td>R04抢3本冻双Miss.Christine，地灵独行+初雪移安全格守交汇口</td>
+        <td>地灵、初雪、Miss.Christine、杰克★、伊桑</td>
+        <td>漏1怪(61s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_2_r04" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R5</b></td>
+        <td>4本</td>
+        <td>11g</td>
+        <td>-</td>
+        <td>21</td>
+        <td><b>6</b></td>
+        <td>R05贪抢4本+初雪吃身份牌+3谢拉格，冻双Miss.Christine直奔R06双5阶</td>
+        <td>地灵、初雪、Miss.Christine、杰克★、伊桑</td>
+        <td>✅完美0漏(47s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_2_r05" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R6</b></td>
+        <td>4本</td>
+        <td>9g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>21</td>
+        <td><b>9</b></td>
+        <td>R06四本复奏双5阶斩获铃兰+凛御银灰，空弦贴Miss.Christine★满编8人平推</td>
+        <td>空弦、地灵、Miss.Christine★、凛御银灰、铃兰、杰克★、伊桑、初雪</td>
+        <td>✅完美0漏(63s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_2_r06" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R7</b></td>
+        <td>5本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>21</td>
+        <td><b>18</b></td>
+        <td>R07 21血10g精准抢5本，冻住灵知+霍尔海雅+伊桑，R08进5本双核齐发</td>
+        <td>空弦、地灵、Miss.Christine★、凛御银灰、铃兰、杰克★、伊桑、初雪</td>
+        <td>漏1怪(94s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_2_r07" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R8</b></td>
+        <td>5本</td>
+        <td>11g</td>
+        <td>-</td>
+        <td>20</td>
+        <td><b>30</b></td>
+        <td>R08三大引擎齐亮(3谢拉格+3奥术+2精准)！银灰贴初雪+空弦贴霍尔海雅+铃兰贴灵知全重叠冻刷</td>
+        <td>伊桑、初雪、凛御银灰、灵知、铃兰、Miss.Christine★、空弦、霍尔海雅</td>
+        <td>✅完美0漏(79s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_2_r08" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R9</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>20</td>
+        <td><b>67</b></td>
+        <td>R09极速6本+卖伊桑抽凛御银灰对子+1g刷出T6转职球与雪猎立刻冻结，31怪海+复仇者狂刷层！</td>
+        <td>灵知、初雪、凛御银灰、耶拉、铃兰、Miss.Christine★、空弦、霍尔海雅</td>
+        <td>漏16怪(97s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_2_r09" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R10</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>10</td>
+        <td><b>114</b></td>
+        <td>R10购入T6机械师印卡，进阶不融冰+转职球造[谢拉格·霍尔海雅]速召6谢拉格雪山巨人狂刷层！</td>
+        <td>初雪、凛御银灰、机械师、霍尔海雅、灵知、Miss.Christine★、雪猎、耶拉</td>
+        <td>✅完美0漏(73s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_2_r10" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R11</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>10</td>
+        <td><b>173</b></td>
+        <td>R11五大输出盟约齐亮！帕拉斯贴[谢拉格·霍尔海雅]+逻各斯+6谢拉格雪山巨人狂飙冲层！</td>
+        <td>初雪、凛御银灰、极光、霍尔海雅、灵知、雪猎、逻各斯、帕拉斯</td>
+        <td>✅完美0漏(106s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_2_r11" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R12</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td>-</td>
+        <td>10</td>
+        <td><b>249</b></td>
+        <td>R12圣聆初雪(天马之枪)贴银灰42层上限+3/3满级奥术+6/6谢拉格！备战三听牌蓄势待发</td>
+        <td>初雪、圣聆初雪、凛御银灰、霍尔海雅、灵知、雪猎、逻各斯、帕拉斯</td>
+        <td>✅完美0漏(74s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_2_r12" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R13</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>10</td>
+        <td><b>328</b></td>
+        <td>R13合出精锐灵知★+拿第2逻各斯，末刷冻结真神魔王！逻各斯重穿进阶不融冰冲破400层门禁！</td>
+        <td>初雪、圣聆初雪、凛御银灰、霍尔海雅、灵知★、雪猎、逻各斯、帕拉斯</td>
+        <td>✅完美0漏(86s) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_2_r13" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R14</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>10</td>
+        <td><b>354</b></td>
+        <td>R14终极决战！精锐[谢拉格·逻各斯]★+[谢拉格·维什戴尔]+圣聆初雪+双逻双W+魔王居中压右全轰(10,10)假想敌：管！</td>
+        <td>灵知★、维什戴尔[自编]、初雪★、维什戴尔[自编]、魔王、逻各斯★、圣聆初雪、逻各斯</td>
+        <td>🏆斩杀(65s,伤4,200,000) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_2_r14" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R15</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>9</td>
+        <td><b>364</b></td>
+        <td>R15隐秘终战！9人口满编+艾雅法拉点亮3/3满级164层奥术+魔王佣兵名牌鼓舞，全军轰碎隐秘领袖！</td>
+        <td>灵知★、艾雅法拉、维什戴尔[自编]、初雪★、维什戴尔[自编]、魔王、逻各斯★、圣聆初雪、逻各斯</td>
+        <td>🏆斩杀(65s,伤7,220,000) <a class="watch-sm" href="/dev/render-demo.html?scene=kjerag_solo_2_r15" target="_blank">▶观看</a></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+<section class="card">
+      <div class="card-head">
+        <div>
+          <span class="tag-core core-lethaniaShip">莱塔尼亚</span>
+          <span class="tag-mode mode-solo">单人规程20级</span>
+          <span class="tag-ok">✅ 已进R15隐秘</span>
+          <span class="tag-clear">🏆 隐秘斩杀</span>
+          <h2>莱塔尼亚 · 单人规程20级 · 大模型实机操盘 (lethania_solo_1)</h2>
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-replay" href="/?replay=lethania_solo_1" target="_blank">🎮 游戏本体原生回放</a>
+          <a class="btn btn-r14" href="/dev/recordings/demo_ops/replay.html?match=lethania_solo_1" target="_blank">🎬 网页版回放</a>
+          <a class="btn btn-r14" href="/dev/render-demo.html?scene=lethania_solo_1_r14" target="_blank">▶ R14领袖战</a>
+          <a class="btn btn-r15" href="/dev/render-demo.html?scene=lethania_solo_1_r15" target="_blank">▶ R15隐秘核心</a>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="k">R14激活总层数</div><div class="v">435</div></div>
+        <div class="kpi"><div class="k">R14领袖战</div><div class="v">假想敌：械 · 92.5s</div></div>
+        <div class="kpi"><div class="k">R15隐秘核心</div><div class="v">假想敌：械 ✅斩杀</div></div>
+        <div class="kpi"><div class="k">复奏双碰 / 地图</div><div class="v">6次 · act3autochess_m03</div></div>
+      </div>
+      <div class="mates">
+      <span class="mate-pill">0号位 复奏 · 莱塔尼亚 (层435 / 伤3,325,000)</span>
+    </div>
+      <div class="rounds-bar"><span class="lbl">全回合实机回放：</span><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_1_r01" target="_blank">R1</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_1_r02" target="_blank">R2</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_1_r03" target="_blank">R3</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_1_r04" target="_blank">R4</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_1_r05" target="_blank">R5</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_1_r06" target="_blank">R6</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_1_r07" target="_blank">R7</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_1_r08" target="_blank">R8</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_1_r09" target="_blank">R9</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_1_r10" target="_blank">R10</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_1_r11" target="_blank">R11</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_1_r12" target="_blank">R12</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_1_r13" target="_blank">R13</a><a class="chip chip-r14" href="/dev/render-demo.html?scene=lethania_solo_1_r14" target="_blank">R14领袖</a><a class="chip chip-r15" href="/dev/render-demo.html?scene=lethania_solo_1_r15" target="_blank">R15隐秘</a></div>
+      <details>
+        <summary>展开逐回合运营与战斗账本（R1–R15）</summary>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>回合</th><th>本级</th><th>资金</th><th>复奏</th><th>血量</th><th>层数</th><th>运营要点</th><th>场上阵容</th><th>战况/录像</th></tr></thead>
+            <tbody><tr>
+        <td><b>R1</b></td>
+        <td>1本</td>
+        <td>4g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R01卡达高台+褐果地面自奶稳血开局</td>
+        <td>卡达、褐果</td>
+        <td>漏1怪(43s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_1_r01" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R2</b></td>
+        <td>2本</td>
+        <td>5g</td>
+        <td>-</td>
+        <td>23</td>
+        <td><b>0</b></td>
+        <td>R02速升2本刷出精打细算玩偶，冻结保经济</td>
+        <td>卡达、褐果</td>
+        <td>漏4怪(36s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_1_r02" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R3</b></td>
+        <td>2本</td>
+        <td>6g</td>
+        <td>-</td>
+        <td>19</td>
+        <td><b>0</b></td>
+        <td>R03吃精打细算玩偶+冻结卡达三连留R04升3本双碰T4</td>
+        <td>卡达、卡达、褐果</td>
+        <td>漏4怪(67s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_1_r03" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R4</b></td>
+        <td>3本</td>
+        <td>8g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>15</td>
+        <td><b>0</b></td>
+        <td>R04升3本合卡达★触复奏双T4，拿赫德雷+温蒂锁死交汇口</td>
+        <td>褐果、卡达★、温蒂、赫德雷</td>
+        <td>✅完美0漏(59s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_1_r04" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R5</b></td>
+        <td>4本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>15</td>
+        <td><b>0</b></td>
+        <td>R05高血10g直跳4本+补温蒂免费蓄水炮守交汇口</td>
+        <td>褐果、卡达★、温蒂、赫德雷</td>
+        <td>漏7怪(57s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_1_r05" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R6</b></td>
+        <td>4本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>8</td>
+        <td><b>0</b></td>
+        <td>R06补异客+瑕光+乌萨斯呼吸器亮奥术突袭锁血</td>
+        <td>异客、褐果、卡达★、温蒂、赫德雷、瑕光</td>
+        <td>漏4怪(70s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_1_r06" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R7</b></td>
+        <td>4本</td>
+        <td>11g</td>
+        <td>-</td>
+        <td>4</td>
+        <td><b>20</b></td>
+        <td>R07补黑键+霍尔海雅达成3/3奥术8/8满编，迅捷粮秒开技锁血叠层</td>
+        <td>异客、霍尔海雅、褐果、卡达★、黑键、温蒂、赫德雷、瑕光</td>
+        <td>漏1怪(76s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_1_r07" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R8</b></td>
+        <td>5本</td>
+        <td>14g</td>
+        <td>-</td>
+        <td>3</td>
+        <td><b>63</b></td>
+        <td>R08满资金直跳5本+伊桑白嫖T5棘刺，全装法伤阵清重装盾卫锁血</td>
+        <td>异客、霍尔海雅、褐果、卡达★、黑键、温蒂、赫德雷、瑕光</td>
+        <td>✅完美0漏(70s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_1_r08" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R9</b></td>
+        <td>5本</td>
+        <td>13g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>3</td>
+        <td><b>66</b></td>
+        <td>R09拟态华法琳★双碰T6拿逻各斯+遥，人事部刷齐莱塔尼亚核+进阶小鼓成型！</td>
+        <td>逻各斯、霍尔海雅、华法琳★、艾雅法拉、黑键、遥、赫德雷、薇薇安娜</td>
+        <td>✅完美0漏(76s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_1_r09" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R10</b></td>
+        <td>6本</td>
+        <td>15g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>3</td>
+        <td><b>104</b></td>
+        <td>R10车尔尼★双碰T6喜提魔王+机械师并直上6本，双进阶小鼓+机械师同排印卡！</td>
+        <td>逻各斯、霍尔海雅、艾雅法拉、魔王、黑键、遥、机械师、薇薇安娜</td>
+        <td>漏1怪(76s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_1_r10" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R11</b></td>
+        <td>6本</td>
+        <td>13g</td>
+        <td>-</td>
+        <td>2</td>
+        <td><b>160</b></td>
+        <td>R11正式点亮6/6莱塔尼亚！逻各斯配进阶小鼓+炎国短刀、车尔尼★佩蜂鸣器守口！</td>
+        <td>逻各斯、霍尔海雅、卡涅利安、艾雅法拉、魔王、黑键、车尔尼★、薇薇安娜</td>
+        <td>✅完美0漏(76s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_1_r11" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R12</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>2</td>
+        <td><b>192</b></td>
+        <td>R12人事部100%锁魔王★，复奏拿缪尔赛思+帕拉斯！小鼓+同构体转职帕拉斯进6莱塔尼亚狂飙破百层！</td>
+        <td>逻各斯、霍尔海雅、艾雅法拉、黑键、魔王★、帕拉斯、薇薇安娜、车尔尼★</td>
+        <td>✅完美0漏(68s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_1_r12" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R13</b></td>
+        <td>6本</td>
+        <td>15g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>2</td>
+        <td><b>285</b></td>
+        <td>R13合艾雅法拉★配双进阶神装落地0秒火山！7阻挡三纵深铁壁一举硬穿351隐秘门禁！</td>
+        <td>逻各斯、霍尔海雅、艾雅法拉★、黑键、魔王★、帕拉斯、薇薇安娜、车尔尼★</td>
+        <td>✅完美0漏(86s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_1_r13" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R14</b></td>
+        <td>6本</td>
+        <td>13g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>2</td>
+        <td><b>388</b></td>
+        <td>R14总攻！388层硬穿门禁，合黑键★佩+45%攻全员右压c6-c9围杀站桩领袖假想敌：械！</td>
+        <td>黑键★、霍尔海雅、逻各斯、魔王★、帕拉斯、薇薇安娜、艾雅法拉★、车尔尼★</td>
+        <td>🏆斩杀(92.5s,伤3,325,000) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_1_r14" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R15</b></td>
+        <td>6本</td>
+        <td>15g</td>
+        <td>-</td>
+        <td>2</td>
+        <td><b>435</b></td>
+        <td>R15隐秘总攻！435层+远牙同构体转莱塔尼亚凑齐6莱3精4奥+12神装围杀隐秘假想敌：械！</td>
+        <td>黑键★、远牙、霍尔海雅、逻各斯、魔王★、薇薇安娜、艾雅法拉★、车尔尼★</td>
+        <td>🏆斩杀(56.4s,伤5,225,000) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_1_r15" target="_blank">▶观看</a></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+<section class="card">
+      <div class="card-head">
+        <div>
+          <span class="tag-core core-lethaniaShip">莱塔尼亚</span>
+          <span class="tag-mode mode-solo">单人规程20级</span>
+          <span class="tag-ok">✅ 已进R15隐秘</span>
+          
+          <h2>莱塔尼亚 · 单人规程20级 · 大模型实机操盘 (lethania_solo_2)</h2>
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-replay" href="/?replay=lethania_solo_2" target="_blank">🎮 游戏本体原生回放</a>
+          <a class="btn btn-r14" href="/dev/recordings/demo_ops/replay.html?match=lethania_solo_2" target="_blank">🎬 网页版回放</a>
+          <a class="btn btn-r14" href="/dev/render-demo.html?scene=lethania_solo_2_r14" target="_blank">▶ R14领袖战</a>
+          <a class="btn btn-r15" href="/dev/render-demo.html?scene=lethania_solo_2_r15" target="_blank">▶ R15隐秘核心</a>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="k">R14激活总层数</div><div class="v">355</div></div>
+        <div class="kpi"><div class="k">R14领袖战</div><div class="v">假想敌：胄 · 87.8s</div></div>
+        <div class="kpi"><div class="k">R15隐秘核心</div><div class="v">假想敌：鳍 ⚔️激战</div></div>
+        <div class="kpi"><div class="k">复奏双碰 / 地图</div><div class="v">4次 · act3autochess_m06</div></div>
+      </div>
+      <div class="mates">
+      <span class="mate-pill">0号位 复奏 · 莱塔尼亚 (层364 / 伤3,940,000)</span>
+    </div>
+      <div class="rounds-bar"><span class="lbl">全回合实机回放：</span><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_2_r01" target="_blank">R1</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_2_r02" target="_blank">R2</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_2_r03" target="_blank">R3</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_2_r04" target="_blank">R4</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_2_r05" target="_blank">R5</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_2_r06" target="_blank">R6</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_2_r07" target="_blank">R7</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_2_r08" target="_blank">R8</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_2_r09" target="_blank">R9</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_2_r10" target="_blank">R10</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_2_r11" target="_blank">R11</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_2_r12" target="_blank">R12</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_2_r13" target="_blank">R13</a><a class="chip chip-r14" href="/dev/render-demo.html?scene=lethania_solo_2_r14" target="_blank">R14领袖</a><a class="chip chip-r15" href="/dev/render-demo.html?scene=lethania_solo_2_r15" target="_blank">R15隐秘</a></div>
+      <details>
+        <summary>展开逐回合运营与战斗账本（R1–R15）</summary>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>回合</th><th>本级</th><th>资金</th><th>复奏</th><th>血量</th><th>层数</th><th>运营要点</th><th>场上阵容</th><th>战况/录像</th></tr></thead>
+            <tbody><tr>
+        <td><b>R1</b></td>
+        <td>1本</td>
+        <td>4g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>-</td>
+        <td>摆渡人、摆渡人</td>
+        <td>✅完美0漏(26s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_2_r01" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R2</b></td>
+        <td>2本</td>
+        <td>5g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>-</td>
+        <td>摆渡人、摆渡人</td>
+        <td>✅完美0漏(41s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_2_r02" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R3</b></td>
+        <td>2本</td>
+        <td>6g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>24</td>
+        <td><b>4</b></td>
+        <td>-</td>
+        <td>莎草、水灯心、折桠、摆渡人★、奥尔佳</td>
+        <td>✅完美0漏(54s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_2_r03" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R4</b></td>
+        <td>3本</td>
+        <td>9g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>6</b></td>
+        <td>-</td>
+        <td>莎草、水灯心、霜叶、折桠、摆渡人★、奥尔佳</td>
+        <td>✅完美0漏(40s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_2_r04" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R5</b></td>
+        <td>4本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>10</b></td>
+        <td>-</td>
+        <td>莎草、水灯心、折桠、摆渡人★、车尔尼、奥尔佳</td>
+        <td>✅完美0漏(52s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_2_r05" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R6</b></td>
+        <td>4本</td>
+        <td>9g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>13</b></td>
+        <td>-</td>
+        <td>复奏、夜莺、莎草、水灯心、折桠、奥尔佳、摆渡人★、车尔尼</td>
+        <td>✅完美0漏(53s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_2_r06" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R7</b></td>
+        <td>5本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>21</b></td>
+        <td>-</td>
+        <td>复奏、夜莺、莎草、水灯心、折桠、奥尔佳、摆渡人★、车尔尼</td>
+        <td>✅完美0漏(64s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_2_r07" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R8</b></td>
+        <td>5本</td>
+        <td>11g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>28</b></td>
+        <td>-</td>
+        <td>复奏、艾雅法拉、夜莺、莎草、水灯心、奥尔佳、摆渡人★、车尔尼</td>
+        <td>✅完美0漏(75s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_2_r08" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R9</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>37</b></td>
+        <td>-</td>
+        <td>复奏、艾雅法拉、夜莺、莎草、水灯心、奥尔佳、摆渡人★、车尔尼</td>
+        <td>✅完美0漏(81s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_2_r09" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R10</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>45</b></td>
+        <td>-</td>
+        <td>空弦、艾雅法拉、夜莺、霍尔海雅、魔王、莎草、摆渡人★、车尔尼</td>
+        <td>✅完美0漏(129s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_2_r10" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R11</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>24</td>
+        <td><b>105</b></td>
+        <td>-</td>
+        <td>逻各斯、空弦、艾雅法拉、夜莺、霍尔海雅、魔王、莎草、酒神、车尔尼★</td>
+        <td>✅完美0漏(89s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_2_r11" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R12</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>24</td>
+        <td><b>177</b></td>
+        <td>-</td>
+        <td>逻各斯、艾雅法拉★、夜莺、霍尔海雅、魔王、莎草、黑键、薇薇安娜、车尔尼★</td>
+        <td>✅完美0漏(78s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_2_r12" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R13</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>244</b></td>
+        <td>-</td>
+        <td>逻各斯、艾雅法拉★、夜莺、霍尔海雅、魔王、莎草、黑键、薇薇安娜、车尔尼★</td>
+        <td>✅完美0漏(86s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_2_r13" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R14</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>24</td>
+        <td><b>353</b></td>
+        <td>-</td>
+        <td>黑键★、夜莺、逻各斯★、艾雅法拉★、折桠、摆渡人、莎草、霍尔海雅、车尔尼★</td>
+        <td>🏆斩杀(87.8s,伤3,940,000) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_2_r14" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R15</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>351</b></td>
+        <td>-</td>
+        <td>霍尔海雅、黑键★、华法琳、逻各斯★、魔王、艾雅法拉★、夜莺、空弦、车尔尼★</td>
+        <td>伤2,207,322/6,175,000(174s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_2_r15" target="_blank">▶观看</a></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+<section class="card">
+      <div class="card-head">
+        <div>
+          <span class="tag-core core-lethaniaShip">莱塔尼亚</span>
+          <span class="tag-mode mode-solo">单人规程20级</span>
+          <span class="tag-ok">✅ 已进R15隐秘</span>
+          <span class="tag-clear">🏆 隐秘斩杀</span>
+          <h2>莱塔尼亚 · 单人规程20级 · 大模型实机操盘 (lethania_solo_4)</h2>
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-replay" href="/?replay=lethania_solo_4" target="_blank">🎮 游戏本体原生回放</a>
+          <a class="btn btn-r14" href="/dev/recordings/demo_ops/replay.html?match=lethania_solo_4" target="_blank">🎬 网页版回放</a>
+          <a class="btn btn-r14" href="/dev/render-demo.html?scene=lethania_solo_4_r14" target="_blank">▶ R14领袖战</a>
+          <a class="btn btn-r15" href="/dev/render-demo.html?scene=lethania_solo_4_r15" target="_blank">▶ R15隐秘核心</a>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="k">R14激活总层数</div><div class="v">763</div></div>
+        <div class="kpi"><div class="k">R14领袖战</div><div class="v">阿利斯泰尔，帝国余晖 · 12.4s</div></div>
+        <div class="kpi"><div class="k">R15隐秘核心</div><div class="v">假想敌：胄 ✅斩杀</div></div>
+        <div class="kpi"><div class="k">复奏双碰 / 地图</div><div class="v">7次 · act3autochess_m05</div></div>
+      </div>
+      <div class="mates">
+      <span class="mate-pill">0号位 复奏 · 莱塔尼亚 (层763 / 伤3,700,000)</span>
+    </div>
+      <div class="rounds-bar"><span class="lbl">全回合实机回放：</span><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_4_r01" target="_blank">R1</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_4_r02" target="_blank">R2</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_4_r03" target="_blank">R3</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_4_r04" target="_blank">R4</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_4_r05" target="_blank">R5</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_4_r06" target="_blank">R6</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_4_r07" target="_blank">R7</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_4_r08" target="_blank">R8</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_4_r09" target="_blank">R9</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_4_r10" target="_blank">R10</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_4_r11" target="_blank">R11</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_4_r12" target="_blank">R12</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_4_r13" target="_blank">R13</a><a class="chip chip-r14" href="/dev/render-demo.html?scene=lethania_solo_4_r14" target="_blank">R14领袖</a><a class="chip chip-r15" href="/dev/render-demo.html?scene=lethania_solo_4_r15" target="_blank">R15隐秘</a></div>
+      <details>
+        <summary>展开逐回合运营与战斗账本（R1–R15）</summary>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>回合</th><th>本级</th><th>资金</th><th>复奏</th><th>血量</th><th>层数</th><th>运营要点</th><th>场上阵容</th><th>战况/录像</th></tr></thead>
+            <tbody><tr>
+        <td><b>R1</b></td>
+        <td>1本</td>
+        <td>4g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R01 m05天胡局(站桩阿利斯泰尔+精准奥术远见助力全开)，双灰喉高台稳血兼立复奏对子</td>
+        <td>灰喉、灰喉</td>
+        <td>漏1怪(39s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_4_r01" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R2</b></td>
+        <td>1本</td>
+        <td>5g</td>
+        <td>-</td>
+        <td>23</td>
+        <td><b>0</b></td>
+        <td>R02 稳血补前排：拜松(10,5)锁咽喉吃双灰喉集火+霜叶(9,5)补刀减速</td>
+        <td>灰喉、灰喉、拜松、霜叶</td>
+        <td>✅完美0漏(39s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_4_r02" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R3</b></td>
+        <td>2本</td>
+        <td>6g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>23</td>
+        <td><b>0</b></td>
+        <td>R03 机变选悬赏·飞行II(+2g×2)，准备合灰喉★稳杀汽水瓶滚经济；R03 灰喉★重穿重锤+双折光(10,4,R)&amp;(11,6,L)集火咽喉与汽水瓶，1g囤源石溶剂</td>
+        <td>灰喉★、折光、折光、拜松、霜叶</td>
+        <td>✅完美0漏(52s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_4_r03" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R4</b></td>
+        <td>3本</td>
+        <td>9g</td>
+        <td>-</td>
+        <td>23</td>
+        <td><b>0</b></td>
+        <td>R04 拿精打细算玩偶(+1g/轮)+卖霜叶强升3本，下轮11g直冲3本大节奏</td>
+        <td>灰喉★、折光、折光、拜松</td>
+        <td>漏4怪(63s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_4_r04" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R5</b></td>
+        <td>3本</td>
+        <td>11g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>19</td>
+        <td><b>8</b></td>
+        <td>R05 三本11g直碰折光★触发复奏拿双4阶核心；R05 临时换位控第一盟约，买伊桑100%定向抽莱塔尼亚并点亮3/3满级奥术；R05 留伊桑开3/3满级奥术+2/2精准(备高本再卖狙高阶莱塔尼亚)，山带进阶重锤抗咽喉</td>
+        <td>卡达、灰喉★、伊桑、霍尔海雅、折光★、山、拜松</td>
+        <td>✅完美0漏(46s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_4_r05" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R6</b></td>
+        <td>4本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>19</td>
+        <td><b>17</b></td>
+        <td>R06 靠双精锐+山+霍尔海雅7人扎实盘面果断9g速升4本，1g刷商店探4阶核心</td>
+        <td>卡达、灰喉★、伊桑、霍尔海雅、折光★、山、拜松</td>
+        <td>✅完美0漏(75s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_4_r06" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R7</b></td>
+        <td>5本</td>
+        <td>11g</td>
+        <td>-</td>
+        <td>19</td>
+        <td><b>34</b></td>
+        <td>R07 19血满状态11g抢升5本(R08必停5本稳血开核)，山穿源石溶剂+进阶重锤(+65%攻)硬抗萨卡兹大剑海</td>
+        <td>卡达、灰喉★、伊桑、霍尔海雅、折光★、山、拜松</td>
+        <td>漏3怪(78s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_4_r07" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R8</b></td>
+        <td>5本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>16</td>
+        <td><b>61</b></td>
+        <td>R08 严守停5本稳血开核纪律：买华法琳补奶兼拐霍尔海雅+寻呼模块喂折光★三选一狙莱塔尼亚核心；R08 拿薇薇安娜(T5上限+7且保3/3奥术)，清场锁莱塔尼亚第一人数于5本卖伊桑定向狙击高阶莱塔尼亚；R08 卖卡达凑7g，霍尔海雅凑对+拟态物质原地合霍尔海雅★并在5本触发复奏双6阶神卡！；R08 第二张6阶选缪尔赛思拿变形同构体，配莱塔尼亚小鼓直接打造[莱塔尼亚·霍尔海雅★]三核印层永动机！</td>
+        <td>折光★、华法琳、薇薇安娜、逻各斯、霍尔海雅★、山、灰喉★、车尔尼</td>
+        <td>漏3怪(89s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_4_r08" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R9</b></td>
+        <td>5本</td>
+        <td>13g</td>
+        <td>-</td>
+        <td>13</td>
+        <td><b>128</b></td>
+        <td>R09 机变稳选弑君者(+1g)避墓碑/凋零骑士；本轮停5本稳血提质(艾雅法拉+车尔尼合进阶小鼓)，R10再稳上6本；R09 买艾雅法拉凑双高阶对子；高台华法琳(10,4,U)+空弦(12,4,D)双夹[莱塔尼亚·霍尔海雅★](11,4,R)叠层奶全前排！</td>
+        <td>空弦、薇薇安娜、霍尔海雅★、山、逻各斯、华法琳、车尔尼、折光★</td>
+        <td>✅完美0漏(84s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_4_r09" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R10</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>13</td>
+        <td><b>232</b></td>
+        <td>R10 232层开局！10g升6本后直接买车尔尼★三连触发复奏双6阶奖励！</td>
+        <td>空弦、薇薇安娜、霍尔海雅★、山、逻各斯、华法琳、车尔尼★、折光★</td>
+        <td>✅完美0漏(87s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_4_r10" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R11</b></td>
+        <td>6本</td>
+        <td>13g</td>
+        <td>-</td>
+        <td>13</td>
+        <td><b>360</b></td>
+        <td>R11 开局已345层(单轮+113)！机变选卡西米尔驰援搏薇薇安娜/高阶卡，继续冲刺800-1000+层！</td>
+        <td>空弦、薇薇安娜、霍尔海雅★、山、逻各斯、华法琳、车尔尼★、折光★</td>
+        <td>✅完美0漏(94s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_4_r11" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R12</b></td>
+        <td>6本</td>
+        <td>13g</td>
+        <td>-</td>
+        <td>13</td>
+        <td><b>464</b></td>
+        <td>R12 上黑键(9,4,U)点亮3/3满级精准(30%双穿)+单场再+30层；存盟约之币+冻结Mon3tr与黑键对子给R13冲800+层！</td>
+        <td>空弦、薇薇安娜、霍尔海雅★、山、逻各斯、华法琳、车尔尼★、黑键</td>
+        <td>✅完美0漏(77s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_4_r12" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R13</b></td>
+        <td>6本</td>
+        <td>13g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>13</td>
+        <td><b>621</b></td>
+        <td>R13 开局已606层(单轮+142)！用盟约之币凑14g，2g开一次性促销券三选一顶级装备！；R13 2g神券开出人事部文档解锁9人口！拿黑键凑5对高阶听牌，留8g猛冲复奏双6阶与魔王/纯烬/红装！；R13 碰出黑键★三连，6本触发复奏抢双6阶核心！；R13 复奏连环白嫖合出6阶精锐蕾缪安★，再开连环6阶奖励！</td>
+        <td>空弦、薇薇安娜、霍尔海雅★、山、逻各斯、华法琳、车尔尼★、蕾缪安★、黑键★</td>
+        <td>✅完美0漏(65s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_4_r13" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R14</b></td>
+        <td>6本</td>
+        <td>13g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>13</td>
+        <td><b>735</b></td>
+        <td>R14 690层9人口决战！卖山回收+85%攻装，买魔王+通讯机100%双魔王听魔王★，合进阶精准狙击镜，余8g冲三连红装！；R14 同屏双三连！先合6阶精锐魔王★触发复奏双6阶，紧接着再合艾雅法拉★全精锐6/6莱塔尼亚碾压阿利斯泰尔！；R14 魔王★穿+100%攻装成超级鼓舞拐！复奏再白嫖第3张逻各斯直接合出6阶精锐逻各斯★！；R14 逻各斯★重戴神装；酒神白嫖装备秒卖凑3g直接合出艾雅法拉★，7精锐+完整6/6莱塔尼亚正式大成！</td>
+        <td>华法琳、霍尔海雅★、蕾缪安★、逻各斯★、艾雅法拉★、魔王★、折光★、黑键★、车尔尼★</td>
+        <td>🏆斩杀(12.4s,伤3,700,000) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_4_r14" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R15</b></td>
+        <td>6本</td>
+        <td>13g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>13</td>
+        <td><b>763</b></td>
+        <td>R15 763层迎战站桩假想敌：胄！收割上轮冻结的薇薇安娜★触发R15复奏双6阶，冲800+层满红装极限秒杀！；R15 隐秘领袖假想敌：胄决战！791层进战(冲击800+)，8精锐完整6/6莱塔尼亚+3/3奥术+3/3精准+魔王★(+120%攻)+全满装艾雅法拉★/逻各斯★/蕾缪安★/黑键★右压全火力总攻！</td>
+        <td>华法琳、霍尔海雅★、蕾缪安★、逻各斯★、艾雅法拉★、魔王★、折光★、黑键★、车尔尼★</td>
+        <td>🏆斩杀(22.3s,伤6,840,000) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_4_r15" target="_blank">▶观看</a></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+<section class="card">
+      <div class="card-head">
+        <div>
+          <span class="tag-core core-lethaniaShip">莱塔尼亚</span>
+          <span class="tag-mode mode-solo">单人规程20级</span>
+          <span class="tag-ok">✅ 已进R15隐秘</span>
+          <span class="tag-clear">🏆 隐秘斩杀</span>
+          <h2>莱塔尼亚 · 单人规程20级 · 大模型实机操盘 (lethania_solo_6)</h2>
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-replay" href="/?replay=lethania_solo_6" target="_blank">🎮 游戏本体原生回放</a>
+          <a class="btn btn-r14" href="/dev/recordings/demo_ops/replay.html?match=lethania_solo_6" target="_blank">🎬 网页版回放</a>
+          <a class="btn btn-r14" href="/dev/render-demo.html?scene=lethania_solo_6_r14" target="_blank">▶ R14领袖战</a>
+          <a class="btn btn-r15" href="/dev/render-demo.html?scene=lethania_solo_6_r15" target="_blank">▶ R15隐秘核心</a>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="k">R14激活总层数</div><div class="v">671</div></div>
+        <div class="kpi"><div class="k">R14领袖战</div><div class="v">“萨米的意志” · 109.3s</div></div>
+        <div class="kpi"><div class="k">R15隐秘核心</div><div class="v">假想敌：胄 ✅斩杀</div></div>
+        <div class="kpi"><div class="k">复奏双碰 / 地图</div><div class="v">6次 · act3autochess_m11</div></div>
+      </div>
+      <div class="mates">
+      <span class="mate-pill">0号位 复奏 · 莱塔尼亚 (层671 / 伤4,040,000)</span>
+    </div>
+      <div class="rounds-bar"><span class="lbl">全回合实机回放：</span><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_6_r01" target="_blank">R1</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_6_r02" target="_blank">R2</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_6_r03" target="_blank">R3</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_6_r04" target="_blank">R4</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_6_r05" target="_blank">R5</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_6_r06" target="_blank">R6</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_6_r07" target="_blank">R7</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_6_r08" target="_blank">R8</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_6_r09" target="_blank">R9</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_6_r10" target="_blank">R10</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_6_r11" target="_blank">R11</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_6_r12" target="_blank">R12</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_6_r13" target="_blank">R13</a><a class="chip chip-r14" href="/dev/render-demo.html?scene=lethania_solo_6_r14" target="_blank">R14领袖</a><a class="chip chip-r15" href="/dev/render-demo.html?scene=lethania_solo_6_r15" target="_blank">R15隐秘</a></div>
+      <details>
+        <summary>展开逐回合运营与战斗账本（R1–R15）</summary>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>回合</th><th>本级</th><th>资金</th><th>复奏</th><th>血量</th><th>层数</th><th>运营要点</th><th>场上阵容</th><th>战况/录像</th></tr></thead>
+            <tbody><tr>
+        <td><b>R1</b></td>
+        <td>1本</td>
+        <td>4g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R01双角峰稳血凑首对子</td>
+        <td>角峰、角峰</td>
+        <td>漏1怪(90s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_6_r01" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R2</b></td>
+        <td>1本</td>
+        <td>5g</td>
+        <td>-</td>
+        <td>23</td>
+        <td><b>0</b></td>
+        <td>R02幽灵鲨褐果稳血冻角峰留R03升2本吃双3阶</td>
+        <td>褐果、角峰、角峰、幽灵鲨</td>
+        <td>✅完美0漏(39s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_6_r02" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R3</b></td>
+        <td>2本</td>
+        <td>6g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>23</td>
+        <td><b>0</b></td>
+        <td>R03首碰双3阶拿卡涅利安+车尔尼，2坚守+幽灵鲨溶剂切怪</td>
+        <td>褐果、角峰★、幽灵鲨、车尔尼、卡涅利安</td>
+        <td>✅完美0漏(93s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_6_r03" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R4</b></td>
+        <td>2本</td>
+        <td>9g</td>
+        <td>-</td>
+        <td>23</td>
+        <td><b>8</b></td>
+        <td>R04亮3莱2奇迹2坚守，身份牌+刷新开叠，冻复奏星极备R05升3本</td>
+        <td>角峰★、云迹、复奏、褐果、幽灵鲨、车尔尼、卡涅利安</td>
+        <td>✅完美0漏(52s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_6_r04" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R5</b></td>
+        <td>3本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>23</td>
+        <td><b>11</b></td>
+        <td>R05合进阶源石溶剂升3本拿星极，卡涅利安配小鼓清磨砻</td>
+        <td>星极、角峰★、云迹、复奏、褐果、幽灵鲨、车尔尼、卡涅利安</td>
+        <td>✅完美0漏(49s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_6_r05" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R6</b></td>
+        <td>4本</td>
+        <td>9g</td>
+        <td>-</td>
+        <td>23</td>
+        <td><b>14</b></td>
+        <td>R06卖冗余云迹0余钱抢4本，保持3莱2奇迹2坚守稳吃囚犯波</td>
+        <td>星极、角峰★、复奏、褐果、幽灵鲨、车尔尼、卡涅利安</td>
+        <td>✅完美0漏(69s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_6_r06" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R7</b></td>
+        <td>4本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>23</td>
+        <td><b>16</b></td>
+        <td>R07黑键点火+(10,6)前压双路全吃，合双进阶装双凑对，准备R08抢5本</td>
+        <td>星极、角峰★、黑键、复奏、褐果、车尔尼、幽灵鲨、卡涅利安</td>
+        <td>✅完美0漏(76s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_6_r07" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R8</b></td>
+        <td>5本</td>
+        <td>11g</td>
+        <td>-</td>
+        <td>23</td>
+        <td><b>26</b></td>
+        <td>R08抢5本刷新神刷Mon3tr+星极直接冻结，留R09收双6阶！重部署双坦吸远程</td>
+        <td>复奏、星极、角峰★、黑键、褐果、车尔尼、幽灵鲨、卡涅利安</td>
+        <td>漏6怪(79s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_6_r08" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R9</b></td>
+        <td>5本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>17</td>
+        <td><b>36</b></td>
+        <td>R09星极★吃双6阶得帕拉斯+魔王！双核心亮3谢4莱，冻卡涅利安留R10升6本再吃双6阶</td>
+        <td>初雪、角峰★、Mon3tr、黑键、卡涅利安、车尔尼、帕拉斯、魔王</td>
+        <td>✅完美0漏(86s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_6_r09" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R10</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>17</td>
+        <td><b>84</b></td>
+        <td>R10升6本卡涅利安★再吃双6阶拿帕拉斯×2+逻各斯！冻6本促销券留R11抢9人口/拟态</td>
+        <td>初雪、角峰★、Mon3tr、黑键、卡涅利安★、车尔尼、帕拉斯、魔王</td>
+        <td>✅完美0漏(95s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_6_r10" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R11</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>17</td>
+        <td><b>134</b></td>
+        <td>R11白嫖9人口+双模机械臂！上华法琳亮2灵巧(帕拉斯+27)兼贴初雪(+14)，囤艾雅法拉备6莱2奥术</td>
+        <td>华法琳、初雪、角峰★、Mon3tr、黑键、卡涅利安★、车尔尼、帕拉斯、魔王</td>
+        <td>漏3怪(105s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_6_r11" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R12</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>14</td>
+        <td><b>165</b></td>
+        <td>R12合车尔尼★+帕拉斯★变身[莱塔尼亚·帕拉斯★]单卡+72！亮满级6/6莱塔尼亚+遥+华法琳，冻寻呼模块留R13拿魔王#2</td>
+        <td>华法琳、艾雅法拉、角峰★、黑键、遥、卡涅利安★、车尔尼★、帕拉斯★、魔王</td>
+        <td>漏1怪(109s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_6_r12" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R13</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>13</td>
+        <td><b>283</b></td>
+        <td>R13寻呼锁魔王×2+买迷迭香点亮9盟约！[莱塔尼亚·帕拉斯★](+90)+帕拉斯#2(+45)+迷迭香(+20)+遥(+24)+黑键(+16)+华法琳(+14)+魔王(+10)单轮冲+219破500层！</td>
+        <td>华法琳、黑键、角峰★、遥、迷迭香、车尔尼★、帕拉斯、帕拉斯★、魔王</td>
+        <td>漏10怪(83s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_6_r13" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R14</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>3</td>
+        <td><b>503</b></td>
+        <td>R14合+110%攻魔王★+纯烬+浊蒂！6莱2奥术+10盟约齐亮，[莱塔尼亚·帕拉斯★]贴纯烬单卡+108冲650+层零漏斩萨米！</td>
+        <td>帕拉斯★、纯烬艾雅法拉、艾雅法拉、华法琳、魔王★、黑键、迷迭香、车尔尼★、逻各斯</td>
+        <td>🏆斩杀(109.3s,伤4,040,000) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_6_r14" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R15</b></td>
+        <td>6本</td>
+        <td>16g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>3</td>
+        <td><b>703</b></td>
+        <td>R15终极破纪录阵！合[莱塔尼亚·逻各斯★]+薇薇安娜亮3/3满奥术+6/6莱塔尼亚，艾雅法拉电锤+120攻速加速器，+110%魔王★全罩，[帕拉斯★]贴纯烬再飙+168直冲871+层双斩隐秘胄！</td>
+        <td>华法琳、艾雅法拉、纯烬艾雅法拉、魔王★、逻各斯★、迷迭香、帕拉斯★、薇薇安娜、黑键</td>
+        <td>🏆斩杀(44.3s,伤6,840,000) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_6_r15" target="_blank">▶观看</a></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+<section class="card">
+      <div class="card-head">
+        <div>
+          <span class="tag-core core-lethaniaShip">莱塔尼亚</span>
+          <span class="tag-mode mode-solo">单人规程20级</span>
+          <span class="tag-ok">✅ 已进R15隐秘</span>
+          <span class="tag-clear">🏆 隐秘斩杀</span>
+          <h2>莱塔尼亚 · 单人规程20级 · 大模型实机操盘 (lethania_solo_7)</h2>
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-replay" href="/?replay=lethania_solo_7" target="_blank">🎮 游戏本体原生回放</a>
+          <a class="btn btn-r14" href="/dev/recordings/demo_ops/replay.html?match=lethania_solo_7" target="_blank">🎬 网页版回放</a>
+          <a class="btn btn-r14" href="/dev/render-demo.html?scene=lethania_solo_7_r14" target="_blank">▶ R14领袖战</a>
+          <a class="btn btn-r15" href="/dev/render-demo.html?scene=lethania_solo_7_r15" target="_blank">▶ R15隐秘核心</a>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="k">R14激活总层数</div><div class="v">493</div></div>
+        <div class="kpi"><div class="k">R14领袖战</div><div class="v">假想敌：铳 · 117.5s</div></div>
+        <div class="kpi"><div class="k">R15隐秘核心</div><div class="v">假想敌：管 ✅斩杀</div></div>
+        <div class="kpi"><div class="k">复奏双碰 / 地图</div><div class="v">4次 · act3autochess_m02</div></div>
+      </div>
+      <div class="mates">
+      <span class="mate-pill">0号位 复奏 · 莱塔尼亚 (层525 / 伤2,250,000)</span>
+    </div>
+      <div class="rounds-bar"><span class="lbl">全回合实机回放：</span><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_7_r01" target="_blank">R1</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_7_r02" target="_blank">R2</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_7_r03" target="_blank">R3</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_7_r04" target="_blank">R4</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_7_r05" target="_blank">R5</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_7_r06" target="_blank">R6</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_7_r07" target="_blank">R7</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_7_r08" target="_blank">R8</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_7_r09" target="_blank">R9</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_7_r10" target="_blank">R10</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_7_r11" target="_blank">R11</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_7_r12" target="_blank">R12</a><a class="chip" href="/dev/render-demo.html?scene=lethania_solo_7_r13" target="_blank">R13</a><a class="chip chip-r14" href="/dev/render-demo.html?scene=lethania_solo_7_r14" target="_blank">R14领袖</a><a class="chip chip-r15" href="/dev/render-demo.html?scene=lethania_solo_7_r15" target="_blank">R15隐秘</a></div>
+      <details>
+        <summary>展开逐回合运营与战斗账本（R1–R15）</summary>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>回合</th><th>本级</th><th>资金</th><th>复奏</th><th>血量</th><th>层数</th><th>运营要点</th><th>场上阵容</th><th>战况/录像</th></tr></thead>
+            <tbody><tr>
+        <td><b>R1</b></td>
+        <td>1本</td>
+        <td>4g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>-</td>
+        <td>灰喉、慕斯</td>
+        <td>✅完美0漏(48s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_7_r01" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R2</b></td>
+        <td>1本</td>
+        <td>5g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>-</td>
+        <td>灰喉、灰喉、地灵、慕斯</td>
+        <td>✅完美0漏(52s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_7_r02" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R3</b></td>
+        <td>2本</td>
+        <td>6g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>24</td>
+        <td><b>8</b></td>
+        <td>-</td>
+        <td>承曦格雷伊、Miss.Christine、灰喉★、地灵、慕斯</td>
+        <td>✅完美0漏(54s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_7_r03" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R4</b></td>
+        <td>3本</td>
+        <td>8g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>8</b></td>
+        <td>-</td>
+        <td>承曦格雷伊、Miss.Christine、灰喉★、地灵、慕斯</td>
+        <td>漏3怪(77s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_7_r04" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R5</b></td>
+        <td>3本</td>
+        <td>9g</td>
+        <td>-</td>
+        <td>21</td>
+        <td><b>8</b></td>
+        <td>-</td>
+        <td>承曦格雷伊、Miss.Christine、灰喉★、哈洛德、折桠、慕斯</td>
+        <td>✅完美0漏(75s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_7_r05" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R6</b></td>
+        <td>4本</td>
+        <td>9g</td>
+        <td>-</td>
+        <td>21</td>
+        <td><b>12</b></td>
+        <td>-</td>
+        <td>承曦格雷伊、Miss.Christine、灰喉★、哈洛德、折桠、慕斯</td>
+        <td>漏2怪(77s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_7_r06" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R7</b></td>
+        <td>4本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>19</td>
+        <td><b>16</b></td>
+        <td>-</td>
+        <td>承曦格雷伊、Miss.Christine、灰喉★、夜莺、折桠、涤火杰西卡、慕斯</td>
+        <td>✅完美0漏(74s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_7_r07" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R8</b></td>
+        <td>5本</td>
+        <td>11g</td>
+        <td>-</td>
+        <td>19</td>
+        <td><b>28</b></td>
+        <td>-</td>
+        <td>承曦格雷伊、Miss.Christine、灰喉★、夜莺、白铁、涤火杰西卡、慕斯</td>
+        <td>漏15怪(74s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_7_r08" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R9</b></td>
+        <td>5本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>9</td>
+        <td><b>32</b></td>
+        <td>R09 9血5本稳血点火：Mon3tr八格双罩夜莺+纯烬，凯瑟琳+白铁炼精锐重锤</td>
+        <td>凯瑟琳、灰喉★、纯烬艾雅法拉、Mon3tr、夜莺、白铁、涤火杰西卡、慕斯</td>
+        <td>✅完美0漏(130s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_7_r09" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R10</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>9</td>
+        <td><b>85</b></td>
+        <td>-</td>
+        <td>慕斯、凯瑟琳、灰喉★、纯烬艾雅法拉、Mon3tr、夜莺、白铁、涤火杰西卡</td>
+        <td>漏2怪(173s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_7_r10" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R11</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>7</td>
+        <td><b>134</b></td>
+        <td>R11 7血异客+90%攻灼燃雷暴联动余开2/3坚守，6人穿装单轮冲+80层</td>
+        <td>慕斯、异客、纯烬艾雅法拉、Mon3tr、夜莺、白铁、余、涤火杰西卡</td>
+        <td>✅完美0漏(132s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_7_r11" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R12</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>7</td>
+        <td><b>208</b></td>
+        <td>R12 7盟约齐亮：魔王(10,4)全罩7主力+[维多利亚·塔露拉]，囤拟态物质+冻结维娜/车尔尼/复奏/重刃准备R13千层大爆破</td>
+        <td>塔露拉、异客、纯烬艾雅法拉、魔王、夜莺、白铁、余、涤火杰西卡</td>
+        <td>✅完美0漏(106s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_7_r12" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R13</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>7</td>
+        <td><b>282</b></td>
+        <td>R13 0费秒合+100%攻魔王★，9盟约+三核心(维/炎/莱)+8全员穿装单轮冲+196层破470</td>
+        <td>塔露拉、烛煌、纯烬艾雅法拉、魔王★、夜莺、车尔尼、余、涤火杰西卡</td>
+        <td>✅完美0漏(100s) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_7_r13" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R14</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>7</td>
+        <td><b>413</b></td>
+        <td>R14 斩假想敌：铳！10盟约493层，+100%攻魔王★全罩精锐[维多利亚·塔露拉★]+灼燃烛煌+骨刺刀逻各斯+塞雷娅钙质化+余</td>
+        <td>逻各斯、烛煌、纯烬艾雅法拉、塞雷娅、魔王★、夜莺★、余、塔露拉★</td>
+        <td>🏆斩杀(117.5s,伤2,250,000) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_7_r14" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R15</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>7</td>
+        <td><b>497</b></td>
+        <td>R15 终极决战假想敌：管！8/8双满装，+100%攻魔王★(11,7)全罩塔露拉★+逻各斯+烛煌+夕(3/3满奥术)+纯烬解凋亡+塞雷娅(11,6,R)复制冲600+层双斩</td>
+        <td>纯烬艾雅法拉、烛煌、逻各斯、塞雷娅、魔王★、塔露拉★、夜莺★、夕</td>
+        <td>🏆斩杀(104.6s,伤7,220,000) <a class="watch-sm" href="/dev/render-demo.html?scene=lethania_solo_7_r15" target="_blank">▶观看</a></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+<section class="card">
+      <div class="card-head">
+        <div>
+          <span class="tag-core core-ursusShip">乌萨斯</span>
+          <span class="tag-mode mode-solo">单人规程20级</span>
+          <span class="tag-ok">✅ 已进R15隐秘</span>
+          <span class="tag-clear">🏆 隐秘斩杀</span>
+          <h2>乌萨斯 · 单人规程20级 · 大模型实机操盘 (flex_solo_4)</h2>
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-replay" href="/?replay=flex_solo_4" target="_blank">🎮 游戏本体原生回放</a>
+          <a class="btn btn-r14" href="/dev/recordings/demo_ops/replay.html?match=flex_solo_4" target="_blank">🎬 网页版回放</a>
+          <a class="btn btn-r14" href="/dev/render-demo.html?scene=flex_solo_4_r14" target="_blank">▶ R14领袖战</a>
+          <a class="btn btn-r15" href="/dev/render-demo.html?scene=flex_solo_4_r15" target="_blank">▶ R15隐秘核心</a>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="k">R14激活总层数</div><div class="v">680</div></div>
+        <div class="kpi"><div class="k">R14领袖战</div><div class="v">盐风主教昆图斯 · 98s</div></div>
+        <div class="kpi"><div class="k">R15隐秘核心</div><div class="v">假想敌：械 ✅斩杀</div></div>
+        <div class="kpi"><div class="k">复奏双碰 / 地图</div><div class="v">3次 · act3autochess_m10</div></div>
+      </div>
+      <div class="mates">
+      <span class="mate-pill">0号位 复奏 · 乌萨斯 (层685 / 伤4,370,000)</span>
+    </div>
+      <div class="rounds-bar"><span class="lbl">全回合实机回放：</span><a class="chip" href="/dev/render-demo.html?scene=flex_solo_4_r01" target="_blank">R1</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_4_r02" target="_blank">R2</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_4_r03" target="_blank">R3</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_4_r04" target="_blank">R4</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_4_r05" target="_blank">R5</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_4_r06" target="_blank">R6</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_4_r07" target="_blank">R7</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_4_r08" target="_blank">R8</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_4_r09" target="_blank">R9</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_4_r10" target="_blank">R10</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_4_r11" target="_blank">R11</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_4_r12" target="_blank">R12</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_4_r13" target="_blank">R13</a><a class="chip chip-r14" href="/dev/render-demo.html?scene=flex_solo_4_r14" target="_blank">R14领袖</a><a class="chip chip-r15" href="/dev/render-demo.html?scene=flex_solo_4_r15" target="_blank">R15隐秘</a></div>
+      <details>
+        <summary>展开逐回合运营与战斗账本（R1–R15）</summary>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>回合</th><th>本级</th><th>资金</th><th>复奏</th><th>血量</th><th>层数</th><th>运营要点</th><th>场上阵容</th><th>战况/录像</th></tr></thead>
+            <tbody><tr>
+        <td><b>R1</b></td>
+        <td>1本</td>
+        <td>4g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R01: m10五核莱乌炎叙萨+助力精准协防调和全开天胡冲千层池! 买艾丝黛尔(独行)+陨星稳血起步</td>
+        <td>陨星、艾丝黛尔</td>
+        <td>✅完美0漏(34s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_4_r01" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R2</b></td>
+        <td>2本</td>
+        <td>5g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R02: 买1g维式重锤给艾丝黛尔并4g抢升2本提速发育</td>
+        <td>陨星、艾丝黛尔</td>
+        <td>✅完美0漏(56s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_4_r02" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R3</b></td>
+        <td>2本</td>
+        <td>6g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R03: 选悬赏潜伏者(+1g×2), 买精打细算玩偶(每轮+1g)+云迹[灵巧,奇迹]双近战防潜伏者, 冻承曦格雷伊+云迹#2</td>
+        <td>陨星、云迹、艾丝黛尔</td>
+        <td>✅完美0漏(66s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_4_r03" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R4</b></td>
+        <td>3本</td>
+        <td>9g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R04: 9g买承曦格雷伊(亮2/2灵巧云迹点火+白嫖狙击镜)+6g顺势升3本,不冻结等R05刷真奶</td>
+        <td>陨星、承曦格雷伊、云迹、艾丝黛尔</td>
+        <td>漏2怪(61s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_4_r04" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R5</b></td>
+        <td>3本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>22</td>
+        <td><b>11</b></td>
+        <td>R05: 稳血不裸跳4本! 买波登可(+1g/轮+2/2迅捷)+乌啾(真奶+2/3聚合)+灰喉(2/3精准), 冻结罗比菈塔+灰喉对子</td>
+        <td>波登可、承曦格雷伊、陨星、乌啾、灰喉、云迹、艾丝黛尔</td>
+        <td>漏1怪(84s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_4_r05" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R6</b></td>
+        <td>4本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>21</td>
+        <td><b>19</b></td>
+        <td>R06: 21高血遵循跳一轮稳一轮, 9g抢升4本+1g白看4本商店找霍尔海雅/黑键/异客</td>
+        <td>灰喉、陨星、乌啾、承曦格雷伊、云迹、艾丝黛尔、波登可</td>
+        <td>漏2怪(82s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_4_r06" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R7</b></td>
+        <td>4本</td>
+        <td>11g</td>
+        <td>-</td>
+        <td>19</td>
+        <td><b>22</b></td>
+        <td>R07: 买安洁莉娜[叙拉古,奇迹]即刻点亮0人口2/2奇迹+买2g一次性促销券囤包留6本狙9人口人事部文档!</td>
+        <td>安洁莉娜、陨星、云迹、乌啾、承曦格雷伊、艾丝黛尔、折桠、波登可</td>
+        <td>漏1怪(86s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_4_r07" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R8</b></td>
+        <td>5本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>18</td>
+        <td><b>33</b></td>
+        <td>R08: 卖灰喉凑13g先买第2只精打细算玩偶(+3g/轮顶级经济!)再10g精准抢升5本!</td>
+        <td>安洁莉娜、陨星、云迹、乌啾、承曦格雷伊、艾丝黛尔、折桠、波登可</td>
+        <td>漏6怪(92s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_4_r08" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R9</b></td>
+        <td>5本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>12</td>
+        <td><b>38</b></td>
+        <td>R09: 5本首碰承曦格雷伊★三连! 触发双6阶复奏大奖+再嫖精准狙击镜</td>
+        <td>安洁莉娜、霍尔海雅、承曦格雷伊★、乌啾、帕拉斯、塔露拉、折桠、波登可</td>
+        <td>✅完美0漏(87s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_4_r09" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R10</b></td>
+        <td>6本</td>
+        <td>15g</td>
+        <td>-</td>
+        <td>12</td>
+        <td><b>96</b></td>
+        <td>R10: 15g先买4g寻呼模块+11g准时上6本+0g奇迹白嫖刷满6本商店!；R10: 促销券拿人事部记录(与寻呼模块双储备秒魔王★), 卖艾丝黛尔/陨星买真理凑对+至简存钱, 冻塞雷娅+黑键</td>
+        <td>安洁莉娜、霍尔海雅、承曦格雷伊★、乌啾、帕拉斯、塔露拉、折桠、波登可</td>
+        <td>✅完美0漏(84s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_4_r10" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R11</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td>-</td>
+        <td>12</td>
+        <td><b>153</b></td>
+        <td>R11: 买塞雷娅+黑键+艾雅法拉+罗比菈塔! 一举点亮3/3满奥术+3/3满精准+2/3助力+2/3坚守+2/2协防+2/2灵巧+0人口奇迹!</td>
+        <td>乌啾、折桠、承曦格雷伊★、塞雷娅、帕拉斯、塔露拉、罗比菈塔、霍尔海雅</td>
+        <td>✅完美0漏(93s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_4_r11" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R12</b></td>
+        <td>6本</td>
+        <td>15g</td>
+        <td>-</td>
+        <td>12</td>
+        <td><b>299</b></td>
+        <td>R12: 迷迭香+奥尔佳完美压缩开3/3满助力+3/6强化乌萨斯+2/2灵巧等8盟约齐亮, r9五人行冲480层!</td>
+        <td>乌啾、奥尔佳、迷迭香、塞雷娅、帕拉斯、塔露拉、罗比菈塔、霍尔海雅</td>
+        <td>✅完美0漏(80s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_4_r12" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R13</b></td>
+        <td>6本</td>
+        <td>15g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>12</td>
+        <td><b>389</b></td>
+        <td>R13: 479层起步! 买见钱眼开玩偶+缪尔赛思(变形同构体), 准备喂人事部记录洗6人超浅协防神池!；R13: 魔王降临! 卖乌啾腾格买入魔王, 准备简易通讯机+寻呼模块0额外费一步秒合魔王★+双6阶复奏!；R13: 0额外费一步秒合精锐魔王★(2技能)! 同步开启R13双6阶复奏!；R13: 锻造[莱塔尼亚·帕拉斯]+换黑键强开魔王★双核(莱+乌)+3/3满助力9盟约齐亮, 冲击单轮+238层!</td>
+        <td>奥尔佳、魔王★、迷迭香、塞雷娅、帕拉斯、塔露拉、罗比菈塔、黑键</td>
+        <td>✅完美0漏(102s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_4_r13" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R14</b></td>
+        <td>6本</td>
+        <td>16g</td>
+        <td>-</td>
+        <td>12</td>
+        <td><b>558</b></td>
+        <td>R14: 稳斩昆图斯黄金右压阵! +40%攻魔王★@(10,8,R)全罩逻各斯(+50%弱点臂)+艾雅法拉+迷迭香(+50%狙)+塔露拉+[莱·帕拉斯], 夜莺@(12,8,D)全覆盖圣域+鸟笼骗火, 冻塞雷娅★冲R15复奏!</td>
+        <td>夜莺、奥尔佳、帕拉斯、塔露拉、迷迭香、魔王★、艾雅法拉、逻各斯</td>
+        <td>🏆斩杀(98s,伤4,370,000) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_4_r14" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R15</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>12</td>
+        <td><b>836</b></td>
+        <td>R15: 685激活层(总851)进隐秘械! 先买塞雷娅★引爆R15双6阶复奏并亮2/5绝技!；R15破千层历史决战! 11盟约齐亮(836→1,066激活层!) 三球双核+90%攻魔王★+[乌萨斯·艾雅法拉]+[精准·塔露拉]+[莱·帕拉斯]+迷迭香(狙+骨刺刀)+塞雷娅★+3/3满助力, 空(11,8)防搏命享受者贴Boss减伤光环!</td>
+        <td>罗比菈塔、塞雷娅★、帕拉斯、塔露拉、迷迭香、魔王★、艾雅法拉、奥尔佳</td>
+        <td>🏆斩杀(88.7s,伤5,225,000) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_4_r15" target="_blank">▶观看</a></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+<section class="card">
+      <div class="card-head">
+        <div>
+          <span class="tag-core core-ursusShip">乌萨斯</span>
+          <span class="tag-mode mode-solo">单人规程20级</span>
+          <span class="tag-ok">✅ 已进R15隐秘</span>
+          <span class="tag-clear">🏆 隐秘斩杀</span>
+          <h2>乌萨斯 · 单人规程20级 · 大模型实机操盘 (ursus_solo_1)</h2>
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-replay" href="/?replay=ursus_solo_1" target="_blank">🎮 游戏本体原生回放</a>
+          <a class="btn btn-r14" href="/dev/recordings/demo_ops/replay.html?match=ursus_solo_1" target="_blank">🎬 网页版回放</a>
+          <a class="btn btn-r14" href="/dev/render-demo.html?scene=ursus_solo_1_r14" target="_blank">▶ R14领袖战</a>
+          <a class="btn btn-r15" href="/dev/render-demo.html?scene=ursus_solo_1_r15" target="_blank">▶ R15隐秘核心</a>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="k">R14激活总层数</div><div class="v">478</div></div>
+        <div class="kpi"><div class="k">R14领袖战</div><div class="v">阿利斯泰尔，帝国余晖 · 97.5s</div></div>
+        <div class="kpi"><div class="k">R15隐秘核心</div><div class="v">假想敌：铳 ✅斩杀</div></div>
+        <div class="kpi"><div class="k">复奏双碰 / 地图</div><div class="v">6次 · act3autochess_m10</div></div>
+      </div>
+      <div class="mates">
+      <span class="mate-pill">0号位 复奏 · 乌萨斯 (层478 / 伤3,700,000)</span>
+    </div>
+      <div class="rounds-bar"><span class="lbl">全回合实机回放：</span><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_1_r01" target="_blank">R1</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_1_r02" target="_blank">R2</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_1_r03" target="_blank">R3</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_1_r04" target="_blank">R4</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_1_r05" target="_blank">R5</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_1_r06" target="_blank">R6</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_1_r07" target="_blank">R7</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_1_r08" target="_blank">R8</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_1_r09" target="_blank">R9</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_1_r10" target="_blank">R10</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_1_r11" target="_blank">R11</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_1_r12" target="_blank">R12</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_1_r13" target="_blank">R13</a><a class="chip chip-r14" href="/dev/render-demo.html?scene=ursus_solo_1_r14" target="_blank">R14领袖</a><a class="chip chip-r15" href="/dev/render-demo.html?scene=ursus_solo_1_r15" target="_blank">R15隐秘</a></div>
+      <details>
+        <summary>展开逐回合运营与战斗账本（R1–R15）</summary>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>回合</th><th>本级</th><th>资金</th><th>复奏</th><th>血量</th><th>层数</th><th>运营要点</th><th>场上阵容</th><th>战况/录像</th></tr></thead>
+            <tbody><tr>
+        <td><b>R1</b></td>
+        <td>1本</td>
+        <td>4g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R01：摆渡人+陨星稳血开局，锁定迅捷/坚守双优质副核</td>
+        <td>陨星、摆渡人</td>
+        <td>✅完美0漏(34s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_1_r01" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R2</b></td>
+        <td>2本</td>
+        <td>5g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R02：提前跳2本抢看高阶商店，摆渡人+陨星守线</td>
+        <td>陨星、摆渡人</td>
+        <td>✅完美0漏(42s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_1_r02" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R3</b></td>
+        <td>2本</td>
+        <td>6g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>2</b></td>
+        <td>R03：选折射犬稳吃悬赏，上折桠+蛇屠箱点亮2坚守/2不屈并冻住双对子</td>
+        <td>陨星、折桠、摆渡人、蛇屠箱</td>
+        <td>漏1怪(70s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_1_r03" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R4</b></td>
+        <td>3本</td>
+        <td>8g</td>
+        <td>-</td>
+        <td>23</td>
+        <td><b>6</b></td>
+        <td>R04：先收折桠凑对再跳3本，双折桠+蛇屠箱+摆渡人迎战粉碎攻坚手</td>
+        <td>陨星、折桠、折桠、摆渡人、蛇屠箱</td>
+        <td>漏1怪(106s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_1_r04" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R5</b></td>
+        <td>3本</td>
+        <td>9g</td>
+        <td>-</td>
+        <td>22</td>
+        <td><b>10</b></td>
+        <td>R05：上真理+青枳点亮3坚守2迅捷，青枳贴摆渡人单轮+12层，蛇屠箱前顶守深池逐火波</td>
+        <td>真理、陨星、折桠、折桠、摆渡人、青枳、蛇屠箱</td>
+        <td>✅完美0漏(78s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_1_r05" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R6</b></td>
+        <td>4本</td>
+        <td>11g</td>
+        <td>-</td>
+        <td>22</td>
+        <td><b>28</b></td>
+        <td>R06：用玩偶预支R07双倍启动资金，R06抢跳4本满阵迎战30只猎狗海</td>
+        <td>真理、陨星、折桠、折桠、摆渡人、青枳、蛇屠箱</td>
+        <td>✅完美0漏(68s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_1_r06" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R7</b></td>
+        <td>4本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>22</td>
+        <td><b>50</b></td>
+        <td>R07：通讯机神抽乌啾+补褐果组成双真奶，点亮5盟约，青枳紧贴乌啾每轮刷乌萨斯/聚合层数</td>
+        <td>真理、折桠、乌啾、青枳、褐果、陨星、摆渡人、蛇屠箱</td>
+        <td>漏5怪(86s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_1_r07" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R8</b></td>
+        <td>4本</td>
+        <td>11g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>17</td>
+        <td><b>65</b></td>
+        <td>R08：伊桑神抽真理凑三连触复奏双5本！白嫖冻河+塞雷娅，摆出乌啾←塞雷娅←青枳连环产层阵，并冻结折桠三连待下轮升5碰双6本</td>
+        <td>真理★、褐果、冻河、W、乌啾、塞雷娅、青枳、赫拉格</td>
+        <td>✅完美0漏(79s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_1_r08" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R9</b></td>
+        <td>5本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>17</td>
+        <td><b>112</b></td>
+        <td>R09：跳5本碰折桠★触双6本白嫖遥+缪尔赛思！转职球+呼吸器贴塞雷娅当场强开6乌萨斯+双倍转化，并冻结第2张冻河</td>
+        <td>真理★、遥、冻河、折桠★、乌啾、塞雷娅、青枳、赫拉格</td>
+        <td>✅完美0漏(104s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_1_r09" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R10</b></td>
+        <td>5本</td>
+        <td>17g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>17</td>
+        <td><b>180</b></td>
+        <td>R10：寻呼模块直合乌啾★引爆双6本！三连6阶精锐缪尔赛思★狂揽3颗转职球+白嫖妮芙！再补怒潮凛冬开2奇迹，六大盟约全亮单轮冲85+层</td>
+        <td>真理★、遥、冻河、怒潮凛冬、乌啾★、塞雷娅、青枳、赫拉格</td>
+        <td>✅完美0漏(73s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_1_r10" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R11</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>17</td>
+        <td><b>264</b></td>
+        <td>R11：11g登顶6本！伊桑定向抽赫拉格凑对，6本首刷锁定冻河★三连并冻结待下轮触双6本，怒潮凛冬下压协防37台动力装甲，冲击提前3轮破351门禁</td>
+        <td>真理★、遥、冻河、怒潮凛冬、乌啾★、塞雷娅、青枳、赫拉格</td>
+        <td>✅完美0漏(84s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_1_r11" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R12</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>17</td>
+        <td><b>348</b></td>
+        <td>R12：冻河★精锐出炉引爆双6本白嫖魔王+机械师！再买汲取者之心+终极女王塔露拉点亮7大盟约，强势迎战萨卡兹大剑手波并彻底轰穿351门禁</td>
+        <td>遥、冻河★、怒潮凛冬、塔露拉、乌啾★、塞雷娅、青枳、赫拉格</td>
+        <td>✅完美0漏(75s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_1_r12" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R13</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>17</td>
+        <td><b>463</b></td>
+        <td>R13：炼成6阶吸血红装汲取者之镰配冻河★！转职球+迅捷粮把机械师变[迅捷]无缝替代青枳；拟态物质合赫拉格★引爆双6本，凑齐魔王×2+塔露拉×2双6阶听牌！</td>
+        <td>遥、冻河★、怒潮凛冬、塔露拉、乌啾★、塞雷娅、机械师、赫拉格★</td>
+        <td>✅完美0漏(84s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_1_r13" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R14</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>17</td>
+        <td><b>458</b></td>
+        <td>R14领袖决战：伊桑一发入魂直合6阶精锐塔露拉★！寻呼模块100%锁合6阶精锐魔王★点亮5/5绝技！五精锐458层全员右压c6~c9贴脸核爆围殴站桩阿利斯泰尔！</td>
+        <td>机械师、魔王★、赫拉格★、乌啾★、冻河★、塔露拉★、塞雷娅、怒潮凛冬</td>
+        <td>🏆斩杀(97.5s,伤3,700,000) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_1_r14" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R15</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>17</td>
+        <td><b>543</b></td>
+        <td>R15隐秘终战：人事部文档扩编9人口+红蒂点亮65层聚合飙至543层！转职魔王★吃254层乌萨斯配红蒂双鼓舞，冻河★红装汲取者之镰+双模机械臂弱点集火，9人全员中路围歼假想敌：铳！</td>
+        <td>浊心斯卡蒂、怒潮凛冬、乌啾★、冻河★、魔王★、塔露拉★、机械师、塞雷娅、赫拉格★</td>
+        <td>🏆斩杀(93.8s,伤5,980,000) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_1_r15" target="_blank">▶观看</a></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+<section class="card">
+      <div class="card-head">
+        <div>
+          <span class="tag-core core-ursusShip">乌萨斯</span>
+          <span class="tag-mode mode-solo">单人规程20级</span>
+          <span class="tag-ok">✅ 已进R15隐秘</span>
+          <span class="tag-clear">🏆 隐秘斩杀</span>
+          <h2>乌萨斯 · 单人规程20级 · 大模型实机操盘 (ursus_solo_2)</h2>
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-replay" href="/?replay=ursus_solo_2" target="_blank">🎮 游戏本体原生回放</a>
+          <a class="btn btn-r14" href="/dev/recordings/demo_ops/replay.html?match=ursus_solo_2" target="_blank">🎬 网页版回放</a>
+          <a class="btn btn-r14" href="/dev/render-demo.html?scene=ursus_solo_2_r14" target="_blank">▶ R14领袖战</a>
+          <a class="btn btn-r15" href="/dev/render-demo.html?scene=ursus_solo_2_r15" target="_blank">▶ R15隐秘核心</a>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="k">R14激活总层数</div><div class="v">400</div></div>
+        <div class="kpi"><div class="k">R14领袖战</div><div class="v">假想敌：胄 · 131.5s</div></div>
+        <div class="kpi"><div class="k">R15隐秘核心</div><div class="v">假想敌：胄 ✅斩杀</div></div>
+        <div class="kpi"><div class="k">复奏双碰 / 地图</div><div class="v">7次 · act3autochess_m03</div></div>
+      </div>
+      <div class="mates">
+      <span class="mate-pill">0号位 复奏 · 乌萨斯 (层400 / 伤3,940,000)</span>
+    </div>
+      <div class="rounds-bar"><span class="lbl">全回合实机回放：</span><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_2_r01" target="_blank">R1</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_2_r02" target="_blank">R2</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_2_r03" target="_blank">R3</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_2_r04" target="_blank">R4</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_2_r05" target="_blank">R5</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_2_r06" target="_blank">R6</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_2_r07" target="_blank">R7</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_2_r08" target="_blank">R8</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_2_r09" target="_blank">R9</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_2_r10" target="_blank">R10</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_2_r11" target="_blank">R11</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_2_r12" target="_blank">R12</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_2_r13" target="_blank">R13</a><a class="chip chip-r14" href="/dev/render-demo.html?scene=ursus_solo_2_r14" target="_blank">R14领袖</a><a class="chip chip-r15" href="/dev/render-demo.html?scene=ursus_solo_2_r15" target="_blank">R15隐秘</a></div>
+      <details>
+        <summary>展开逐回合运营与战斗账本（R1–R15）</summary>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>回合</th><th>本级</th><th>资金</th><th>复奏</th><th>血量</th><th>层数</th><th>运营要点</th><th>场上阵容</th><th>战况/录像</th></tr></thead>
+            <tbody><tr>
+        <td><b>R1</b></td>
+        <td>1本</td>
+        <td>4g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R01艾丝黛尔+夏栎稳血开局</td>
+        <td>夏栎、艾丝黛尔</td>
+        <td>✅完美0漏(22s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_2_r01" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R2</b></td>
+        <td>2本</td>
+        <td>5g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>1</b></td>
+        <td>R02速升2本守8狗</td>
+        <td>夏栎、艾丝黛尔</td>
+        <td>✅完美0漏(40s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_2_r02" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R3</b></td>
+        <td>2本</td>
+        <td>6g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>2</b></td>
+        <td>R03玩偶起飞+真奶真理稳斩逐腐兽</td>
+        <td>真理、莎草、艾丝黛尔</td>
+        <td>漏5怪(63s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_2_r03" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R4</b></td>
+        <td>3本</td>
+        <td>8g</td>
+        <td>-</td>
+        <td>19</td>
+        <td><b>2</b></td>
+        <td>R04速3本冻折桠+至简+身份牌</td>
+        <td>真理、真理、莎草、艾丝黛尔</td>
+        <td>漏3怪(47s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_2_r04" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R5</b></td>
+        <td>3本</td>
+        <td>11g</td>
+        <td>-</td>
+        <td>16</td>
+        <td><b>8</b></td>
+        <td>R05满编8人+3乌萨斯2聚合3萨尔贡全亮</td>
+        <td>真理、真理、乌啾、至简、莎草、艾丝黛尔、折桠、伊桑</td>
+        <td>✅完美0漏(56s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_2_r05" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R6</b></td>
+        <td>4本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>16</td>
+        <td><b>15</b></td>
+        <td>R06速4本冻赫拉格+第2个玩偶</td>
+        <td>真理、真理、乌啾、至简、莎草、艾丝黛尔、折桠、伊桑</td>
+        <td>漏3怪(61s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_2_r06" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R7</b></td>
+        <td>4本</td>
+        <td>11g</td>
+        <td>-</td>
+        <td>13</td>
+        <td><b>28</b></td>
+        <td>R07赫拉格突袭启动+双玩偶成型+冻夜莺</td>
+        <td>真理、乌啾、至简、莎草、艾丝黛尔、折桠、伊桑、赫拉格</td>
+        <td>漏3怪(84s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_2_r07" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R8</b></td>
+        <td>5本</td>
+        <td>13g</td>
+        <td>-</td>
+        <td>10</td>
+        <td><b>33</b></td>
+        <td>R08跳5本换夜莺+伊桑抽维伊凑5乌萨斯三听牌</td>
+        <td>维伊、真理、乌啾、至简、夜莺、艾丝黛尔、折桠、赫拉格</td>
+        <td>漏2怪(77s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_2_r08" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R9</b></td>
+        <td>5本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>8</td>
+        <td><b>47</b></td>
+        <td>R09真理三连双6本直出塔露拉+魔王！6乌萨斯+协防+奥术5盟约全亮</td>
+        <td>乌啾、真理★、魔王、维伊、夜莺、折桠、塔露拉、赫拉格</td>
+        <td>✅完美0漏(74s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_2_r09" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R10</b></td>
+        <td>5本</td>
+        <td>15g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>8</td>
+        <td><b>100</b></td>
+        <td>R10人事部记录双出冻河+怒潮凛冬！全高阶8人阵狂刷层数+冻第2张人事部记录</td>
+        <td>乌啾、冻河、魔王、维伊、夜莺、纯烬艾雅法拉、塔露拉、怒潮凛冬</td>
+        <td>✅完美0漏(73s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_2_r10" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R11</b></td>
+        <td>5本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>8</td>
+        <td><b>155</b></td>
+        <td>R11升华怒潮凛冬★+双6本出妮芙点亮2迅捷+冻河双模机械臂核爆起飞</td>
+        <td>乌啾、妮芙、魔王、维伊、纯烬艾雅法拉、冻河、塔露拉、怒潮凛冬★</td>
+        <td>✅完美0漏(73s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_2_r11" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R12</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>8</td>
+        <td><b>222</b></td>
+        <td>R12乌啾★三连双6本揽魔王对+缪尔赛思转职球！顺势跳6本冻人事部记录狙魔王★</td>
+        <td>乌啾★、妮芙、魔王、维伊、纯烬艾雅法拉、冻河、塔露拉、怒潮凛冬★</td>
+        <td>✅完美0漏(70s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_2_r12" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R13</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>8</td>
+        <td><b>302</b></td>
+        <td>R13人事部记录锁合魔王★+转职乌萨斯+换逻各斯！冲破351门禁</td>
+        <td>乌啾★、妮芙、魔王★、逻各斯、纯烬艾雅法拉、冻河、塔露拉、怒潮凛冬★</td>
+        <td>✅完美0漏(69s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_2_r13" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R14</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>8</td>
+        <td><b>380</b></td>
+        <td>R14决战站桩胄！380层+5绝技+双转职乌萨斯全军右压c6-c9围殴(10,10)</td>
+        <td>缪尔赛思★、纯烬艾雅法拉、妮芙、魔王★、乌啾★、怒潮凛冬★、冻河、塔露拉★</td>
+        <td>🏆斩杀(131.5s,伤3,940,000) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_2_r14" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R15</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>8</td>
+        <td><b>450</b></td>
+        <td>R15隐秘终局！寻呼锁合逻各斯★+扩编9人口+流形共10战力450层九盟约总攻胄</td>
+        <td>妮芙、缪尔赛思★、纯烬艾雅法拉、逻各斯★、魔王★、怒潮凛冬★、遥、冻河、塔露拉★</td>
+        <td>🏆斩杀(109.4s,伤6,840,000) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_2_r15" target="_blank">▶观看</a></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+<section class="card">
+      <div class="card-head">
+        <div>
+          <span class="tag-core core-ursusShip">乌萨斯</span>
+          <span class="tag-mode mode-solo">单人规程20级</span>
+          <span class="tag-ok">✅ 已进R15隐秘</span>
+          
+          <h2>乌萨斯 · 单人规程20级 · 大模型实机操盘 (ursus_solo_5)</h2>
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-replay" href="/?replay=ursus_solo_5" target="_blank">🎮 游戏本体原生回放</a>
+          <a class="btn btn-r14" href="/dev/recordings/demo_ops/replay.html?match=ursus_solo_5" target="_blank">🎬 网页版回放</a>
+          <a class="btn btn-r14" href="/dev/render-demo.html?scene=ursus_solo_5_r14" target="_blank">▶ R14领袖战</a>
+          <a class="btn btn-r15" href="/dev/render-demo.html?scene=ursus_solo_5_r15" target="_blank">▶ R15隐秘核心</a>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="k">R14激活总层数</div><div class="v">465</div></div>
+        <div class="kpi"><div class="k">R14领袖战</div><div class="v">“萨米的意志” · 148.4s</div></div>
+        <div class="kpi"><div class="k">R15隐秘核心</div><div class="v">假想敌：管 ⚔️激战</div></div>
+        <div class="kpi"><div class="k">复奏双碰 / 地图</div><div class="v">5次 · act3autochess_m12</div></div>
+      </div>
+      <div class="mates">
+      <span class="mate-pill">0号位 复奏 · 乌萨斯 (层501 / 伤4,040,000)</span>
+    </div>
+      <div class="rounds-bar"><span class="lbl">全回合实机回放：</span><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_5_r01" target="_blank">R1</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_5_r02" target="_blank">R2</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_5_r03" target="_blank">R3</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_5_r04" target="_blank">R4</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_5_r05" target="_blank">R5</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_5_r06" target="_blank">R6</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_5_r07" target="_blank">R7</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_5_r08" target="_blank">R8</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_5_r09" target="_blank">R9</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_5_r10" target="_blank">R10</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_5_r11" target="_blank">R11</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_5_r12" target="_blank">R12</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_5_r13" target="_blank">R13</a><a class="chip chip-r14" href="/dev/render-demo.html?scene=ursus_solo_5_r14" target="_blank">R14领袖</a><a class="chip chip-r15" href="/dev/render-demo.html?scene=ursus_solo_5_r15" target="_blank">R15隐秘</a></div>
+      <details>
+        <summary>展开逐回合运营与战斗账本（R1–R15）</summary>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>回合</th><th>本级</th><th>资金</th><th>复奏</th><th>血量</th><th>层数</th><th>运营要点</th><th>场上阵容</th><th>战况/录像</th></tr></thead>
+            <tbody><tr>
+        <td><b>R1</b></td>
+        <td>1本</td>
+        <td>4g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>1</b></td>
+        <td>R01 m12折桠+摆渡人开2不屈稳血起步</td>
+        <td>摆渡人、折桠</td>
+        <td>✅完美0漏(34s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_5_r01" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R2</b></td>
+        <td>1本</td>
+        <td>5g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>1</b></td>
+        <td>R02 买艾丝黛尔(独行)+陨星+盟约之币稳过10刀兵</td>
+        <td>陨星、摆渡人、折桠、艾丝黛尔</td>
+        <td>✅完美0漏(37s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_5_r02" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R3</b></td>
+        <td>2本</td>
+        <td>6g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>1</b></td>
+        <td>R03 SP选独轮车玩具+2g，准备升2本补对空；R03 买雪猎对空+末位摆渡人(9,8)吸妖怪炮火+击杀独轮车赚2g</td>
+        <td>雪猎、陨星、折桠、艾丝黛尔、摆渡人</td>
+        <td>✅完美0漏(59s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_5_r03" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R4</b></td>
+        <td>3本</td>
+        <td>9g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>1</b></td>
+        <td>R04 买涡轮手套给雪猎+分散防链术师+摆渡人守交汇+提前升3本</td>
+        <td>摆渡人、折桠、陨星、雪猎、艾丝黛尔</td>
+        <td>✅完美0漏(66s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_5_r04" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R5</b></td>
+        <td>3本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>1</b></td>
+        <td>R05 乌啾凑对+身份牌贴乌啾+重戴进阶手套+艾丝黛尔回撤吃奶防27狗</td>
+        <td>乌啾、摆渡人、折桠、陨星、雪猎、艾丝黛尔</td>
+        <td>✅完美0漏(50s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_5_r05" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R6</b></td>
+        <td>4本</td>
+        <td>9g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>1</b></td>
+        <td>R06 24满血跳4本，准备R07在4本花10g找乌啾三连碰双5阶+补强</td>
+        <td>乌啾、摆渡人、折桠、陨星、雪猎、艾丝黛尔</td>
+        <td>漏3怪(80s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_5_r06" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R7</b></td>
+        <td>4本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>21</td>
+        <td><b>10</b></td>
+        <td>R07 全空波开3乌萨斯+3精准+2不屈，空弦贴折桠叠层，末位呼吸器奥尔佳吸炮火</td>
+        <td>空弦、折桠、乌啾、灰喉、陨星、雪猎、摆渡人、奥尔佳</td>
+        <td>✅完美0漏(62s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_5_r07" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R8</b></td>
+        <td>5本</td>
+        <td>11g</td>
+        <td>-</td>
+        <td>21</td>
+        <td><b>19</b></td>
+        <td>R08 升5本刷出乌啾三连+夜莺+真理+重锤立刻锁店！全员归位m12四安全格防双路巨岩蛛</td>
+        <td>空弦、乌啾、折桠、艾丝黛尔、摆渡人、灰喉、雪猎、奥尔佳</td>
+        <td>✅完美0漏(94s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_5_r08" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R9</b></td>
+        <td>5本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>21</td>
+        <td><b>17</b></td>
+        <td>R09 SP选大鲍勃+2g，即将买乌啾三连碰双6阶+夜莺+真理+重锤；R09 5本合成精锐乌啾★，触发复奏首碰双6阶大核！；R09 塔露拉+机械师+歌蕾蒂娅+真理r9同行双印卡，夜莺+乌啾★双奶+5乌萨斯3协防2聚合全开，稳斩大鲍勃</td>
+        <td>乌啾★、折桠、奥尔佳、夜莺、真理、塔露拉、机械师、歌蕾蒂娅</td>
+        <td>✅完美0漏(84s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_5_r09" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R10</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td>-</td>
+        <td>21</td>
+        <td><b>45</b></td>
+        <td>R10 升6本备齐通讯机+寻呼模块(锁魔王★)，上赫拉格正式开满6/6塔露拉强化乌萨斯+3协防+2聚合点火冲层！</td>
+        <td>乌啾★、折桠、奥尔佳、夜莺、真理、塔露拉、机械师、赫拉格</td>
+        <td>✅完美0漏(80s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_5_r10" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R11</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>21</td>
+        <td><b>79</b></td>
+        <td>R11 SP避开灼藤选重弩突袭者+1g，进6本全力搜魔王/塞雷娅/冻河/帕拉斯冲层；R11 买魔王+通讯机+寻呼模块100%锁合6阶精锐魔王★，同时触发复奏双6阶！；R11 锁店留夜莺★三连给R12触复奏双6阶！[乌萨斯·帕拉斯]贴塔露拉+魔王★3x3鼓舞+6乌萨斯全引擎点火！</td>
+        <td>夜莺、奥尔佳、魔王★、乌啾★、帕拉斯、塔露拉、机械师、赫拉格</td>
+        <td>✅完美0漏(77s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_5_r11" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R12</b></td>
+        <td>6本</td>
+        <td>13g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>21</td>
+        <td><b>165</b></td>
+        <td>R12 收逻各斯并合出精锐夜莺★(单轮+32层+再开6阶奖)；R12 进阶呼吸器给奥尔佳★稳守上路，留塔露拉2号位待红装；全引擎迎战55怪海冲击300+层！</td>
+        <td>夜莺★、奥尔佳★、魔王★、乌啾★、帕拉斯、塔露拉、机械师、赫拉格</td>
+        <td>✅完美0漏(71s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_5_r12" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R13</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>21</td>
+        <td><b>287</b></td>
+        <td>R13 买人事部文档扩编至9人口！；R13 9人口全空军核阵：6/6乌萨斯+3/3聚合+2/3奥术+2/2协防+2/2灵巧+魔王★3x3鼓舞，末位孤立奥尔佳★(9,8)吸先兆者防溅射</td>
+        <td>乌啾★、遥、夜莺★、逻各斯、魔王★、真理、帕拉斯、塔露拉、奥尔佳★</td>
+        <td>✅完美0漏(86s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_5_r13" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R14</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>21</td>
+        <td><b>400</b></td>
+        <td>R14 寻呼模块一发入魂合成6阶精锐机械师★，触发R14复奏双6阶！；R14 卖双真理无损换维伊，开满6/6乌萨斯+3/3满级奥术，维伊吃200+层乌萨斯+进阶手套直飙+185攻速！；R14决战萨米的意志！6/6乌萨斯+3/3奥术+3/3聚合+5/5绝技+魔王★(重刃)+塔露拉★(重锤+弩)+185攻速维伊+逻各斯+遥(防20妖怪)全右压！</td>
+        <td>乌啾★、维伊、逻各斯、夜莺★、魔王★、遥、帕拉斯、塔露拉★、奥尔佳★</td>
+        <td>🏆斩杀(148.4s,伤4,040,000) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_5_r14" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R15</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>21</td>
+        <td><b>465</b></td>
+        <td>R15隐秘决战假想敌：管！拆帕拉斯转[乌萨斯·逻各斯]+进阶狙击镜+193攻速维伊+塔露拉★+缪尔赛思，魔王★+浊蒂+海嗣全覆双鼓舞冲刺双斩！</td>
+        <td>浊心斯卡蒂、维伊、逻各斯、夜莺★、魔王★、乌啾★、奥尔佳★、缪尔赛思、塔露拉★</td>
+        <td>伤5,387,320/7,220,000(171s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_5_r15" target="_blank">▶观看</a></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+<section class="card">
+      <div class="card-head">
+        <div>
+          <span class="tag-core core-ursusShip">乌萨斯</span>
+          <span class="tag-mode mode-solo">单人规程20级</span>
+          <span class="tag-ok">✅ 已进R15隐秘</span>
+          <span class="tag-clear">🏆 隐秘斩杀</span>
+          <h2>乌萨斯 · 单人规程20级 · 大模型实机操盘 (ursus_solo_6)</h2>
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-replay" href="/?replay=ursus_solo_6" target="_blank">🎮 游戏本体原生回放</a>
+          <a class="btn btn-r14" href="/dev/recordings/demo_ops/replay.html?match=ursus_solo_6" target="_blank">🎬 网页版回放</a>
+          <a class="btn btn-r14" href="/dev/render-demo.html?scene=ursus_solo_6_r14" target="_blank">▶ R14领袖战</a>
+          <a class="btn btn-r15" href="/dev/render-demo.html?scene=ursus_solo_6_r15" target="_blank">▶ R15隐秘核心</a>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="k">R14激活总层数</div><div class="v">534</div></div>
+        <div class="kpi"><div class="k">R14领袖战</div><div class="v">“萨米的意志” · 123.7s</div></div>
+        <div class="kpi"><div class="k">R15隐秘核心</div><div class="v">假想敌：铳 ✅斩杀</div></div>
+        <div class="kpi"><div class="k">复奏双碰 / 地图</div><div class="v">7次 · act3autochess_m05</div></div>
+      </div>
+      <div class="mates">
+      <span class="mate-pill">0号位 复奏 · 乌萨斯 (层534 / 伤4,040,000)</span>
+    </div>
+      <div class="rounds-bar"><span class="lbl">全回合实机回放：</span><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_6_r01" target="_blank">R1</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_6_r02" target="_blank">R2</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_6_r03" target="_blank">R3</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_6_r04" target="_blank">R4</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_6_r05" target="_blank">R5</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_6_r06" target="_blank">R6</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_6_r07" target="_blank">R7</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_6_r08" target="_blank">R8</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_6_r09" target="_blank">R9</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_6_r10" target="_blank">R10</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_6_r11" target="_blank">R11</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_6_r12" target="_blank">R12</a><a class="chip" href="/dev/render-demo.html?scene=ursus_solo_6_r13" target="_blank">R13</a><a class="chip chip-r14" href="/dev/render-demo.html?scene=ursus_solo_6_r14" target="_blank">R14领袖</a><a class="chip chip-r15" href="/dev/render-demo.html?scene=ursus_solo_6_r15" target="_blank">R15隐秘</a></div>
+      <details>
+        <summary>展开逐回合运营与战斗账本（R1–R15）</summary>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>回合</th><th>本级</th><th>资金</th><th>复奏</th><th>血量</th><th>层数</th><th>运营要点</th><th>场上阵容</th><th>战况/录像</th></tr></thead>
+            <tbody><tr>
+        <td><b>R1</b></td>
+        <td>1本</td>
+        <td>4g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R01开局m05神图+乌萨斯全副核开放，购双拉普兰德稳血并埋首碰复奏对子</td>
+        <td>拉普兰德、拉普兰德</td>
+        <td>✅完美0漏(33s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_6_r01" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R2</b></td>
+        <td>2本</td>
+        <td>5g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R02买1g虹彩活血饮料+4g抢升2本，拟冻结拉普兰德三连R03开双3阶复奏</td>
+        <td>拉普兰德、拉普兰德</td>
+        <td>漏1怪(57s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_6_r02" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R3</b></td>
+        <td>2本</td>
+        <td>6g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>23</td>
+        <td><b>0</b></td>
+        <td>R03二本合成拉普兰德★并触发首次复奏双3阶奖</td>
+        <td>伺夜、乌啾、拉普兰德★、折桠</td>
+        <td>漏3怪(79s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_6_r03" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R4</b></td>
+        <td>3本</td>
+        <td>9g</td>
+        <td>-</td>
+        <td>20</td>
+        <td><b>0</b></td>
+        <td>R04精准9g=3g精打细算玩偶(+11g经济)+6g抢升3本，践行跳一轮稳一轮节奏</td>
+        <td>伺夜、折桠、乌啾、拉普兰德★</td>
+        <td>漏1怪(63s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_6_r04" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R5</b></td>
+        <td>3本</td>
+        <td>11g</td>
+        <td>-</td>
+        <td>19</td>
+        <td><b>8</b></td>
+        <td>R05双精打细算玩偶成型(+2g/轮)+忍冬陨星开3叙拉古2迅捷清17囚犯稳血，留R06准时上4本</td>
+        <td>陨星、伺夜、折桠、乌啾、拉普兰德★、忍冬、忍冬</td>
+        <td>✅完美0漏(58s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_6_r05" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R6</b></td>
+        <td>4本</td>
+        <td>11g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>19</td>
+        <td><b>17</b></td>
+        <td>R06准时9g跳4本，拟卖陨星凑3g立即4本合忍冬★开双5阶复奏+嫖免费4本刷新</td>
+        <td>折桠、伺夜、怒潮凛冬、乌啾、拉普兰德★、塞雷娅、忍冬★</td>
+        <td>✅完美0漏(71s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_6_r06" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R7</b></td>
+        <td>4本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>19</td>
+        <td><b>8</b></td>
+        <td>R07稳4本双收赫拉格+伊桑开4乌萨斯2突袭点火刷层，余5g搜异客/乌啾/奥尔佳及R08五本碰牌对子</td>
+        <td>赫拉格、折桠、怒潮凛冬、伊桑、乌啾、拉普兰德★、塞雷娅、忍冬★</td>
+        <td>✅完美0漏(69s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_6_r07" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R8</b></td>
+        <td>5本</td>
+        <td>13g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>19</td>
+        <td><b>33</b></td>
+        <td>R08卖伺夜+见钱眼开玩偶+10g准时升5本，准备原地合伊桑★连开双6阶复奏；R08五本双6阶复奏开塔露拉+遥，六盟约齐亮(5乌萨斯+2突袭+2聚合+2奇迹+2协防+2奥术)点火大爆发</td>
+        <td>赫拉格、折桠、遥、塔露拉、伊桑★、乌啾、怒潮凛冬、塞雷娅</td>
+        <td>✅完美0漏(86s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_6_r08" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R9</b></td>
+        <td>6本</td>
+        <td>16g</td>
+        <td>-</td>
+        <td>19</td>
+        <td><b>64</b></td>
+        <td>R09满编19血16g提前抢升6本，开启连续7轮6本超级冲层期！</td>
+        <td>遥、赫拉格、异客、塔露拉、伊桑★、乌啾、怒潮凛冬、折桠</td>
+        <td>✅完美0漏(87s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_6_r09" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R10</b></td>
+        <td>6本</td>
+        <td>16g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>19</td>
+        <td><b>111</b></td>
+        <td>R10六本18g起手买拟态物质(4g)后大搜，目标6/6强化乌萨斯+机械师/冻河/魔王/帕拉斯；R10仅花2g自然合折桠★触发双6阶复奏，完整省下拟态物质留作下轮复奏/6阶精锐核弹；R10满编6/6强化乌萨斯+冻河+遥+史尔特尔+赫拉格五核全开冲层，留伊桑★与拟态物质待R11开局连环核爆</td>
+        <td>遥、冻河、塔露拉、史尔特尔、乌啾、怒潮凛冬、折桠★、赫拉格</td>
+        <td>✅完美0漏(73s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_6_r10" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R11</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>19</td>
+        <td><b>154</b></td>
+        <td>R11开局6乌萨斯卖伊桑★白嫖高阶乌萨斯+买魔王与人事部记录锁精锐魔王★；R11购二号魔王+喂拟态物质100%秒合精锐魔王★，激活双6阶复奏并联动塞雷娅每轮+40层；R11终极冲层阵成型：魔王★+塞雷娅(+40/轮)+[乌萨斯·史尔特尔]+冻河+遥+赫拉格+6/6强化乌萨斯</td>
+        <td>遥、史尔特尔、冻河、塞雷娅、魔王★、乌啾、塔露拉、赫拉格</td>
+        <td>✅完美0漏(78s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_6_r11" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R12</b></td>
+        <td>6本</td>
+        <td>15g</td>
+        <td>-</td>
+        <td>19</td>
+        <td><b>261</b></td>
+        <td>R11单轮+107层(乌萨斯+67)冲至261层！R12收炎国短刀后12g大搜三连与9人口文档/魔王毕业攻装；R12给魔王★穿+50%攻天马之枪、塔露拉双神装(汲取者之镰+电流重锤)、冻河炎国短刀，迎战31只折射怪海提前冲破351门禁</td>
+        <td>遥、史尔特尔、冻河、塞雷娅、魔王★、乌啾、塔露拉、赫拉格</td>
+        <td>✅完美0漏(71s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_6_r12" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R13</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>19</td>
+        <td><b>335</b></td>
+        <td>R12单轮+95至356层提前破351门禁！R13合精锐史尔特尔★并开启双6阶复奏冲击650-900+层；R13终极冲层几何阵：魔王★(+90%攻)+塞雷娅(+40)+帕拉斯→史尔特尔★(+18)+史尔特尔★(+32)+冻河r12(+16)+赫拉格(+24)+乌啾(+6)</td>
+        <td>冻河、史尔特尔★、塞雷娅、帕拉斯、魔王★、乌啾、塔露拉★、赫拉格</td>
+        <td>✅完美0漏(80s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_6_r13" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R14</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td>-</td>
+        <td>19</td>
+        <td><b>458</b></td>
+        <td>R14战前458层(结算+76→534层!)，m05 bossL全员右压魔王★(+90%攻)3×3核心圈斩萨米的意志，同步冻结乌啾★+初雪+电流重锤留给R15隐秘</td>
+        <td>冻河、逻各斯、塞雷娅、魔王★、赫拉格、帕拉斯、塔露拉★、史尔特尔★</td>
+        <td>🏆斩杀(123.7s,伤4,040,000) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_6_r14" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R15</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>19</td>
+        <td><b>534</b></td>
+        <td>R14十连0漏斩萨米(534层创乌萨斯纪录)！R15迎战移动高防假想敌：铳，先合乌啾★开双6阶复奏并收初雪破1100防；R15最终决战假想敌：铳(移动1100防)！7大盟约全亮冲564层新纪录，塔露拉★末位抗伤+史尔特尔★+逻各斯+维伊3奥术+初雪双穿+铃兰40%脆弱+90%攻魔王★联合围剿！</td>
+        <td>赫拉格、铃兰、维伊、逻各斯、初雪、魔王★、史尔特尔★、塔露拉★</td>
+        <td>🏆斩杀(104.7s,伤5,980,000) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_solo_6_r15" target="_blank">▶观看</a></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+<section class="card">
+      <div class="card-head">
+        <div>
+          <span class="tag-core core-ursusShip">乌萨斯</span>
+          <span class="tag-mode mode-coop">4人终极模拟</span>
+          <span class="tag-ok">✅ 已进R15隐秘</span>
+          <span class="tag-clear">🏆 隐秘斩杀</span>
+          <h2>乌萨斯 · 4人终极模拟 · 大模型实机操盘 (ursus_coop_1)</h2>
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-replay" href="/?replay=ursus_coop_1" target="_blank">🎮 游戏本体原生回放</a>
+          <a class="btn btn-r14" href="/dev/recordings/demo_ops/replay.html?match=ursus_coop_1" target="_blank">🎬 网页版回放</a>
+          <a class="btn btn-r14" href="/dev/render-demo.html?scene=ursus_coop_1_r14" target="_blank">▶ R14领袖战</a>
+          <a class="btn btn-r15" href="/dev/render-demo.html?scene=ursus_coop_1_r15" target="_blank">▶ R15隐秘核心</a>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="k">R14激活总层数</div><div class="v">1785</div></div>
+        <div class="kpi"><div class="k">R14领袖战</div><div class="v">假想敌：胄 · 126s</div></div>
+        <div class="kpi"><div class="k">R15隐秘核心</div><div class="v">假想敌：胄 ✅斩杀</div></div>
+        <div class="kpi"><div class="k">复奏双碰 / 地图</div><div class="v">8次 · act3autochess_m05</div></div>
+      </div>
+      <div class="mates">
+      <span class="mate-pill">0号位 复奏 · 乌萨斯 (层194 / 伤6,171,183)</span>
+    
+      <span class="mate-pill">1号位 Touch · 队友 (层478 / 伤4,268,584)</span>
+    
+      <span class="mate-pill">2号位 芬 · 队友 (层572 / 伤2,941,219)</span>
+    
+      <span class="mate-pill">3号位 伊奥莱塔·罗素 · 队友 (层573 / 伤2,725,757)</span>
+    </div>
+      <div class="rounds-bar"><span class="lbl">全回合实机回放：</span><a class="chip" href="/dev/render-demo.html?scene=ursus_coop_1_r01" target="_blank">R1</a><a class="chip" href="/dev/render-demo.html?scene=ursus_coop_1_r02" target="_blank">R2</a><a class="chip" href="/dev/render-demo.html?scene=ursus_coop_1_r03" target="_blank">R3</a><a class="chip" href="/dev/render-demo.html?scene=ursus_coop_1_r04" target="_blank">R4</a><a class="chip" href="/dev/render-demo.html?scene=ursus_coop_1_r05" target="_blank">R5</a><a class="chip chip-unite" href="/dev/render-demo.html?scene=ursus_coop_1_r05_unite" target="_blank">R5联防</a><a class="chip" href="/dev/render-demo.html?scene=ursus_coop_1_r06" target="_blank">R6</a><a class="chip chip-unite" href="/dev/render-demo.html?scene=ursus_coop_1_r06_unite" target="_blank">R6联防</a><a class="chip" href="/dev/render-demo.html?scene=ursus_coop_1_r07" target="_blank">R7</a><a class="chip chip-unite" href="/dev/render-demo.html?scene=ursus_coop_1_r07_unite" target="_blank">R7联防</a><a class="chip" href="/dev/render-demo.html?scene=ursus_coop_1_r08" target="_blank">R8</a><a class="chip" href="/dev/render-demo.html?scene=ursus_coop_1_r09" target="_blank">R9</a><a class="chip chip-unite" href="/dev/render-demo.html?scene=ursus_coop_1_r09_unite" target="_blank">R9联防</a><a class="chip" href="/dev/render-demo.html?scene=ursus_coop_1_r10" target="_blank">R10</a><a class="chip chip-unite" href="/dev/render-demo.html?scene=ursus_coop_1_r10_unite" target="_blank">R10联防</a><a class="chip" href="/dev/render-demo.html?scene=ursus_coop_1_r11" target="_blank">R11</a><a class="chip" href="/dev/render-demo.html?scene=ursus_coop_1_r12" target="_blank">R12</a><a class="chip chip-unite" href="/dev/render-demo.html?scene=ursus_coop_1_r12_unite" target="_blank">R12联防</a><a class="chip" href="/dev/render-demo.html?scene=ursus_coop_1_r13" target="_blank">R13</a><a class="chip chip-unite" href="/dev/render-demo.html?scene=ursus_coop_1_r13_unite" target="_blank">R13联防</a><a class="chip chip-r14" href="/dev/render-demo.html?scene=ursus_coop_1_r14" target="_blank">R14领袖</a><a class="chip chip-r15" href="/dev/render-demo.html?scene=ursus_coop_1_r15" target="_blank">R15隐秘</a></div>
+      <details>
+        <summary>展开逐回合运营与战斗账本（R1–R15）</summary>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>回合</th><th>本级</th><th>资金</th><th>复奏</th><th>血量</th><th>层数</th><th>运营要点</th><th>场上阵容</th><th>战况/录像</th></tr></thead>
+            <tbody><tr>
+        <td><b>R1</b></td>
+        <td>1本</td>
+        <td>4g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>-</td>
+        <td>角峰、杰克</td>
+        <td>漏1怪(90s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_coop_1_r01" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R2</b></td>
+        <td>1本</td>
+        <td>5g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>-</td>
+        <td>烈夏、褐果、角峰</td>
+        <td>✅完美0漏(48s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_coop_1_r02" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R3</b></td>
+        <td>2本</td>
+        <td>6g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>-</td>
+        <td>烈夏、褐果、角峰★</td>
+        <td>漏1怪(86s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_coop_1_r03" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R4</b></td>
+        <td>3本</td>
+        <td>7g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>-</td>
+        <td>真理、烈夏、褐果、奥尔佳、真理、角峰★</td>
+        <td>✅完美0漏(61s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_coop_1_r04" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R5</b></td>
+        <td>3本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>2</b></td>
+        <td>-</td>
+        <td>真理、烈夏、褐果、奥尔佳、乌啾、真理、角峰★、烈夏</td>
+        <td>✅完美0漏(55s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_coop_1_r05" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R6</b></td>
+        <td>4本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>8</b></td>
+        <td>-</td>
+        <td>真理、烈夏、褐果、奥尔佳、乌啾、真理、角峰★、烈夏</td>
+        <td>✅完美0漏(54s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_coop_1_r06" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R7</b></td>
+        <td>4本</td>
+        <td>11g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>24</td>
+        <td><b>14</b></td>
+        <td>-</td>
+        <td>真理、烈夏★、褐果、奥尔佳、乌啾、真理、角峰★</td>
+        <td>✅完美0漏(120s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_coop_1_r07" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R8</b></td>
+        <td>5本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>19</b></td>
+        <td>-</td>
+        <td>维伊、烈夏★、华法琳、奥尔佳、乌啾、塞雷娅、真理、隐德来希</td>
+        <td>漏9怪(142s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_coop_1_r08" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R9</b></td>
+        <td>6本</td>
+        <td>13g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>15</td>
+        <td><b>26</b></td>
+        <td>-</td>
+        <td>维伊、塔露拉、华法琳、奥尔佳、乌啾、机械师、真理★、烈夏★</td>
+        <td>✅完美0漏(82s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_coop_1_r09" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R10</b></td>
+        <td>6本</td>
+        <td>15g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>15</td>
+        <td><b>34</b></td>
+        <td>-</td>
+        <td>维伊、塔露拉、华法琳、奥尔佳★、乌啾、机械师、真理★、赫拉格</td>
+        <td>✅完美0漏(91s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_coop_1_r10" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R11</b></td>
+        <td>6本</td>
+        <td>13g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>15</td>
+        <td><b>48</b></td>
+        <td>-</td>
+        <td>维伊、塔露拉、华法琳、奥尔佳★、乌啾、机械师★、真理★、赫拉格</td>
+        <td>漏2怪(108s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_coop_1_r11" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R12</b></td>
+        <td>6本</td>
+        <td>16g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>13</td>
+        <td><b>57</b></td>
+        <td>-</td>
+        <td>维伊、塔露拉、魔王、奥尔佳★、乌啾、机械师★、冻河、赫拉格★</td>
+        <td>✅完美0漏(78s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_coop_1_r12" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R13</b></td>
+        <td>6本</td>
+        <td>15g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>13</td>
+        <td><b>99</b></td>
+        <td>-</td>
+        <td>维伊、塔露拉、魔王、奥尔佳★、乌啾★、机械师★、冻河★、赫拉格★</td>
+        <td>✅完美0漏(90s) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_coop_1_r13" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R14</b></td>
+        <td>6本</td>
+        <td>13g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>13</td>
+        <td><b>173</b></td>
+        <td>-</td>
+        <td>乌啾★、机械师★、冻河★、魔王★、维伊★、赫拉格★、奥尔佳★、塔露拉</td>
+        <td>🏆斩杀(126s,伤16,106,744) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_coop_1_r14" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R15</b></td>
+        <td>6本</td>
+        <td>13g</td>
+        <td>-</td>
+        <td>13</td>
+        <td><b>194</b></td>
+        <td>-</td>
+        <td>乌啾★、机械师★、冻河★、魔王★、维伊★、赫拉格★、奥尔佳★、塔露拉</td>
+        <td>🏆斩杀(180.7s,伤27,442,460) <a class="watch-sm" href="/dev/render-demo.html?scene=ursus_coop_1_r15" target="_blank">▶观看</a></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+<section class="card">
+      <div class="card-head">
+        <div>
+          <span class="tag-core core-victoriaShip">维多利亚</span>
+          <span class="tag-mode mode-solo">单人规程20级</span>
+          <span class="tag-ok">✅ 已进R15隐秘</span>
+          <span class="tag-clear">🏆 隐秘斩杀</span>
+          <h2>维多利亚 · 单人规程20级 · 大模型实机操盘 (flex_solo_3)</h2>
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-replay" href="/?replay=flex_solo_3" target="_blank">🎮 游戏本体原生回放</a>
+          <a class="btn btn-r14" href="/dev/recordings/demo_ops/replay.html?match=flex_solo_3" target="_blank">🎬 网页版回放</a>
+          <a class="btn btn-r14" href="/dev/render-demo.html?scene=flex_solo_3_r14" target="_blank">▶ R14领袖战</a>
+          <a class="btn btn-r15" href="/dev/render-demo.html?scene=flex_solo_3_r15" target="_blank">▶ R15隐秘核心</a>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="k">R14激活总层数</div><div class="v">518</div></div>
+        <div class="kpi"><div class="k">R14领袖战</div><div class="v">盐风主教昆图斯 · 118.1s</div></div>
+        <div class="kpi"><div class="k">R15隐秘核心</div><div class="v">假想敌：胄 ✅斩杀</div></div>
+        <div class="kpi"><div class="k">复奏双碰 / 地图</div><div class="v">6次 · act3autochess_m02</div></div>
+      </div>
+      <div class="mates">
+      <span class="mate-pill">0号位 复奏 · 维多利亚 (层534 / 伤4,370,000)</span>
+    </div>
+      <div class="rounds-bar"><span class="lbl">全回合实机回放：</span><a class="chip" href="/dev/render-demo.html?scene=flex_solo_3_r01" target="_blank">R1</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_3_r02" target="_blank">R2</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_3_r03" target="_blank">R3</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_3_r04" target="_blank">R4</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_3_r05" target="_blank">R5</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_3_r06" target="_blank">R6</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_3_r07" target="_blank">R7</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_3_r08" target="_blank">R8</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_3_r09" target="_blank">R9</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_3_r10" target="_blank">R10</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_3_r11" target="_blank">R11</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_3_r12" target="_blank">R12</a><a class="chip" href="/dev/render-demo.html?scene=flex_solo_3_r13" target="_blank">R13</a><a class="chip chip-r14" href="/dev/render-demo.html?scene=flex_solo_3_r14" target="_blank">R14领袖</a><a class="chip chip-r15" href="/dev/render-demo.html?scene=flex_solo_3_r15" target="_blank">R15隐秘</a></div>
+      <details>
+        <summary>展开逐回合运营与战斗账本（R1–R15）</summary>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>回合</th><th>本级</th><th>资金</th><th>复奏</th><th>血量</th><th>层数</th><th>运营要点</th><th>场上阵容</th><th>战况/录像</th></tr></thead>
+            <tbody><tr>
+        <td><b>R1</b></td>
+        <td>1本</td>
+        <td>4g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>0</b></td>
+        <td>R01折桠+拉普兰德稳血起步，全池自由看牌定核</td>
+        <td>拉普兰德、折桠</td>
+        <td>✅完美0漏(44s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_3_r01" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R2</b></td>
+        <td>1本</td>
+        <td>5g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>4</b></td>
+        <td>-</td>
+        <td>霜叶、摆渡人、拉普兰德、折桠</td>
+        <td>✅完美0漏(39s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_3_r02" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R3</b></td>
+        <td>2本</td>
+        <td>6g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>5</b></td>
+        <td>-</td>
+        <td>霜叶、摆渡人、拉普兰德、摆渡人、折桠</td>
+        <td>✅完美0漏(57s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_3_r03" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R4</b></td>
+        <td>2本</td>
+        <td>8g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>7</b></td>
+        <td>R04左收阵型：瑰盐@(10,5,L)覆双路+奥斯塔/复奏安全岛双路齐射，亮3叙拉古稳血并冻安哲拉</td>
+        <td>复奏、摆渡人、奥斯塔、瑰盐、拉普兰德、折桠、摆渡人</td>
+        <td>✅完美0漏(57s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_3_r04" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R5</b></td>
+        <td>3本</td>
+        <td>9g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>7</b></td>
+        <td>-</td>
+        <td>复奏、安哲拉、摆渡人、奥斯塔、瑰盐、拉普兰德、折桠、摆渡人</td>
+        <td>✅完美0漏(61s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_3_r05" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R6</b></td>
+        <td>4本</td>
+        <td>9g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>2</b></td>
+        <td>R06 24满血卖折桠抢4本并冻结安哲拉对子+空弦，瞄准R09-R10抢6本</td>
+        <td>复奏、安哲拉、摆渡人、奥斯塔、瑰盐、拉普兰德、摆渡人</td>
+        <td>✅完美0漏(68s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_3_r06" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R7</b></td>
+        <td>4本</td>
+        <td>10g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>4</b></td>
+        <td>-</td>
+        <td>复奏、安哲拉、摆渡人、奥斯塔、瑰盐、拉普兰德、凯瑟琳、摆渡人</td>
+        <td>✅完美0漏(92s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_3_r07" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R8</b></td>
+        <td>5本</td>
+        <td>11g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>24</td>
+        <td><b>16</b></td>
+        <td>R08 24满血抢5本并靠摆渡人★触发首碰双6阶复奏，拿下机械师(r9三人行每轮白印)+逻各斯(亮2远见)</td>
+        <td>逻各斯、复奏、摆渡人★、奥斯塔、瑰盐、拉普兰德、凯瑟琳、机械师</td>
+        <td>✅完美0漏(87s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_3_r08" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R9</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>16</b></td>
+        <td>R09 24满血12g准时抢6本！冻云迹锁死下轮0人口2/2奇迹刷店引擎，爬行号@(11,7)孤立骗重炮</td>
+        <td>逻各斯、复奏、摆渡人★、奥斯塔、瑰盐、拉普兰德、凯瑟琳、机械师</td>
+        <td>✅完美0漏(96s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_3_r09" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R10</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>24</td>
+        <td><b>22</b></td>
+        <td>R10 6本复奏双6阶拿缪尔赛思(球)+塔露拉，补买魔王(阿戈尔重刃)+涤火杰西卡，7盟约齐亮+机械师3协防印6人小池</td>
+        <td>逻各斯、缪尔赛思、涤火杰西卡、魔王、瑰盐、凯瑟琳、塔露拉、机械师</td>
+        <td>✅完美0漏(102s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_3_r10" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R11</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td>-</td>
+        <td>24</td>
+        <td><b>40</b></td>
+        <td>R11 2g伊桑狙出塔露拉#2+买涤火杰西卡#2双听牌，魔王+80%攻双核心9盟约齐亮</td>
+        <td>逻各斯、乌啾、涤火杰西卡、魔王、瑰盐、凯瑟琳、塔露拉、机械师</td>
+        <td>✅完美0漏(106s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_3_r11" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R12</b></td>
+        <td>6本</td>
+        <td>13g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>24</td>
+        <td><b>65</b></td>
+        <td>R12 乌啾★复奏双6阶拿帕拉斯+塔露拉★(再送蕾缪安)，买迷迭香+逻各斯#2+夜莺(冻#2)，合进阶阿戈尔重刃(+100%魔王)+锻[维多利亚·帕拉斯]→塔露拉★，10盟约齐亮冲层</td>
+        <td>迷迭香、乌啾★、涤火杰西卡、魔王、夜莺、机械师、帕拉斯、塔露拉★</td>
+        <td>✅完美0漏(81s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_3_r12" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R13</b></td>
+        <td>6本</td>
+        <td>12g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>24</td>
+        <td><b>189</b></td>
+        <td>R13 0g奇迹刷出双三连冻一触一：合夜莺★触复奏再链合逻各斯★(+30)拿机械师#2+魔王#2，冻涤火杰西卡★给R14！摆10盟约3/3满助力+r10四人行单轮预爆+176提前破351门禁</td>
+        <td>迷迭香、乌啾★、罗比菈塔、魔王、夜莺★、涤火杰西卡、帕拉斯、塔露拉★</td>
+        <td>✅完美0漏(96s) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_3_r13" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R14</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>24</td>
+        <td><b>373</b></td>
+        <td>R14 涤火杰西卡★复奏+蕾缪安★三连+双缪尔赛思造三激活[乌萨斯·逻各斯★]，10盟约含5/5满绝技373层战前破门，r11五人行+帕拉斯贴逻各斯★+三6阶精锐+100%魔王右压斩昆图斯</td>
+        <td>帕拉斯、逻各斯★、罗比菈塔、夜莺★、涤火杰西卡★、魔王、塔露拉★、蕾缪安★</td>
+        <td>🏆斩杀(118.1s,伤4,370,000) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_3_r14" target="_blank">▶观看</a></td>
+      </tr><tr>
+        <td><b>R15</b></td>
+        <td>6本</td>
+        <td>14g</td>
+        <td><span class="badge-duet">复奏双奖</span></td>
+        <td>24</td>
+        <td><b>534</b></td>
+        <td>R15 魔王★(+100%攻2技能)第5轮复奏，造四激活[维多利亚·塔露拉★](灼燃重锤)+三激活[乌萨斯·逻各斯★]+双满装维伊开3/3满奥术+5/5满绝技+8/8全穿装，冲730激活层双斩隐秘假想敌：胄</td>
+        <td>帕拉斯、维伊、逻各斯★、罗比菈塔、夜莺★、涤火杰西卡★、魔王★、塔露拉★</td>
+        <td>🏆斩杀(60.2s,伤6,840,000) <a class="watch-sm" href="/dev/render-demo.html?scene=flex_solo_3_r15" target="_blank">▶观看</a></td>
+      </tr></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+</main>
+</body>
+</html>
