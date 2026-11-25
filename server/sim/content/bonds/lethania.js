@@ -52,7 +52,7 @@ function summonKit({ ranged, radius, doubleAfter = 0 }) {
       attackRangeRadius: radius,
       ...(ranged ? { strictAttackRange: true } : {}),
       ...(doubleAfter > 0 ? {
-        hitsFn: (_b, unit, info) => (info && info.attackId != null && unit.mem.chorusDoubleId === info.attackId ? 2 : 1),
+        hitsFn: (_b, unit, info) => (info && info.attackId != null && unit.mem.chorusDoubleIds?.has(info.attackId) ? 2 : 1),
       } : {}),
     },
     install(battle, unit) {
@@ -63,18 +63,21 @@ function summonKit({ ranged, radius, doubleAfter = 0 }) {
       // healFree so non-regen self heals are blocked as well, while HP regeneration (regen: true) still applies.
       battle.addBuff(unit, { key: 'trait:abnormal', flags: { noHeal: true, healFree: true }, persist: true, allowDead: true, refresh: 'replace' });
       if (doubleAfter > 0) {
-        // PRTS / enemy_9026_acltm Sk1 (spCost 3): after 3 attacks, the next attack strikes twice.
+        // PRTS / enemy_9026_acltm Sk1 (sp.type INCREASE_WHEN_ATTACK, spCost 3): after 3 attacks, the next attack
+        // strikes twice (two 100% ATK arts hits sharing attackId), then resets. Storing attackIds in a Set
+        // prevents overlapping flights at high ASPD from overwriting a pending double-hit id.
         unit.mem.chorusAtkSp = 0;
+        unit.mem.chorusDoubleIds = new Set();
         battle.on('beforeAttack', (c) => {
-          if (c.attacker !== unit) return;
+          if (c.attacker !== unit || !unit.alive) return;
+          if (!Array.isArray(c.targets) || !c.targets.some((t) => t && t.alive)) return;
           if (unit.mem.chorusAtkSp >= doubleAfter) {
-            unit.mem.chorusDoubleId = (battle._attackSeq || 0) + 1;
+            unit.mem.chorusDoubleIds.add((battle._attackSeq || 0) + 1);
             unit.mem.chorusAtkSp = 0;
           } else {
-            unit.mem.chorusDoubleId = null;
             unit.mem.chorusAtkSp++;
           }
-        }, { owner: unit });
+        }, { owner: unit, priority: -1000 });
       }
       battle.on('tick', ({ dt }) => moveTowardTarget(battle, unit, dt), { owner: unit });
     },
@@ -300,6 +303,11 @@ function walkPath(battle, unit, route, dt) {
     }
   }
   unit.moving = moved;
+}
+
+/** Four-way ground pursuit. Leithania summons and the 谢拉格 giant both call this. */
+export function pursueGroundEnemy(battle, unit, dt) {
+  moveTowardTarget(battle, unit, dt);
 }
 
 function moveTowardTarget(battle, unit, dt) {

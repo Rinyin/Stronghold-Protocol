@@ -123,3 +123,33 @@ npm run typecheck
 | `docs/design/engine.md`、`docs/SIM.md`、`docs/history/0.4.0.md` | 同步补充规则与变更记录 |
 | `test/golden/act3autochess-v3_1/*.json` | 随玩法修复重生成规程黄金摘要（其余 4 个版本不变） |
 
+---
+
+## #4 · 2026-11-25 · 回流 master 自研改动并同步上游 `upstream/dev`（`c7cea5a9`）
+
+### 4.1 从 `master` 回流至 `dev` 的自研功能与独有修复
+
+1. **客户端原生运营回放功能**（`master` 提交 `e6d1c414` → `dev` `781d7e3a`）
+   - 新增 `public/js/replay.js`、`public/css/screens/replay.css`、`public/dev/recordings/demo_ops/`，更新 `public/dev/recordings/index.json`；
+   - 在 `public/index.html`、`public/js/main.js`、`public/js/net.js`、`public/js/battle/runner.js`、`public/js/store.js`、`public/js/ui/connBanner.js`、`public/js/screens/{game,lobby,settle,title}.js` 接入只读本地回放（并在 `main.js` 同步隔离上游新增的 `m.peek` 消息）；
+   - 在 `public/i18n/{en,ja,ko,zh-TW}.json` 补充 81 条回放界面多语言词条。
+2. **Service Worker 游玩期素材自动缓存**（`master` 提交 `da670d3b` → `dev` `6ce09ef7`）
+   - 更新 `public/sw.js` 与 `test/ui/asset-import.test.js`，在线加载哈希路径素材时自动写入 `sp-imported-assets-v1` 缓存并批量维护 `/sp-imported-index.json` 索引。
+3. **规程玩法独有修复（上游尚未合入部分）**（`master` 提交 `b3497a68` → `dev` `0f81fd5f`，并在合并时保留/增强）
+   - **莱塔尼亚「一个乐部」3 攻二连击**（`server/sim/content/bonds/lethania.js`）：每攻击 3 次后下次攻击二连击，采用 `chorusDoubleIds` `Set`、存活与活目标校验及 `priority: -1000` 防止高攻速飞行物重叠覆盖；
+   - **维多利亚_2（洛洛）借装取消 5 阶上限**（`server/sim/content/bonds/regulation.js`）：`maxTier = num(bb.filter_item_level, 99)`，允许共享 6 阶红装；
+   - **乌萨斯 6 人税后独立生命流失流血**（`server/sim/content/bonds/regulation.js`）：在 `hpDamage` 税后拆分 10 秒独立 `dealHPLose` 流血计时器，仅作用于物/法伤，后击不覆盖前击，来源死亡或离场停止；
+   - **叙拉古异常计数补齐**（`server/sim/content/bonds/regulation.js`）：`abnormalCount()` 覆盖 `freeze`/`sleep`/`levitate`/`bind`/`tremble`，并避免冻结/浮空重复计入 `stun`；
+   - **伊比利亚持续伤害改为法术生命流失**（`server/sim/content/bonds/regulation.js`）：DoT 使用 `dealHPLose`（绕过闪避与护盾），并在减速超时后归零叠层；
+   - **聚合 3 人「庇护」限定物/法伤与实时同步**（`server/sim/content/bonds/regulation.js`）：在保留上游 `§37.298` 官方生命回复速度光环的前提下，庇护按 PRTS 仅降低物理与法术伤害（`physTakenMul`/`artsTakenMul`）并随部署/死亡实时同步；
+   - **规程领袖 3 处修复**（`server/sim/content/regulation-bosses.js`）：假想敌：械与巨兽减伤限定仅对物/法伤生效；蜘蛛 `refreshEvade` 记录 `a.evadeSteps` 防止同血量档每帧无限续杯闪避。
+
+### 4.2 同步上游 `upstream/dev`（`55f528e9..c7cea5a9`，247 个提交，`§37.241`–`§37.348`）
+
+- 完整合入上游 round 83–84 全部更新（含同盟盟约速查浮窗 PR #922、作战中查看队友 PR #971、跨时期名片 #877、设置分类搜索 PR #982、规程英文文本 PR #990、大厅预选插件 PR #949、干员攻击转向 PR #730、时装语音 PR #734、本地提取时装/图库 PR #776、全版本「攻击力提升至」减防前结算 `§37.293`、规程全面排查修复及 3D 场景/特效/盟约卡片大改版等）。
+- 与上游重合的改动统一采用上游权威官方模板实现：
+  - `#3` 的规程三奥术反隐（`§37.287`）与莱塔尼亚召唤物禁疗（PR #997，`§37.345`）均已进入上游主线；
+  - 临时盟约层数机制（PR #923，`§37.258`）、萨尔贡单格流沙（`§37.292`）、谢拉格不眠雪山走动追击（`§37.249`）、叙拉古命中后进入 `0.2s` 冷却（`§37.281`）、伊比利亚半径 `1` 单目标弹射（`§37.281`）、莱塔尼亚乐部光环与掉坑召唤（`§37.257`/`§37.304`）、聚合生命回复速度光环（`§37.298`）均采用上游完整实现。
+- 保留 `#1`/`#2` 商店刷新动态提权机制（与 `PlayerState.js`、`bossRounds.js`、`settle.js`、`pool.js`、`player/economy.js` 无缝兼容），并随自定义玩法修复同步核验/更新规程黄金数据。
+
+
