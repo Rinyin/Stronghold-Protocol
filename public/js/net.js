@@ -176,7 +176,17 @@ export class Net {
     this._receiver = new StateReceiver();
     this._stateRoom = null;
     this._resyncAt = 0;        // epoch ms of the last resync request we sent
+    this._replayGuard = null;  // local native-replay interceptor (public/js/replay.js)
     this.peers = new PeerTransport(this, opts.p2p);
+  }
+
+  /**
+   * Install or clear a local read-only replay interceptor (public/js/replay.js).
+   * When active, `request()` delegates to the guard and `send()` becomes a no-op.
+   * @param {((t: string, fields: object) => any) | null} fn
+   */
+  setReplayGuard(fn) {
+    this._replayGuard = typeof fn === 'function' ? fn : null;
   }
 
   // ---- events ----------------------------------------------------------------------------------
@@ -456,6 +466,14 @@ export class Net {
    * @returns {Promise<any>}
    */
   request(t, fields = {}, opts = {}) {
+    if (this._replayGuard) {
+      try {
+        const res = this._replayGuard(t, fields);
+        if (res !== undefined) return Promise.resolve(res);
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    }
     return new Promise((resolve, reject) => {
       if (t === 'hello') { reject(new NetError('BAD_MSG', 'use setName() for hello')); return; }
       const rid = this._nextRid();
@@ -495,6 +513,7 @@ export class Net {
    * @returns {boolean}
    */
   send(t, fields = {}) {
+    if (this._replayGuard) return false;
     if (t === 'hello') return false;
     const msg = { ...(fields && typeof fields === 'object' ? fields : {}), t };
     const bad = validateC2S(msg);

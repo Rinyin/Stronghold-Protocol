@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>卫戍协议：规程 · 全过程实机回放（整备 + 战斗）</title>
+<style>
+  :root {
+    --bg:#0b0f14; --panel:#121821; --card:#171f2b; --bd:#2a3545; --fg:#e6edf3; --muted:#8b949e;
+    --mint:#4ed8af; --accent:#58a6ff; --gold:#f2cc60; --ok:#3fb950; --r15:#c586ff; --danger:#f85149;
+    --t1:#9aa6b2; --t2:#56d364; --t3:#58a6ff; --t4:#bc8cff; --t5:#f2cc60; --t6:#ff7b72;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; padding:0; background:var(--bg); color:var(--fg); font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; font-size:13px; }
+  a { color:var(--accent); text-decoration:none; }
+  button, select { font:inherit; color:var(--fg); background:#1c2533; border:1px solid var(--bd); border-radius:6px; padding:5px 10px; cursor:pointer; }
+  button:hover { border-color:var(--accent); }
+  button.primary { background:#1f6feb; border-color:#388bfd; color:#fff; font-weight:600; }
+  button.ok { background:#238636; border-color:#3fb950; color:#fff; font-weight:600; }
+  button.active { background:#1b334b; border-color:var(--mint); color:var(--mint); font-weight:700; }
+
+  .topbar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; padding:10px 16px; background:linear-gradient(135deg,#111722,#182232); border-bottom:1px solid var(--bd); }
+  .topbar-left { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .topbar h1 { margin:0; font-size:16px; }
+  .pill { display:inline-flex; align-items:center; gap:4px; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:600; background:#1c2431; border:1px solid var(--bd); }
+  .pill-ok { background:#132f1e; border-color:#2ea043; color:#56d364; }
+  .pill-gold { background:#352910; border-color:#d29922; color:#f2cc60; }
+  .pill-r15 { background:#2b1a44; border-color:#8957e5; color:#d2a8ff; }
+
+  .roundbar { display:flex; gap:5px; overflow-x:auto; padding:8px 16px; background:#0f141c; border-bottom:1px solid var(--bd); }
+  .rgroup { display:inline-flex; flex-direction:column; gap:3px; background:var(--panel); border:1px solid var(--bd); border-radius:8px; padding:4px 6px; min-width:68px; flex-shrink:0; }
+  .rgroup.is-cur { border-color:var(--mint); box-shadow:0 0 0 1px rgba(78,216,175,.35); }
+  .rgroup-head { display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--muted); font-weight:700; }
+  .rgroup-btns { display:flex; gap:3px; }
+  .rbtn { padding:2px 5px; font-size:11px; border-radius:4px; flex:1; text-align:center; background:#1a2230; border:1px solid #2b3647; color:#c9d1d9; }
+  .rbtn.is-on { background:var(--mint); border-color:var(--mint); color:#091114; font-weight:700; }
+  .rbtn.is-combat.is-on { background:#1f6feb; border-color:#58a6ff; color:#fff; }
+
+  .ctrlbar { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:8px 16px; background:var(--panel); border-bottom:1px solid var(--bd); }
+  .ctrlbar input[type=range] { flex:1; min-width:140px; accent-color:var(--mint); }
+  .kb-hint { color:var(--muted); font-size:11px; margin-left:auto; }
+
+  .backfill-banner { background:#2a2210; border-bottom:1px solid #6e5418; color:#f2cc60; padding:6px 16px; font-size:12px; display:none; }
+  .backfill-banner.show { display:block; }
+
+  .stage-wrap { padding:12px 16px 20px; max-width:1520px; margin:0 auto; }
+
+  /* PREP LAYOUT */
+  .prep-hud { display:flex; flex-wrap:wrap; align-items:center; gap:10px; background:var(--card); border:1px solid var(--bd); border-radius:10px; padding:9px 14px; margin-bottom:12px; }
+  .stat-chip { display:inline-flex; align-items:center; gap:5px; background:#0e141c; border:1px solid #263140; border-radius:7px; padding:4px 9px; font-weight:600; }
+  .stat-chip b { color:#fff; font-size:14px; }
+  .action-toast { flex:1; min-width:260px; background:linear-gradient(90deg,rgba(78,216,175,.14),rgba(88,166,255,.08)); border:1px solid rgba(78,216,175,.45); border-radius:8px; padding:6px 12px; }
+  .action-toast .act-main { font-weight:700; color:var(--mint); font-size:13px; }
+  .action-toast .act-note { color:#f2cc60; font-size:12px; margin-top:2px; }
+
+  .prep-grid { display:grid; grid-template-columns:minmax(0, 1.85fr) minmax(300px, 1fr); gap:12px; align-items:start; }
+  @media (max-width:1050px) { .prep-grid { grid-template-columns:1fr; } }
+
+  .box { background:var(--panel); border:1px solid var(--bd); border-radius:10px; padding:10px 12px; margin-bottom:12px; }
+  .box-title { display:flex; justify-content:space-between; align-items:center; font-size:12px; font-weight:700; color:var(--muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:.03em; }
+
+  /* BOARD 4x9 */
+  .board-grid { display:grid; grid-template-columns:repeat(9, minmax(0, 1fr)); gap:5px; }
+  .tile { position:relative; aspect-ratio:1/1; min-height:66px; border-radius:7px; border:1px solid #222c3a; background:#0c1118; display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden; }
+  .tile.t-melee { background:#131d29; border-color:#2b3d52; }
+  .tile.t-ranged { background:#1c2536; border-color:#445978; box-shadow:inset 0 0 0 1px rgba(130,170,255,.15); }
+  .tile.t-road { background:#111720; border-style:dashed; border-color:#26303d; }
+  .tile.t-blue { background:#11294a; border-color:#388bfd; }
+  .tile.t-red { background:#3d161b; border-color:#f85149; }
+  .tile.t-forbid { background:#090c10; border-color:#151b23; opacity:.55; }
+  .tile.is-hl { outline:2px solid var(--mint); box-shadow:0 0 14px rgba(78,216,175,.55); z-index:2; }
+  .tile-coord { position:absolute; top:2px; left:4px; font-size:9px; color:#5a697c; pointer-events:none; }
+  .tile-kind { font-size:10px; color:#58687c; font-weight:700; }
+
+  .unit-card { position:relative; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding:3px; background:#141b25; }
+  .unit-card.is-golden { box-shadow:inset 0 0 0 2px var(--gold); background:linear-gradient(180deg,rgba(242,204,96,.18),#161b22); }
+  .unit-card img.ava { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.86; }
+  .unit-card .u-grad { position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.15) 30%,rgba(0,0,0,.88) 100%); }
+  .unit-card .u-name { position:relative; z-index:2; font-size:11px; font-weight:700; color:#fff; text-shadow:0 1px 2px #000; text-align:center; line-height:1.1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+  .unit-card .u-dir { position:absolute; top:2px; right:3px; z-index:2; background:rgba(0,0,0,.72); color:var(--mint); font-size:10px; font-weight:800; padding:0 4px; border-radius:4px; }
+  .unit-card .u-tier { position:absolute; top:2px; left:3px; z-index:2; font-size:9px; font-weight:800; padding:0 4px; border-radius:4px; background:rgba(0,0,0,.75); }
+  .unit-card .u-items { position:absolute; bottom:16px; right:2px; z-index:3; display:flex; gap:2px; }
+  .u-item-ic { width:18px; height:18px; border-radius:4px; border:1px solid #f2cc60; background:#0d1117; object-fit:cover; }
+  .u-item-txt { font-size:9px; background:#3a2d0c; color:#f2cc60; padding:0 3px; border-radius:3px; border:1px solid #d29922; }
+
+  /* MODAL SPOTLIGHT */
+  .modal-spot { background:linear-gradient(135deg,#1c1630,#142033); border:2px solid var(--r15); border-radius:10px; padding:10px 12px; margin-bottom:12px; }
+  .modal-cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:8px; margin-top:8px; }
+  .mcard { display:flex; gap:8px; align-items:center; background:#0f141d; border:1px solid #354156; border-radius:8px; padding:8px; position:relative; }
+  .mcard.is-picked { border:2px solid var(--ok); background:#11281b; box-shadow:0 0 12px rgba(63,185,80,.4); }
+  .mcard img { width:44px; height:44px; border-radius:6px; object-fit:cover; flex-shrink:0; background:#1c2533; }
+  .mcard-pick-tag { position:absolute; top:-8px; right:8px; background:var(--ok); color:#041108; font-size:10px; font-weight:800; padding:1px 6px; border-radius:999px; }
+
+  /* SHOP / HAND / TEMP */
+  .shop-row { display:grid; grid-template-columns:repeat(auto-fit, minmax(145px, 1fr)); gap:7px; }
+  .scard { display:flex; gap:8px; align-items:center; background:var(--card); border:1px solid var(--bd); border-left-width:3px; border-radius:8px; padding:7px; position:relative; }
+  .scard.is-sold { opacity:.35; }
+  .scard.is-frozen { border-color:#58a6ff; box-shadow:inset 0 0 10px rgba(88,166,255,.25); }
+  .scard.is-hl { outline:2px solid var(--gold); box-shadow:0 0 12px rgba(242,204,96,.5); }
+  .scard img { width:42px; height:42px; border-radius:6px; object-fit:cover; flex-shrink:0; background:#0d1219; }
+  .scard .meta { min-width:0; flex:1; }
+  .scard .nm { font-weight:700; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .scard .sub { font-size:11px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .scard .price { position:absolute; top:5px; right:6px; font-size:11px; font-weight:700; color:var(--gold); }
+
+  .dock-split { display:grid; grid-template-columns:1.6fr 1fr; gap:10px; }
+  @media (max-width:800px) { .dock-split { grid-template-columns:1fr; } }
+  .slot-strip { display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:5px; }
+  .mini-slot { background:#0e131b; border:1px solid #243040; border-radius:6px; padding:4px; min-height:58px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative; overflow:hidden; }
+  .mini-slot.is-golden { border-color:var(--gold); }
+  .mini-slot img { width:34px; height:34px; border-radius:5px; object-fit:cover; }
+  .mini-slot .mn { font-size:10px; font-weight:600; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+
+  /* SIDEBAR */
+  .gate-bar { background:#0d121a; border:1px solid #263140; border-radius:8px; padding:8px 10px; margin-bottom:10px; }
+  .gate-track { height:8px; background:#1c2533; border-radius:999px; overflow:hidden; margin-top:5px; }
+  .gate-fill { height:100%; background:linear-gradient(90deg,#1f6feb,#4ed8af,#f2cc60); transition:width .25s; }
+  .bonds-wrap { display:flex; flex-wrap:wrap; gap:5px; }
+  .bchip { display:inline-flex; align-items:center; gap:5px; padding:3px 7px; border-radius:6px; font-size:11px; border:1px solid #2b3749; background:#101620; }
+  .bchip.is-active { border-color:var(--mint); background:#112628; color:#e6edf3; font-weight:600; }
+  .bchip img { width:16px; height:16px; object-fit:contain; }
+  .bchip .blayer { color:var(--gold); font-weight:700; }
+
+  .log-list { max-height:330px; overflow-y:auto; display:flex; flex-direction:column; gap:4px; }
+  .log-item { padding:6px 8px; border-radius:6px; border:1px solid #1e2836; background:#0e141c; cursor:pointer; font-size:12px; }
+  .log-item:hover { border-color:#3a4c63; }
+  .log-item.is-cur { border-color:var(--mint); background:#11272a; }
+  .log-item .li-top { display:flex; justify-content:space-between; gap:6px; font-weight:600; }
+  .log-item .li-note { color:#f2cc60; font-size:11px; margin-top:2px; }
+
+  .enemy-chips { display:flex; flex-wrap:wrap; gap:4px; }
+  .echip { font-size:11px; padding:2px 6px; border-radius:5px; background:#23161b; border:1px solid #5a2a33; color:#ffb3ba; }
+  .echip.upper { background:#1d1b2d; border-color:#493c70; color:#c8beff; }
+
+  /* COMBAT STAGE */
+  .combat-wrap { display:none; flex-direction:column; gap:10px; }
+  .combat-wrap.show { display:flex; }
+  .combat-bar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; background:var(--card); border:1px solid var(--bd); border-radius:10px; padding:10px 14px; }
+  .combat-frame { width:100%; height:calc(100vh - 230px); min-height:540px; border:1px solid var(--bd); border-radius:10px; background:#070a0d; }
+
+  .tier-1 { border-left-color:var(--t1) !important; } .tier-2 { border-left-color:var(--t2) !important; }
+  .tier-3 { border-left-color:var(--t3) !important; } .tier-4 { border-left-color:var(--t4) !important; }
+  .tier-5 { border-left-color:var(--t5) !important; } .tier-6 { border-left-color:var(--t6) !important; }
+  .c-t1 { color:var(--t1); } .c-t2 { color:var(--t2); } .c-t3 { color:var(--t3); }
+  .c-t4 { color:var(--t4); } .c-t5 { color:var(--t5); } .c-t6 { color:var(--t6); }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="/dev/recordings/demo_ops/index.html" style="font-weight:700;">← 合集页</a>
+    <h1 id="matchTitle">正在加载全过程录像…</h1>
+    <span id="matchBadges"></span>
+  </div>
+  <div class="topbar-left">
+    <label style="font-size:12px;color:var(--muted);">切换对局:
+      <select id="matchPicker"></select>
+    </label>
+    <span id="seatSwitcher" style="display:none;">
+      <label style="font-size:12px;color:var(--muted);">视角:
+        <select id="seatSelect"></select>
+      </label>
+    </span>
+  </div>
+</div>
+
+<div class="backfill-banner" id="backfillBanner">
+  ℹ️ 本局为早期已发布对局，整备阶段由「逐回合运营账本 + 实机战斗开局终阵」回溯还原；新局已全面启用逐操作实时录制（每次买卡、刷新、三连弹窗、穿装与换位完整可回放）。
+</div>
+
+<div class="roundbar" id="roundBar"></div>
+
+<div class="ctrlbar">
+  <button id="btnPrev" type="button">⏮ 上一步</button>
+  <button id="btnPlay" type="button" class="ok">▶ 自动连播</button>
+  <button id="btnNext" type="button">⏭ 下一步</button>
+  <select id="speedSel" title="整备自动播放速度">
+    <option value="2200">0.5×</option>
+    <option value="1200" selected>1×</option>
+    <option value="750">1.5×</option>
+    <option value="500">2×</option>
+    <option value="300">3×</option>
+  </select>
+  <input id="stepSlider" type="range" min="0" max="0" value="0" />
+  <span id="stepCounter" style="font-weight:700;min-width:96px;text-align:center;">0 / 0</span>
+  <button id="btnToggleStage" type="button" class="primary">⚔️ 切到本轮战斗</button>
+  <span class="kb-hint">快捷键: ←/→ 单步 | Space 连播 | B 切换整备/战斗</span>
+</div>
+
+<div class="stage-wrap">
+  <!-- PREP THEATER -->
+  <div id="prepStage">
+    <div class="prep-hud" id="prepHud"></div>
+    <div class="prep-grid">
+      <div>
+        <div class="modal-spot" id="modalSpot" style="display:none;"></div>
+        <div class="box">
+          <div class="box-title">
+            <span id="boardTitle">部署棋盘 (r12上路 → r9下路)</span>
+            <span id="deploySummary"></span>
+          </div>
+          <div class="board-grid" id="boardGrid"></div>
+        </div>
+        <div class="box">
+          <div class="box-title">
+            <span>调度中心商店</span>
+            <span id="shopMeta"></span>
+          </div>
+          <div class="shop-row" id="shopRow"></div>
+        </div>
+        <div class="dock-split">
+          <div class="box">
+            <div class="box-title"><span>备战区 (10格)</span><span id="handMeta"></span></div>
+            <div class="slot-strip" id="handStrip"></div>
+          </div>
+          <div class="box">
+            <div class="box-title"><span>装备临时区 (5格)</span><span id="tempMeta"></span></div>
+            <div class="slot-strip" id="tempStrip"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="box">
+          <div class="box-title"><span>盟约激活与隐秘核心门禁</span><span id="gateText"></span></div>
+          <div class="gate-bar">
+            <div style="display:flex;justify-content:space-between;font-size:12px;">
+              <span id="layerLabel">永久激活总层: 0</span>
+              <span id="gateTargetLabel">门槛 > 350</span>
+            </div>
+            <div class="gate-track"><div class="gate-fill" id="gateFill" style="width:0%"></div></div>
+          </div>
+          <div class="bonds-wrap" id="bondsWrap"></div>
+        </div>
+        <div class="box">
+          <div class="box-title"><span>本回合整备操作时间轴（点击跳转）</span><span id="logCount"></span></div>
+          <div class="log-list" id="logList"></div>
+        </div>
+        <div class="box" id="enemyBox" style="display:none;">
+          <div class="box-title"><span>下波敌方情报（前端待命区可见）</span></div>
+          <div class="enemy-chips" id="enemyChips"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMBAT THEATER -->
+  <div id="combatStage" class="combat-wrap">
+    <div class="combat-bar">
+      <div>
+        <b id="combatTitle" style="font-size:15px;">战斗期实机回放</b>
+        <span id="combatMeta" style="margin-left:10px;color:var(--muted);"></span>
+        <div id="combatNotes" style="color:var(--gold);font-size:12px;margin-top:3px;"></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button id="btnBackPrep" type="button">🛠️ 回到本轮整备</button>
+        <button id="btnNextRoundPrep" type="button" class="ok">⏭ 进入下回合整备</button>
+        <a id="combatFullLink" class="pill" href="#" target="_blank">↗ 新窗口打开</a>
+      </div>
+    </div>
+    <iframe id="combatFrame" class="combat-frame" src="about:blank"></iframe>
+  </div>
+</div>
+
+<script>
+const DIR_ARROW = { R: '→', L: '←', U: '↑', D: '↓', RIGHT: '→', LEFT: '←', UP: '↑', DOWN: '↓' };
+const qs = new URLSearchParams(location.search);
+let matchTag = qs.get('match') || '';
+let tl = null;
+let curRoundIdx = 0;
+let curStage = qs.get('stage') === 'combat' ? 'combat' : 'prep';
+let curStepIdx = Number(qs.get('step')) || 0;
+let curSeat = 0;
+let playTimer = null;
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+function stopAuto() {
+  if (playTimer) { clearTimeout(playTimer); playTimer = null; }
+  $('btnPlay').textContent = '▶ 自动连播';
+}
+
+function startAuto() {
+  stopAuto();
+  $('btnPlay').textContent = '❚❚ 暂停连播';
+  const tick = () => {
+    const rObj = tl?.rounds?.[curRoundIdx];
+    if (!rObj) { stopAuto(); return; }
+    if (curStage === 'prep') {
+      if (curStepIdx + 1 < (rObj.prepSteps?.length || 0)) {
+        curStepIdx++;
+        render();
+        playTimer = setTimeout(tick, Number($('speedSel').value) || 1200);
+      } else if (rObj.scenes?.length) {
+        curStage = 'combat';
+        render();
+        stopAuto(); // Let user watch live 3D combat without rushing!
+      } else if (curRoundIdx + 1 < tl.rounds.length) {
+        curRoundIdx++;
+        curStepIdx = 0;
+        render();
+        playTimer = setTimeout(tick, Number($('speedSel').value) || 1200);
+      } else {
+        stopAuto();
+      }
+    } else {
+      stopAuto();
+    }
+  };
+  playTimer = setTimeout(tick, Number($('speedSel').value) || 1200);
+}
+
+function getGridForField(deployField) {
+  const st = tl?.stage;
+  if (!st) return null;
+  if (deployField === 'bossR' && st.gridBossR) return st.gridBossR;
+  if (deployField === 'bossL' && st.gridBossL) return st.gridBossL;
+  return st.gridNormal || null;
+}
+
+function renderRoundBar() {
+  const bar = $('roundBar');
+  bar.innerHTML = (tl.rounds || []).map((r, idx) => {
+    const isCur = idx === curRoundIdx;
+    const pCnt = r.prepSteps?.length || 0;
+    const hasCombat = (r.scenes?.length || 0) > 0;
+    const lbl = r.round === 15 ? 'R15隐' : r.round === 14 ? 'R14领' : `R${String(r.round).padStart(2,'0')}`;
+    return `<div class="rgroup ${isCur ? 'is-cur' : ''}">
+      <div class="rgroup-head"><span>${lbl}</span><span>${r.activeLayers ?? 0}层</span></div>
+      <div class="rgroup-btns">
+        <button class="rbtn ${isCur && curStage === 'prep' ? 'is-on' : ''}" data-ri="${idx}" data-st="prep">整(${pCnt})</button>
+        ${hasCombat ? `<button class="rbtn is-combat ${isCur && curStage === 'combat' ? 'is-on' : ''}" data-ri="${idx}" data-st="combat">战</button>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+  bar.querySelectorAll('.rbtn').forEach((btn) => {
+    btn.onclick = () => {
+      stopAuto();
+      curRoundIdx = Number(btn.dataset.ri);
+      curStage = btn.dataset.st;
+      curStepIdx = 0;
+      render();
+    };
+  });
+}
+
+function renderPrep(rObj) {
+  $('prepStage').style.display = 'block';
+  $('combatStage').classList.remove('show');
+  $('combatFrame').src = 'about:blank';
+
+  const steps = rObj.prepSteps || [];
+  if (curStepIdx >= steps.length) curStepIdx = Math.max(0, steps.length - 1);
+  const step = steps[curStepIdx] || null;
+  const seatSnap = step?.seats?.find((s) => s.seat === curSeat) || step?.seats?.[0] || null;
+
+  $('stepSlider').max = Math.max(0, steps.length - 1);
+  $('stepSlider').value = curStepIdx;
+  $('stepCounter').textContent = `步骤 ${steps.length ? curStepIdx + 1 : 0} / ${steps.length}`;
+  $('btnToggleStage').textContent = (rObj.scenes?.length ? '⚔️ 切到本轮战斗' : '⚔️ 本轮无战斗录像');
+  $('btnToggleStage').disabled = !(rObj.scenes?.length);
+
+  if (!step || !seatSnap) {
+    $('prepHud').innerHTML = `<div class="stat-chip">R${rObj.round} 暂无整备步骤记录</div>`;
+    return;
+  }
+
+  // HUD
+  $('prepHud').innerHTML = `
+    <div class="stat-chip">回合 <b>R${String(rObj.round).padStart(2,'0')}</b></div>
+    <div class="stat-chip">❤️ 血量 <b>${seatSnap.lp}</b></div>
+    <div class="stat-chip">🪙 资金 <b style="color:var(--gold)">${seatSnap.funds}g</b></div>
+    <div class="stat-chip">🏪 <b>${seatSnap.shopLevel}本</b> <span style="color:var(--muted);font-size:11px;">(升${seatSnap.upgradePrice}g/刷${seatSnap.refreshPrice}g${seatSnap.frozen ? '/🔒冻' : ''})</span></div>
+    <div class="stat-chip">👥 部署 <b>${seatSnap.deployCount}/${seatSnap.deployCap}</b></div>
+    <div class="stat-chip">🎵 ${esc(seatSnap.bandName)} ${seatSnap.duetTriggered ? '<span style="color:var(--gold)">双奖✅</span>' : ''}</div>
+    <div class="action-toast">
+      <div class="act-main">#${curStepIdx + 1} [S${step.seat}] ${esc(step.label || step.action)}</div>
+      ${step.note ? `<div class="act-note">💡 操盘手思路：${esc(step.note)}</div>` : ''}
+    </div>
+  `;
+
+  // Modal spotlight
+  const modal = seatSnap.modal;
+  const mSpot = $('modalSpot');
+  if (modal && modal.options?.length) {
+    mSpot.style.display = 'block';
+    mSpot.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <b style="color:var(--r15);">✨ ${esc(modal.title || modal.kind)}</b>
+        <span style="font-size:11px;color:var(--muted);">${modal.pickedIdx != null ? `已选 [${modal.pickedIdx}]` : '待决策'}</span>
+      </div>
+      <div class="modal-cards">
+        ${modal.options.map((op) => `
+          <div class="mcard ${modal.pickedIdx === op.idx ? 'is-picked' : ''}" style="${op.soldOut ? 'opacity:.4' : ''}">
+            ${modal.pickedIdx === op.idx ? '<span class="mcard-pick-tag">✅ 已选中</span>' : ''}
+            ${op.avatar ? `<img src="${esc(op.avatar)}" alt="" />` : ''}
+            <div style="min-width:0;">
+              <div style="font-weight:700;">[${op.idx}] ${esc(op.name)} ${op.tier ? `<span class="c-t${op.tier}">T${op.tier}</span>` : ''}</div>
+              ${op.bonds?.length ? `<div style="font-size:11px;color:var(--mint);">[${esc(op.bonds.join(' / '))}]</div>` : ''}
+              <div style="font-size:11px;color:var(--muted);">${esc(op.desc || '')}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } else {
+    mSpot.style.display = 'none';
+  }
+
+  // Board 4x9
+  const grid = getGridForField(seatSnap.deployField);
+  $('boardTitle').textContent = `部署棋盘 · ${tl.stage?.name || tl.stage?.id || ''} (${seatSnap.deployField || 'normal'}${seatSnap.deployField === 'bossR' ? ' 右半场镜像' : ''})`;
+  $('deploySummary').textContent = `已上阵 ${seatSnap.board?.length || 0} 单位 (r12上路 → r9下路)`;
+  const unitAt = new Map();
+  for (const u of seatSnap.board || []) unitAt.set(`${u.row},${u.col}`, u);
+  const hl = step.highlight;
+  const cells = [];
+  for (let ri = 0; ri < 4; ri++) {
+    const r = 12 - ri;
+    for (let ci = 0; ci < 9; ci++) {
+      const c = 2 + ci;
+      const sym = grid ? grid[ri][ci] : '=';
+      const cls = sym === 'B' ? 't-blue' : sym === 'R' ? 't-red' : sym === '=' ? 't-melee' : sym === 'H' ? 't-ranged' : sym === '.' ? 't-road' : 't-forbid';
+      const u = unitAt.get(`${r},${c}`);
+      const isHl = hl && hl.type === 'board' && hl.row === r && hl.col === c;
+      if (u) {
+        const itemsHtml = (u.items || []).map((it) => it.icon
+          ? `<img class="u-item-ic" src="${esc(it.icon)}" title="${esc(it.name + (it.desc ? ': ' + it.desc : ''))}" />`
+          : `<span class="u-item-txt" title="${esc(it.name)}">${esc(it.name.slice(0,2))}</span>`).join('');
+        cells.push(`<div class="tile ${cls} ${isHl ? 'is-hl' : ''}" title="${esc(u.name)} (${r},${c}) [${esc((u.bonds||[]).join(','))}]">
+          <div class="unit-card ${u.golden ? 'is-golden' : ''}">
+            ${u.avatar ? `<img class="ava" src="${esc(u.avatar)}" alt="" />` : ''}
+            <div class="u-grad"></div>
+            <span class="u-tier c-t${u.tier || 1}">${u.golden ? '★' : ''}T${u.tier || '?'}</span>
+            <span class="u-dir">${DIR_ARROW[u.dir] || '→'}</span>
+            ${itemsHtml ? `<div class="u-items">${itemsHtml}</div>` : ''}
+            <div class="u-name">${esc(u.name)}</div>
+          </div>
+        </div>`);
+      } else {
+        const kLbl = sym === 'B' ? '蓝门' : sym === 'R' ? '红门' : sym === 'H' ? '高台' : sym === '=' ? '地面' : sym === '.' ? '路' : '';
+        cells.push(`<div class="tile ${cls} ${isHl ? 'is-hl' : ''}">
+          <span class="tile-coord">${r},${c}</span>
+          <span class="tile-kind">${kLbl}</span>
+        </div>`);
+      }
+    }
+  }
+  $('boardGrid').innerHTML = cells.join('');
+
+  // Shop
+  $('shopMeta').textContent = `${seatSnap.shopLevel}本 · ${seatSnap.frozen ? '🔒已冻结' : '未冻结'}`;
+  const shopArr = seatSnap.shop || [];
+  $('shopRow').innerHTML = shopArr.length ? shopArr.map((sl) => {
+    const isHl = hl && ((hl.type === 'shop' && hl.idx === sl.idx) || hl.type === 'shop_all');
+    if (sl.sold && !sl.name) {
+      return `<div class="scard is-sold"><div class="meta"><div class="nm">[${sl.idx}] 已售空</div></div></div>`;
+    }
+    return `<div class="scard tier-${sl.tier || 1} ${sl.sold ? 'is-sold' : ''} ${sl.frozen ? 'is-frozen' : ''} ${isHl ? 'is-hl' : ''}" title="${esc(sl.desc || '')}">
+      ${sl.avatar ? `<img src="${esc(sl.avatar)}" alt="" />` : ''}
+      <div class="meta">
+        <div class="nm">[${sl.idx}] ${sl.kind === 'item' ? '🎒' : ''}${esc(sl.name || '已售')}</div>
+        <div class="sub">${sl.bonds?.length ? esc(sl.bonds.join('/')) : esc(sl.desc || '')}</div>
+      </div>
+      ${sl.price != null ? `<span class="price">${sl.price}g</span>` : ''}
+    </div>`;
+  }).join('') : '<div style="color:var(--muted);font-size:12px;">（本步无商店快照）</div>';
+
+  // Hand (10 slots)
+  const hand = seatSnap.hand || [];
+  const hUsed = hand.filter(Boolean).length;
+  $('handMeta').textContent = `${hUsed}/10`;
+  const hCells = [];
+  for (let i = 0; i < 10; i++) {
+    const p = hand[i];
+    if (!p) {
+      hCells.push('<div class="mini-slot" style="opacity:.32;">空</div>');
+    } else {
+      hCells.push(`<div class="mini-slot ${p.golden ? 'is-golden' : ''}" title="${esc(p.name)} [${esc((p.bonds||[]).join(','))}]">
+        ${p.avatar ? `<img src="${esc(p.avatar)}" alt="" />` : ''}
+        <div class="mn">${p.golden ? '★' : ''}${esc(p.name)}</div>
+      </div>`);
+    }
+  }
+  $('handStrip').innerHTML = hCells.join('');
+
+  // Temp (5 slots)
+  const temp = seatSnap.temp || [];
+  const tUsed = temp.filter(Boolean).length;
+  $('tempMeta').textContent = `${tUsed}/5`;
+  const tCells = [];
+  for (let i = 0; i < 5; i++) {
+    const p = temp[i];
+    if (!p) {
+      tCells.push('<div class="mini-slot" style="opacity:.32;">空</div>');
+    } else {
+      tCells.push(`<div class="mini-slot" title="${esc(p.name + (p.desc ? ': ' + p.desc : ''))}">
+        ${p.icon ? `<img src="${esc(p.icon)}" alt="" />` : ''}
+        <div class="mn">${esc(p.name)}${p.progress != null ? `(${p.progress})` : ''}</div>
+      </div>`);
+    }
+  }
+  $('tempStrip').innerHTML = tCells.join('');
+
+  // Bonds & gate progress
+  const gate = tl.mode === 'coop' ? 1201 : 351;
+  const totalLayers = tl.mode === 'coop'
+    ? (step.seats || []).reduce((acc, s) => acc + (s.activeLayers || 0), 0)
+    : (seatSnap.activeLayers || 0);
+  const pct = Math.min(100, Math.round((totalLayers / gate) * 100));
+  $('layerLabel').textContent = `永久激活总层: ${totalLayers}${tl.mode === 'coop' ? ' (全队)' : ''}`;
+  $('gateTargetLabel').textContent = totalLayers >= gate ? `✅ 已破 ${gate} 隐秘门禁!` : `距 ${gate} 差 ${gate - totalLayers} 层`;
+  $('gateText').textContent = `${pct}%`;
+  $('gateFill').style.width = `${pct}%`;
+  $('bondsWrap').innerHTML = (seatSnap.bonds || []).map((b) => `
+    <span class="bchip ${b.active ? 'is-active' : ''}">
+      ${b.icon ? `<img src="${esc(b.icon)}" alt="" />` : ''}
+      <span>${esc(b.name)} ${b.count}/${b.req}</span>
+      <span class="blayer">${b.layers}层</span>
+    </span>
+  `).join('') || '<span style="color:var(--muted)">暂无激活盟约</span>';
+
+  // Step log list
+  $('logCount').textContent = `${steps.length} 步`;
+  $('logList').innerHTML = steps.map((st, idx) => `
+    <div class="log-item ${idx === curStepIdx ? 'is-cur' : ''}" data-si="${idx}">
+      <div class="li-top"><span>#${idx + 1} ${esc(st.label || st.action)}</span><span style="color:var(--muted);font-size:11px;">${st.seats?.[curSeat]?.funds ?? st.seats?.[0]?.funds ?? ''}g</span></div>
+      ${st.note ? `<div class="li-note">💬 ${esc(st.note)}</div>` : ''}
+    </div>
+  `).join('');
+  $('logList').querySelectorAll('.log-item').forEach((el) => {
+    el.onclick = () => { stopAuto(); curStepIdx = Number(el.dataset.si); render(); };
+  });
+  const curEl = $('logList').querySelector('.log-item.is-cur');
+  if (curEl) curEl.scrollIntoView({ block: 'nearest' });
+
+  // Enemies
+  if (seatSnap.nextEnemies?.length) {
+    $('enemyBox').style.display = 'block';
+    $('enemyChips').innerHTML = seatSnap.nextEnemies.map((e) => `
+      <span class="echip ${e.gate === 'upper' ? 'upper' : ''}">${e.gate === 'upper' ? '上' : '下'}:${esc(e.name)}${e.tags?.length ? `[${esc(e.tags.join('/'))}]` : ''}×${e.count}</span>
+    `).join('');
+  } else {
+    $('enemyBox').style.display = 'none';
+  }
+}
+
+function renderCombat(rObj) {
+  $('prepStage').style.display = 'none';
+  $('combatStage').classList.add('show');
+  const sc = (rObj.scenes || []).find((x) => x.kind !== 'unite') || rObj.scenes?.[0];
+  $('stepSlider').max = 0;
+  $('stepSlider').value = 0;
+  $('stepCounter').textContent = '战斗回放中';
+  $('btnToggleStage').textContent = '🛠️ 回到本轮整备';
+  $('btnToggleStage').disabled = false;
+
+  if (!sc) {
+    $('combatTitle').textContent = `R${rObj.round} 无战斗录像`;
+    $('combatFrame').src = 'about:blank';
+    return;
+  }
+  const url = `/dev/render-demo.html?scene=${encodeURIComponent(sc.name)}`;
+  $('combatTitle').textContent = `⚔️ R${String(rObj.round).padStart(2,'0')} 战斗实机回放 · ${sc.title || sc.name}`;
+  $('combatMeta').textContent = `${rObj.battleSummary || ''} | ${sc.frames || '?'} 帧 · ${sc.duration || '?'}s`;
+  $('combatNotes').textContent = (rObj.highlights || []).length ? `本回合运营要点：${rObj.highlights.join('；')}` : '';
+  $('combatFullLink').href = url;
+  if ($('combatFrame').dataset.scene !== sc.name) {
+    $('combatFrame').dataset.scene = sc.name;
+    $('combatFrame').src = url;
+  }
+  $('btnNextRoundPrep').style.display = curRoundIdx + 1 < tl.rounds.length ? 'inline-block' : 'none';
+}
+
+function render() {
+  if (!tl || !tl.rounds?.length) return;
+  renderRoundBar();
+  const rObj = tl.rounds[curRoundIdx];
+  if (curStage === 'combat') renderCombat(rObj);
+  else renderPrep(rObj);
+  const u = new URL(location.href);
+  u.searchParams.set('match', matchTag);
+  u.searchParams.set('round', String(rObj.round));
+  u.searchParams.set('stage', curStage);
+  if (curStage === 'prep') u.searchParams.set('step', String(curStepIdx));
+  else u.searchParams.delete('step');
+  history.replaceState(null, '', u);
+}
+
+async function loadMatch(tag) {
+  stopAuto();
+  matchTag = tag;
+  $('matchTitle').textContent = `加载 ${tag} 中…`;
+  const resp = await fetch(`/dev/recordings/demo_ops/${encodeURIComponent(tag)}_timeline.json?t=${Date.now()}`);
+  if (!resp.ok) {
+    $('matchTitle').textContent = `未找到 ${tag} 的全过程时间轴文件`;
+    return;
+  }
+  tl = await resp.json();
+  $('matchTitle').textContent = tl.title || tag;
+  const s = tl.summary || {};
+  $('matchBadges').innerHTML = `
+    <span class="pill pill-ok">✅ 已进R15隐秘</span>
+    ${s.hiddenCleared ? '<span class="pill pill-gold">🏆 隐秘斩杀</span>' : ''}
+    <span class="pill">R14层数: ${s.r14ActivatedLayers ?? '-'}</span>
+    <span class="pill pill-r15">余血: ${s.lpRemaining ?? '-'}</span>
+  `;
+  $('backfillBanner').classList.toggle('show', !!tl.backfilled);
+
+  // Seat switcher for coop
+  const maxSeats = Math.max(1, ...(tl.rounds || []).flatMap((r) => (r.prepSteps || []).map((st) => st.seats?.length || 1)));
+  if (maxSeats > 1) {
+    $('seatSwitcher').style.display = 'inline';
+    $('seatSelect').innerHTML = Array.from({ length: maxSeats }, (_, i) => `<option value="${i}">S${i}号位</option>`).join('');
+    $('seatSelect').value = String(curSeat);
+    $('seatSelect').onchange = () => { curSeat = Number($('seatSelect').value) || 0; render(); };
+  } else {
+    $('seatSwitcher').style.display = 'none';
+    curSeat = 0;
+  }
+
+  const reqRound = Number(qs.get('round'));
+  curRoundIdx = reqRound ? Math.max(0, tl.rounds.findIndex((r) => r.round === reqRound)) : 0;
+  curStepIdx = Math.max(0, Number(qs.get('step')) || 0);
+  render();
+}
+
+$('btnPrev').onclick = () => {
+  stopAuto();
+  if (curStage === 'combat') {
+    curStage = 'prep';
+    const steps = tl.rounds[curRoundIdx]?.prepSteps || [];
+    curStepIdx = Math.max(0, steps.length - 1);
+  } else if (curStepIdx > 0) {
+    curStepIdx--;
+  } else if (curRoundIdx > 0) {
+    curRoundIdx--;
+    curStage = (tl.rounds[curRoundIdx]?.scenes?.length) ? 'combat' : 'prep';
+    curStepIdx = Math.max(0, (tl.rounds[curRoundIdx]?.prepSteps?.length || 1) - 1);
+  }
+  render();
+};
+
+$('btnNext').onclick = () => {
+  stopAuto();
+  const rObj = tl.rounds[curRoundIdx];
+  if (curStage === 'prep') {
+    if (curStepIdx + 1 < (rObj?.prepSteps?.length || 0)) {
+      curStepIdx++;
+    } else if (rObj?.scenes?.length) {
+      curStage = 'combat';
+    } else if (curRoundIdx + 1 < tl.rounds.length) {
+      curRoundIdx++; curStepIdx = 0;
+    }
+  } else if (curRoundIdx + 1 < tl.rounds.length) {
+    curRoundIdx++; curStage = 'prep'; curStepIdx = 0;
+  }
+  render();
+};
+
+$('btnPlay').onclick = () => { if (playTimer) stopAuto(); else startAuto(); };
+$('stepSlider').oninput = () => { stopAuto(); curStepIdx = Number($('stepSlider').value) || 0; render(); };
+$('btnToggleStage').onclick = () => {
+  stopAuto();
+  curStage = curStage === 'prep' ? 'combat' : 'prep';
+  render();
+};
+$('btnBackPrep').onclick = () => { stopAuto(); curStage = 'prep'; render(); };
+$('btnNextRoundPrep').onclick = () => {
+  stopAuto();
+  if (curRoundIdx + 1 < tl.rounds.length) { curRoundIdx++; curStage = 'prep'; curStepIdx = 0; render(); }
+};
+
+window.addEventListener('keydown', (e) => {
+  if (['INPUT','SELECT','TEXTAREA'].includes(e.target?.tagName)) return;
+  if (e.key === 'ArrowRight') { e.preventDefault(); $('btnNext').click(); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); $('btnPrev').click(); }
+  else if (e.key === ' ') { e.preventDefault(); $('btnPlay').click(); }
+  else if (e.key === 'b' || e.key === 'B') { e.preventDefault(); $('btnToggleStage').click(); }
+});
+
+(async () => {
+  let matches = [];
+  try {
+    const r = await fetch(`/dev/recordings/demo_ops/matches.json?t=${Date.now()}`);
+    if (r.ok) { const j = await r.json(); matches = j.matches || []; }
+  } catch { /* ignore */ }
+  const picker = $('matchPicker');
+  for (const m of matches) {
+    const opt = document.createElement('option');
+    opt.value = m.tag;
+    opt.textContent = `${m.coreName} · ${m.tag} (${m.r14ActivatedLayers}层${m.hiddenCleared ? ' 🏆' : ''})`;
+    picker.appendChild(opt);
+  }
+  if (!matchTag && matches.length) matchTag = matches[0].tag;
+  if (matchTag) {
+    picker.value = matchTag;
+    picker.onchange = () => { qs.delete('round'); qs.delete('step'); curStage = 'prep'; loadMatch(picker.value); };
+    await loadMatch(matchTag);
+  } else {
+    $('matchTitle').textContent = '暂无已发布的全过程录像';
+  }
+})();
+</script>
+</body>
+</html>

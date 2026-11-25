@@ -190,5 +190,3477 @@
    "killed": 17,
    "total": 39
   }
+ },
+ {
+  "name": "flex_solo_3_r01",
+  "title": "flex · 单人规程20级 · R1 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 43.6,
+  "frames": 436,
+  "maxUnits": 5,
+  "file": "demo_ops/flex_solo_3_r01.json",
+  "bytes": 93722,
+  "result": {
+   "reason": "cleared",
+   "killed": 3,
+   "total": 3
+  }
+ },
+ {
+  "name": "flex_solo_3_r02",
+  "title": "flex · 单人规程20级 · R2 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 39.1,
+  "frames": 391,
+  "maxUnits": 7,
+  "file": "demo_ops/flex_solo_3_r02.json",
+  "bytes": 113106,
+  "result": {
+   "reason": "cleared",
+   "killed": 4,
+   "total": 4
+  }
+ },
+ {
+  "name": "flex_solo_3_r03",
+  "title": "flex · 单人规程20级 · R3 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 57.43,
+  "frames": 575,
+  "maxUnits": 8,
+  "file": "demo_ops/flex_solo_3_r03.json",
+  "bytes": 182419,
+  "result": {
+   "reason": "cleared",
+   "killed": 7,
+   "total": 7
+  }
+ },
+ {
+  "name": "flex_solo_3_r04",
+  "title": "flex · 单人规程20级 · R4 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 57.43,
+  "frames": 575,
+  "maxUnits": 15,
+  "file": "demo_ops/flex_solo_3_r04.json",
+  "bytes": 333660,
+  "result": {
+   "reason": "cleared",
+   "killed": 10,
+   "total": 10
+  }
+ },
+ {
+  "name": "flex_solo_3_r05",
+  "title": "flex · 单人规程20级 · R5 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 61.03,
+  "frames": 611,
+  "maxUnits": 21,
+  "file": "demo_ops/flex_solo_3_r05.json",
+  "bytes": 417978,
+  "result": {
+   "reason": "cleared",
+   "killed": 17,
+   "total": 17
+  }
+ },
+ {
+  "name": "flex_solo_3_r06",
+  "title": "flex · 单人规程20级 · R6 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 68.2,
+  "frames": 682,
+  "maxUnits": 16,
+  "file": "demo_ops/flex_solo_3_r06.json",
+  "bytes": 393008,
+  "result": {
+   "reason": "cleared",
+   "killed": 13,
+   "total": 13
+  }
+ },
+ {
+  "name": "flex_solo_3_r07",
+  "title": "flex · 单人规程20级 · R7 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 91.63,
+  "frames": 917,
+  "maxUnits": 22,
+  "file": "demo_ops/flex_solo_3_r07.json",
+  "bytes": 588279,
+  "result": {
+   "reason": "cleared",
+   "killed": 28,
+   "total": 28
+  }
+ },
+ {
+  "name": "flex_solo_3_r08",
+  "title": "flex · 单人规程20级 · R8 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 87.47,
+  "frames": 875,
+  "maxUnits": 17,
+  "file": "demo_ops/flex_solo_3_r08.json",
+  "bytes": 515975,
+  "result": {
+   "reason": "cleared",
+   "killed": 15,
+   "total": 15
+  }
+ },
+ {
+  "name": "flex_solo_3_r09",
+  "title": "flex · 单人规程20级 · R9 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 95.87,
+  "frames": 959,
+  "maxUnits": 19,
+  "file": "demo_ops/flex_solo_3_r09.json",
+  "bytes": 615087,
+  "result": {
+   "reason": "cleared",
+   "killed": 21,
+   "total": 21
+  }
+ },
+ {
+  "name": "flex_solo_3_r10",
+  "title": "flex · 单人规程20级 · R10 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 101.53,
+  "frames": 1016,
+  "maxUnits": 21,
+  "file": "demo_ops/flex_solo_3_r10.json",
+  "bytes": 639671,
+  "result": {
+   "reason": "cleared",
+   "killed": 30,
+   "total": 30
+  }
+ },
+ {
+  "name": "flex_solo_3_r11",
+  "title": "flex · 单人规程20级 · R11 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 106.17,
+  "frames": 1062,
+  "maxUnits": 21,
+  "file": "demo_ops/flex_solo_3_r11.json",
+  "bytes": 692734,
+  "result": {
+   "reason": "cleared",
+   "killed": 29,
+   "total": 29
+  }
+ },
+ {
+  "name": "flex_solo_3_r12",
+  "title": "flex · 单人规程20级 · R12 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 80.5,
+  "frames": 805,
+  "maxUnits": 27,
+  "file": "demo_ops/flex_solo_3_r12.json",
+  "bytes": 574376,
+  "result": {
+   "reason": "cleared",
+   "killed": 57,
+   "total": 57
+  }
+ },
+ {
+  "name": "flex_solo_3_r13",
+  "title": "flex · 单人规程20级 · R13 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 95.67,
+  "frames": 957,
+  "maxUnits": 26,
+  "file": "demo_ops/flex_solo_3_r13.json",
+  "bytes": 766390,
+  "result": {
+   "reason": "cleared",
+   "killed": 58,
+   "total": 58
+  }
+ },
+ {
+  "name": "flex_solo_3_r14",
+  "title": "flex · 单人规程20级 · R14 常规领袖 · 盐风主教昆图斯",
+  "kind": "boss",
+  "stageId": "act2autochess_m02",
+  "duration": 236.17,
+  "frames": 2362,
+  "maxUnits": 18,
+  "file": "demo_ops/flex_solo_3_r14.json",
+  "bytes": 1853646,
+  "result": {
+   "reason": "cleared",
+   "killed": 25,
+   "total": 25
+  }
+ },
+ {
+  "name": "flex_solo_3_r15",
+  "title": "flex · 单人规程20级 · R15 隐秘核心 · 假想敌：胄",
+  "kind": "hidden",
+  "stageId": "act2autochess_m02",
+  "duration": 120.4,
+  "frames": 1204,
+  "maxUnits": 20,
+  "file": "demo_ops/flex_solo_3_r15.json",
+  "bytes": 968262,
+  "result": {
+   "reason": "cleared",
+   "killed": 26,
+   "total": 23
+  }
+ },
+ {
+  "name": "flex_solo_4_r01",
+  "title": "flex · 单人规程20级 · R1 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 34.03,
+  "frames": 341,
+  "maxUnits": 6,
+  "file": "demo_ops/flex_solo_4_r01.json",
+  "bytes": 81806,
+  "result": {
+   "reason": "cleared",
+   "killed": 5,
+   "total": 5
+  }
+ },
+ {
+  "name": "flex_solo_4_r02",
+  "title": "flex · 单人规程20级 · R2 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 55.87,
+  "frames": 559,
+  "maxUnits": 7,
+  "file": "demo_ops/flex_solo_4_r02.json",
+  "bytes": 145136,
+  "result": {
+   "reason": "cleared",
+   "killed": 6,
+   "total": 6
+  }
+ },
+ {
+  "name": "flex_solo_4_r03",
+  "title": "flex · 单人规程20级 · R3 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 65.5,
+  "frames": 655,
+  "maxUnits": 9,
+  "file": "demo_ops/flex_solo_4_r03.json",
+  "bytes": 184792,
+  "result": {
+   "reason": "cleared",
+   "killed": 9,
+   "total": 9
+  }
+ },
+ {
+  "name": "flex_solo_4_r04",
+  "title": "flex · 单人规程20级 · R4 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 60.7,
+  "frames": 607,
+  "maxUnits": 11,
+  "file": "demo_ops/flex_solo_4_r04.json",
+  "bytes": 222205,
+  "result": {
+   "reason": "cleared",
+   "killed": 12,
+   "total": 14
+  }
+ },
+ {
+  "name": "flex_solo_4_r05",
+  "title": "flex · 单人规程20级 · R5 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 83.83,
+  "frames": 839,
+  "maxUnits": 18,
+  "file": "demo_ops/flex_solo_4_r05.json",
+  "bytes": 419255,
+  "result": {
+   "reason": "cleared",
+   "killed": 23,
+   "total": 24
+  }
+ },
+ {
+  "name": "flex_solo_4_r06",
+  "title": "flex · 单人规程20级 · R6 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 81.8,
+  "frames": 818,
+  "maxUnits": 21,
+  "file": "demo_ops/flex_solo_4_r06.json",
+  "bytes": 474974,
+  "result": {
+   "reason": "cleared",
+   "killed": 25,
+   "total": 27
+  }
+ },
+ {
+  "name": "flex_solo_4_r07",
+  "title": "flex · 单人规程20级 · R7 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 85.87,
+  "frames": 859,
+  "maxUnits": 21,
+  "file": "demo_ops/flex_solo_4_r07.json",
+  "bytes": 536210,
+  "result": {
+   "reason": "cleared",
+   "killed": 29,
+   "total": 30
+  }
+ },
+ {
+  "name": "flex_solo_4_r08",
+  "title": "flex · 单人规程20级 · R8 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 91.7,
+  "frames": 917,
+  "maxUnits": 15,
+  "file": "demo_ops/flex_solo_4_r08.json",
+  "bytes": 482322,
+  "result": {
+   "reason": "cleared",
+   "killed": 3,
+   "total": 9
+  }
+ },
+ {
+  "name": "flex_solo_4_r09",
+  "title": "flex · 单人规程20级 · R9 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 87.23,
+  "frames": 873,
+  "maxUnits": 14,
+  "file": "demo_ops/flex_solo_4_r09.json",
+  "bytes": 418250,
+  "result": {
+   "reason": "cleared",
+   "killed": 16,
+   "total": 16
+  }
+ },
+ {
+  "name": "flex_solo_4_r10",
+  "title": "flex · 单人规程20级 · R10 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 83.83,
+  "frames": 839,
+  "maxUnits": 11,
+  "file": "demo_ops/flex_solo_4_r10.json",
+  "bytes": 379785,
+  "result": {
+   "reason": "cleared",
+   "killed": 13,
+   "total": 13
+  }
+ },
+ {
+  "name": "flex_solo_4_r11",
+  "title": "flex · 单人规程20级 · R11 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 92.83,
+  "frames": 929,
+  "maxUnits": 18,
+  "file": "demo_ops/flex_solo_4_r11.json",
+  "bytes": 596152,
+  "result": {
+   "reason": "cleared",
+   "killed": 27,
+   "total": 27
+  }
+ },
+ {
+  "name": "flex_solo_4_r12",
+  "title": "flex · 单人规程20级 · R12 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 80,
+  "frames": 800,
+  "maxUnits": 20,
+  "file": "demo_ops/flex_solo_4_r12.json",
+  "bytes": 491791,
+  "result": {
+   "reason": "cleared",
+   "killed": 39,
+   "total": 39
+  }
+ },
+ {
+  "name": "flex_solo_4_r13",
+  "title": "flex · 单人规程20级 · R13 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 101.53,
+  "frames": 1016,
+  "maxUnits": 29,
+  "file": "demo_ops/flex_solo_4_r13.json",
+  "bytes": 979229,
+  "result": {
+   "reason": "cleared",
+   "killed": 42,
+   "total": 42
+  }
+ },
+ {
+  "name": "flex_solo_4_r14",
+  "title": "flex · 单人规程20级 · R14 常规领袖 · 盐风主教昆图斯",
+  "kind": "boss",
+  "stageId": "act2autochess_m01",
+  "duration": 196.03,
+  "frames": 1961,
+  "maxUnits": 19,
+  "file": "demo_ops/flex_solo_4_r14.json",
+  "bytes": 1405897,
+  "result": {
+   "reason": "cleared",
+   "killed": 25,
+   "total": 25
+  }
+ },
+ {
+  "name": "flex_solo_4_r15",
+  "title": "flex · 单人规程20级 · R15 隐秘核心 · 假想敌：械",
+  "kind": "hidden",
+  "stageId": "act2autochess_m01",
+  "duration": 177.33,
+  "frames": 1774,
+  "maxUnits": 24,
+  "file": "demo_ops/flex_solo_4_r15.json",
+  "bytes": 1435314,
+  "result": {
+   "reason": "cleared",
+   "killed": 11,
+   "total": 11
+  }
+ },
+ {
+  "name": "kjerag_solo_1_r01",
+  "title": "谢拉格 · 单人规程20级 · R1 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 35.13,
+  "frames": 352,
+  "maxUnits": 7,
+  "file": "demo_ops/kjerag_solo_1_r01.json",
+  "bytes": 105370,
+  "result": {
+   "reason": "cleared",
+   "killed": 4,
+   "total": 4
+  }
+ },
+ {
+  "name": "kjerag_solo_1_r02",
+  "title": "谢拉格 · 单人规程20级 · R2 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 51.5,
+  "frames": 515,
+  "maxUnits": 11,
+  "file": "demo_ops/kjerag_solo_1_r02.json",
+  "bytes": 178375,
+  "result": {
+   "reason": "cleared",
+   "killed": 13,
+   "total": 6
+  }
+ },
+ {
+  "name": "kjerag_solo_1_r03",
+  "title": "谢拉格 · 单人规程20级 · R3 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 54,
+  "frames": 540,
+  "maxUnits": 11,
+  "file": "demo_ops/kjerag_solo_1_r03.json",
+  "bytes": 216401,
+  "result": {
+   "reason": "cleared",
+   "killed": 7,
+   "total": 8
+  }
+ },
+ {
+  "name": "kjerag_solo_1_r04",
+  "title": "谢拉格 · 单人规程20级 · R4 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 48.43,
+  "frames": 485,
+  "maxUnits": 13,
+  "file": "demo_ops/kjerag_solo_1_r04.json",
+  "bytes": 221685,
+  "result": {
+   "reason": "cleared",
+   "killed": 6,
+   "total": 9
+  }
+ },
+ {
+  "name": "kjerag_solo_1_r05",
+  "title": "谢拉格 · 单人规程20级 · R5 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 45.63,
+  "frames": 457,
+  "maxUnits": 16,
+  "file": "demo_ops/kjerag_solo_1_r05.json",
+  "bytes": 263160,
+  "result": {
+   "reason": "cleared",
+   "killed": 21,
+   "total": 21
+  }
+ },
+ {
+  "name": "kjerag_solo_1_r06",
+  "title": "谢拉格 · 单人规程20级 · R6 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 51.53,
+  "frames": 516,
+  "maxUnits": 20,
+  "file": "demo_ops/kjerag_solo_1_r06.json",
+  "bytes": 322958,
+  "result": {
+   "reason": "cleared",
+   "killed": 24,
+   "total": 24
+  }
+ },
+ {
+  "name": "kjerag_solo_1_r07",
+  "title": "谢拉格 · 单人规程20级 · R7 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 67.23,
+  "frames": 673,
+  "maxUnits": 20,
+  "file": "demo_ops/kjerag_solo_1_r07.json",
+  "bytes": 406959,
+  "result": {
+   "reason": "cleared",
+   "killed": 18,
+   "total": 25
+  }
+ },
+ {
+  "name": "kjerag_solo_1_r08",
+  "title": "谢拉格 · 单人规程20级 · R8 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 73.3,
+  "frames": 733,
+  "maxUnits": 16,
+  "file": "demo_ops/kjerag_solo_1_r08.json",
+  "bytes": 448118,
+  "result": {
+   "reason": "cleared",
+   "killed": 18,
+   "total": 18
+  }
+ },
+ {
+  "name": "kjerag_solo_1_r09",
+  "title": "谢拉格 · 单人规程20级 · R9 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 86.17,
+  "frames": 862,
+  "maxUnits": 20,
+  "file": "demo_ops/kjerag_solo_1_r09.json",
+  "bytes": 558832,
+  "result": {
+   "reason": "cleared",
+   "killed": 21,
+   "total": 21
+  }
+ },
+ {
+  "name": "kjerag_solo_1_r10",
+  "title": "谢拉格 · 单人规程20级 · R10 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 78.87,
+  "frames": 789,
+  "maxUnits": 15,
+  "file": "demo_ops/kjerag_solo_1_r10.json",
+  "bytes": 430128,
+  "result": {
+   "reason": "cleared",
+   "killed": 19,
+   "total": 19
+  }
+ },
+ {
+  "name": "kjerag_solo_1_r11",
+  "title": "谢拉格 · 单人规程20级 · R11 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 81.43,
+  "frames": 815,
+  "maxUnits": 19,
+  "file": "demo_ops/kjerag_solo_1_r11.json",
+  "bytes": 541246,
+  "result": {
+   "reason": "cleared",
+   "killed": 29,
+   "total": 29
+  }
+ },
+ {
+  "name": "kjerag_solo_1_r12",
+  "title": "谢拉格 · 单人规程20级 · R12 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 69.13,
+  "frames": 692,
+  "maxUnits": 26,
+  "file": "demo_ops/kjerag_solo_1_r12.json",
+  "bytes": 457001,
+  "result": {
+   "reason": "cleared",
+   "killed": 39,
+   "total": 39
+  }
+ },
+ {
+  "name": "kjerag_solo_1_r13",
+  "title": "谢拉格 · 单人规程20级 · R13 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 87.77,
+  "frames": 878,
+  "maxUnits": 28,
+  "file": "demo_ops/kjerag_solo_1_r13.json",
+  "bytes": 758417,
+  "result": {
+   "reason": "cleared",
+   "killed": 46,
+   "total": 46
+  }
+ },
+ {
+  "name": "kjerag_solo_1_r14",
+  "title": "谢拉格 · 单人规程20级 · R14 常规领袖 · 阿利斯泰尔，帝国余晖",
+  "kind": "boss",
+  "stageId": "act2autochess_m03",
+  "duration": 69.1,
+  "frames": 691,
+  "maxUnits": 18,
+  "file": "demo_ops/kjerag_solo_1_r14.json",
+  "bytes": 535101,
+  "result": {
+   "reason": "cleared",
+   "killed": 13,
+   "total": 22
+  }
+ },
+ {
+  "name": "kjerag_solo_1_r15",
+  "title": "谢拉格 · 单人规程20级 · R15 隐秘核心 · 假想敌：械",
+  "kind": "hidden",
+  "stageId": "act2autochess_m03",
+  "duration": 122.97,
+  "frames": 1230,
+  "maxUnits": 23,
+  "file": "demo_ops/kjerag_solo_1_r15.json",
+  "bytes": 996162,
+  "result": {
+   "reason": "cleared",
+   "killed": 57,
+   "total": 21
+  }
+ },
+ {
+  "name": "kjerag_solo_2_r01",
+  "title": "谢拉格 · 单人规程20级 · R1 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 44.8,
+  "frames": 448,
+  "maxUnits": 8,
+  "file": "demo_ops/kjerag_solo_2_r01.json",
+  "bytes": 126896,
+  "result": {
+   "reason": "cleared",
+   "killed": 4,
+   "total": 4
+  }
+ },
+ {
+  "name": "kjerag_solo_2_r02",
+  "title": "谢拉格 · 单人规程20级 · R2 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 53.43,
+  "frames": 535,
+  "maxUnits": 10,
+  "file": "demo_ops/kjerag_solo_2_r02.json",
+  "bytes": 168364,
+  "result": {
+   "reason": "cleared",
+   "killed": 6,
+   "total": 6
+  }
+ },
+ {
+  "name": "kjerag_solo_2_r03",
+  "title": "谢拉格 · 单人规程20级 · R3 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 79.13,
+  "frames": 792,
+  "maxUnits": 10,
+  "file": "demo_ops/kjerag_solo_2_r03.json",
+  "bytes": 284873,
+  "result": {
+   "reason": "cleared",
+   "killed": 9,
+   "total": 11
+  }
+ },
+ {
+  "name": "kjerag_solo_2_r04",
+  "title": "谢拉格 · 单人规程20级 · R4 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 61.1,
+  "frames": 611,
+  "maxUnits": 13,
+  "file": "demo_ops/kjerag_solo_2_r04.json",
+  "bytes": 265112,
+  "result": {
+   "reason": "cleared",
+   "killed": 9,
+   "total": 10
+  }
+ },
+ {
+  "name": "kjerag_solo_2_r05",
+  "title": "谢拉格 · 单人规程20级 · R5 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 46.73,
+  "frames": 468,
+  "maxUnits": 12,
+  "file": "demo_ops/kjerag_solo_2_r05.json",
+  "bytes": 203194,
+  "result": {
+   "reason": "cleared",
+   "killed": 12,
+   "total": 12
+  }
+ },
+ {
+  "name": "kjerag_solo_2_r06",
+  "title": "谢拉格 · 单人规程20级 · R6 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 62.73,
+  "frames": 628,
+  "maxUnits": 17,
+  "file": "demo_ops/kjerag_solo_2_r06.json",
+  "bytes": 333659,
+  "result": {
+   "reason": "cleared",
+   "killed": 15,
+   "total": 15
+  }
+ },
+ {
+  "name": "kjerag_solo_2_r07",
+  "title": "谢拉格 · 单人规程20级 · R7 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 94.37,
+  "frames": 944,
+  "maxUnits": 20,
+  "file": "demo_ops/kjerag_solo_2_r07.json",
+  "bytes": 532179,
+  "result": {
+   "reason": "cleared",
+   "killed": 20,
+   "total": 21
+  }
+ },
+ {
+  "name": "kjerag_solo_2_r08",
+  "title": "谢拉格 · 单人规程20级 · R8 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 79.3,
+  "frames": 793,
+  "maxUnits": 15,
+  "file": "demo_ops/kjerag_solo_2_r08.json",
+  "bytes": 437144,
+  "result": {
+   "reason": "cleared",
+   "killed": 15,
+   "total": 15
+  }
+ },
+ {
+  "name": "kjerag_solo_2_r09",
+  "title": "谢拉格 · 单人规程20级 · R9 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 96.93,
+  "frames": 970,
+  "maxUnits": 21,
+  "file": "demo_ops/kjerag_solo_2_r09.json",
+  "bytes": 671857,
+  "result": {
+   "reason": "cleared",
+   "killed": 15,
+   "total": 31
+  }
+ },
+ {
+  "name": "kjerag_solo_2_r10",
+  "title": "谢拉格 · 单人规程20级 · R10 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 73.23,
+  "frames": 733,
+  "maxUnits": 22,
+  "file": "demo_ops/kjerag_solo_2_r10.json",
+  "bytes": 570320,
+  "result": {
+   "reason": "cleared",
+   "killed": 34,
+   "total": 34
+  }
+ },
+ {
+  "name": "kjerag_solo_2_r11",
+  "title": "谢拉格 · 单人规程20级 · R11 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 106.13,
+  "frames": 1062,
+  "maxUnits": 18,
+  "file": "demo_ops/kjerag_solo_2_r11.json",
+  "bytes": 645390,
+  "result": {
+   "reason": "cleared",
+   "killed": 20,
+   "total": 20
+  }
+ },
+ {
+  "name": "kjerag_solo_2_r12",
+  "title": "谢拉格 · 单人规程20级 · R12 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 74,
+  "frames": 740,
+  "maxUnits": 21,
+  "file": "demo_ops/kjerag_solo_2_r12.json",
+  "bytes": 478130,
+  "result": {
+   "reason": "cleared",
+   "killed": 25,
+   "total": 25
+  }
+ },
+ {
+  "name": "kjerag_solo_2_r13",
+  "title": "谢拉格 · 单人规程20级 · R13 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 85.97,
+  "frames": 860,
+  "maxUnits": 24,
+  "file": "demo_ops/kjerag_solo_2_r13.json",
+  "bytes": 625288,
+  "result": {
+   "reason": "cleared",
+   "killed": 42,
+   "total": 42
+  }
+ },
+ {
+  "name": "kjerag_solo_2_r14",
+  "title": "谢拉格 · 单人规程20级 · R14 常规领袖 · 假想敌：管",
+  "kind": "boss",
+  "stageId": "act2autochess_m03",
+  "duration": 130,
+  "frames": 1300,
+  "maxUnits": 17,
+  "file": "demo_ops/kjerag_solo_2_r14.json",
+  "bytes": 1016272,
+  "result": {
+   "reason": "cleared",
+   "killed": 25,
+   "total": 22
+  }
+ },
+ {
+  "name": "kjerag_solo_2_r15",
+  "title": "谢拉格 · 单人规程20级 · R15 隐秘核心 · 假想敌：管",
+  "kind": "hidden",
+  "stageId": "act2autochess_m03",
+  "duration": 129.93,
+  "frames": 1300,
+  "maxUnits": 18,
+  "file": "demo_ops/kjerag_solo_2_r15.json",
+  "bytes": 1018053,
+  "result": {
+   "reason": "cleared",
+   "killed": 27,
+   "total": 24
+  }
+ },
+ {
+  "name": "lethania_solo_1_r01",
+  "title": "莱塔尼亚 · 单人规程20级 · R1 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 42.87,
+  "frames": 429,
+  "maxUnits": 8,
+  "file": "demo_ops/lethania_solo_1_r01.json",
+  "bytes": 130828,
+  "result": {
+   "reason": "cleared",
+   "killed": 3,
+   "total": 4
+  }
+ },
+ {
+  "name": "lethania_solo_1_r02",
+  "title": "莱塔尼亚 · 单人规程20级 · R2 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 35.5,
+  "frames": 355,
+  "maxUnits": 8,
+  "file": "demo_ops/lethania_solo_1_r02.json",
+  "bytes": 108354,
+  "result": {
+   "reason": "cleared",
+   "killed": 0,
+   "total": 4
+  }
+ },
+ {
+  "name": "lethania_solo_1_r03",
+  "title": "莱塔尼亚 · 单人规程20级 · R3 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 66.9,
+  "frames": 669,
+  "maxUnits": 11,
+  "file": "demo_ops/lethania_solo_1_r03.json",
+  "bytes": 240565,
+  "result": {
+   "reason": "cleared",
+   "killed": 4,
+   "total": 8
+  }
+ },
+ {
+  "name": "lethania_solo_1_r04",
+  "title": "莱塔尼亚 · 单人规程20级 · R4 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 59.33,
+  "frames": 594,
+  "maxUnits": 15,
+  "file": "demo_ops/lethania_solo_1_r04.json",
+  "bytes": 278965,
+  "result": {
+   "reason": "cleared",
+   "killed": 10,
+   "total": 10
+  }
+ },
+ {
+  "name": "lethania_solo_1_r05",
+  "title": "莱塔尼亚 · 单人规程20级 · R5 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 56.93,
+  "frames": 570,
+  "maxUnits": 22,
+  "file": "demo_ops/lethania_solo_1_r05.json",
+  "bytes": 323480,
+  "result": {
+   "reason": "cleared",
+   "killed": 9,
+   "total": 16
+  }
+ },
+ {
+  "name": "lethania_solo_1_r06",
+  "title": "莱塔尼亚 · 单人规程20级 · R6 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 70.03,
+  "frames": 701,
+  "maxUnits": 20,
+  "file": "demo_ops/lethania_solo_1_r06.json",
+  "bytes": 421326,
+  "result": {
+   "reason": "cleared",
+   "killed": 22,
+   "total": 26
+  }
+ },
+ {
+  "name": "lethania_solo_1_r07",
+  "title": "莱塔尼亚 · 单人规程20级 · R7 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 76.2,
+  "frames": 762,
+  "maxUnits": 23,
+  "file": "demo_ops/lethania_solo_1_r07.json",
+  "bytes": 573591,
+  "result": {
+   "reason": "cleared",
+   "killed": 22,
+   "total": 23
+  }
+ },
+ {
+  "name": "lethania_solo_1_r08",
+  "title": "莱塔尼亚 · 单人规程20级 · R8 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 70.37,
+  "frames": 704,
+  "maxUnits": 24,
+  "file": "demo_ops/lethania_solo_1_r08.json",
+  "bytes": 461252,
+  "result": {
+   "reason": "cleared",
+   "killed": 23,
+   "total": 23
+  }
+ },
+ {
+  "name": "lethania_solo_1_r09",
+  "title": "莱塔尼亚 · 单人规程20级 · R9 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 76.47,
+  "frames": 765,
+  "maxUnits": 21,
+  "file": "demo_ops/lethania_solo_1_r09.json",
+  "bytes": 496912,
+  "result": {
+   "reason": "cleared",
+   "killed": 16,
+   "total": 16
+  }
+ },
+ {
+  "name": "lethania_solo_1_r10",
+  "title": "莱塔尼亚 · 单人规程20级 · R10 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 75.83,
+  "frames": 759,
+  "maxUnits": 29,
+  "file": "demo_ops/lethania_solo_1_r10.json",
+  "bytes": 671095,
+  "result": {
+   "reason": "cleared",
+   "killed": 65,
+   "total": 21
+  }
+ },
+ {
+  "name": "lethania_solo_1_r11",
+  "title": "莱塔尼亚 · 单人规程20级 · R11 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 76.27,
+  "frames": 763,
+  "maxUnits": 20,
+  "file": "demo_ops/lethania_solo_1_r11.json",
+  "bytes": 549020,
+  "result": {
+   "reason": "cleared",
+   "killed": 16,
+   "total": 16
+  }
+ },
+ {
+  "name": "lethania_solo_1_r12",
+  "title": "莱塔尼亚 · 单人规程20级 · R12 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 68.17,
+  "frames": 682,
+  "maxUnits": 39,
+  "file": "demo_ops/lethania_solo_1_r12.json",
+  "bytes": 746250,
+  "result": {
+   "reason": "cleared",
+   "killed": 37,
+   "total": 37
+  }
+ },
+ {
+  "name": "lethania_solo_1_r13",
+  "title": "莱塔尼亚 · 单人规程20级 · R13 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 86.3,
+  "frames": 863,
+  "maxUnits": 35,
+  "file": "demo_ops/lethania_solo_1_r13.json",
+  "bytes": 887392,
+  "result": {
+   "reason": "cleared",
+   "killed": 50,
+   "total": 50
+  }
+ },
+ {
+  "name": "lethania_solo_1_r14",
+  "title": "莱塔尼亚 · 单人规程20级 · R14 常规领袖 · 假想敌：械",
+  "kind": "boss",
+  "stageId": "act2autochess_m03",
+  "duration": 184.9,
+  "frames": 1849,
+  "maxUnits": 28,
+  "file": "demo_ops/lethania_solo_1_r14.json",
+  "bytes": 1458824,
+  "result": {
+   "reason": "cleared",
+   "killed": 17,
+   "total": 17
+  }
+ },
+ {
+  "name": "lethania_solo_1_r15",
+  "title": "莱塔尼亚 · 单人规程20级 · R15 隐秘核心 · 假想敌：械",
+  "kind": "hidden",
+  "stageId": "act2autochess_m03",
+  "duration": 112.7,
+  "frames": 1127,
+  "maxUnits": 28,
+  "file": "demo_ops/lethania_solo_1_r15.json",
+  "bytes": 956961,
+  "result": {
+   "reason": "cleared",
+   "killed": 23,
+   "total": 23
+  }
+ },
+ {
+  "name": "lethania_solo_2_r01",
+  "title": "莱塔尼亚 · 单人规程20级 · R1 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 25.63,
+  "frames": 257,
+  "maxUnits": 8,
+  "file": "demo_ops/lethania_solo_2_r01.json",
+  "bytes": 76051,
+  "result": {
+   "reason": "cleared",
+   "killed": 5,
+   "total": 5
+  }
+ },
+ {
+  "name": "lethania_solo_2_r02",
+  "title": "莱塔尼亚 · 单人规程20级 · R2 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 41.17,
+  "frames": 412,
+  "maxUnits": 9,
+  "file": "demo_ops/lethania_solo_2_r02.json",
+  "bytes": 130056,
+  "result": {
+   "reason": "cleared",
+   "killed": 8,
+   "total": 8
+  }
+ },
+ {
+  "name": "lethania_solo_2_r03",
+  "title": "莱塔尼亚 · 单人规程20级 · R3 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 53.8,
+  "frames": 538,
+  "maxUnits": 10,
+  "file": "demo_ops/lethania_solo_2_r03.json",
+  "bytes": 202812,
+  "result": {
+   "reason": "cleared",
+   "killed": 8,
+   "total": 8
+  }
+ },
+ {
+  "name": "lethania_solo_2_r04",
+  "title": "莱塔尼亚 · 单人规程20级 · R4 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 40.47,
+  "frames": 405,
+  "maxUnits": 19,
+  "file": "demo_ops/lethania_solo_2_r04.json",
+  "bytes": 230216,
+  "result": {
+   "reason": "cleared",
+   "killed": 21,
+   "total": 21
+  }
+ },
+ {
+  "name": "lethania_solo_2_r05",
+  "title": "莱塔尼亚 · 单人规程20级 · R5 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 52.17,
+  "frames": 522,
+  "maxUnits": 16,
+  "file": "demo_ops/lethania_solo_2_r05.json",
+  "bytes": 283376,
+  "result": {
+   "reason": "cleared",
+   "killed": 24,
+   "total": 24
+  }
+ },
+ {
+  "name": "lethania_solo_2_r06",
+  "title": "莱塔尼亚 · 单人规程20级 · R6 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 52.9,
+  "frames": 529,
+  "maxUnits": 20,
+  "file": "demo_ops/lethania_solo_2_r06.json",
+  "bytes": 363235,
+  "result": {
+   "reason": "cleared",
+   "killed": 21,
+   "total": 21
+  }
+ },
+ {
+  "name": "lethania_solo_2_r07",
+  "title": "莱塔尼亚 · 单人规程20级 · R7 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 64.17,
+  "frames": 642,
+  "maxUnits": 19,
+  "file": "demo_ops/lethania_solo_2_r07.json",
+  "bytes": 417163,
+  "result": {
+   "reason": "cleared",
+   "killed": 25,
+   "total": 25
+  }
+ },
+ {
+  "name": "lethania_solo_2_r08",
+  "title": "莱塔尼亚 · 单人规程20级 · R8 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 75.27,
+  "frames": 753,
+  "maxUnits": 20,
+  "file": "demo_ops/lethania_solo_2_r08.json",
+  "bytes": 512766,
+  "result": {
+   "reason": "cleared",
+   "killed": 20,
+   "total": 20
+  }
+ },
+ {
+  "name": "lethania_solo_2_r09",
+  "title": "莱塔尼亚 · 单人规程20级 · R9 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 81.33,
+  "frames": 814,
+  "maxUnits": 24,
+  "file": "demo_ops/lethania_solo_2_r09.json",
+  "bytes": 563174,
+  "result": {
+   "reason": "cleared",
+   "killed": 29,
+   "total": 29
+  }
+ },
+ {
+  "name": "lethania_solo_2_r10",
+  "title": "莱塔尼亚 · 单人规程20级 · R10 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 128.67,
+  "frames": 1287,
+  "maxUnits": 24,
+  "file": "demo_ops/lethania_solo_2_r10.json",
+  "bytes": 987446,
+  "result": {
+   "reason": "cleared",
+   "killed": 23,
+   "total": 23
+  }
+ },
+ {
+  "name": "lethania_solo_2_r11",
+  "title": "莱塔尼亚 · 单人规程20级 · R11 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 89.43,
+  "frames": 895,
+  "maxUnits": 29,
+  "file": "demo_ops/lethania_solo_2_r11.json",
+  "bytes": 985643,
+  "result": {
+   "reason": "cleared",
+   "killed": 31,
+   "total": 31
+  }
+ },
+ {
+  "name": "lethania_solo_2_r12",
+  "title": "莱塔尼亚 · 单人规程20级 · R12 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 77.8,
+  "frames": 778,
+  "maxUnits": 43,
+  "file": "demo_ops/lethania_solo_2_r12.json",
+  "bytes": 1004298,
+  "result": {
+   "reason": "cleared",
+   "killed": 55,
+   "total": 55
+  }
+ },
+ {
+  "name": "lethania_solo_2_r13",
+  "title": "莱塔尼亚 · 单人规程20级 · R13 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 85.97,
+  "frames": 860,
+  "maxUnits": 38,
+  "file": "demo_ops/lethania_solo_2_r13.json",
+  "bytes": 880956,
+  "result": {
+   "reason": "cleared",
+   "killed": 43,
+   "total": 43
+  }
+ },
+ {
+  "name": "lethania_solo_2_r14",
+  "title": "莱塔尼亚 · 单人规程20级 · R14 常规领袖 · 假想敌：胄",
+  "kind": "boss",
+  "stageId": "act2autochess_m02",
+  "duration": 175.5,
+  "frames": 1755,
+  "maxUnits": 18,
+  "file": "demo_ops/lethania_solo_2_r14.json",
+  "bytes": 1213293,
+  "result": {
+   "reason": "cleared",
+   "killed": 23,
+   "total": 19
+  }
+ },
+ {
+  "name": "lethania_solo_2_r15",
+  "title": "莱塔尼亚 · 单人规程20级 · R15 隐秘核心 · 假想敌：鳍",
+  "kind": "hidden",
+  "stageId": "act2autochess_m02",
+  "duration": 348,
+  "frames": 3480,
+  "maxUnits": 17,
+  "file": "demo_ops/lethania_solo_2_r15.json",
+  "bytes": 1954302,
+  "result": {
+   "reason": "forced",
+   "killed": 16,
+   "total": 16
+  }
+ },
+ {
+  "name": "lethania_solo_4_r01",
+  "title": "莱塔尼亚 · 单人规程20级 · R1 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 38.97,
+  "frames": 390,
+  "maxUnits": 4,
+  "file": "demo_ops/lethania_solo_4_r01.json",
+  "bytes": 83769,
+  "result": {
+   "reason": "cleared",
+   "killed": 3,
+   "total": 4
+  }
+ },
+ {
+  "name": "lethania_solo_4_r02",
+  "title": "莱塔尼亚 · 单人规程20级 · R2 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 39.37,
+  "frames": 394,
+  "maxUnits": 8,
+  "file": "demo_ops/lethania_solo_4_r02.json",
+  "bytes": 127669,
+  "result": {
+   "reason": "cleared",
+   "killed": 6,
+   "total": 6
+  }
+ },
+ {
+  "name": "lethania_solo_4_r03",
+  "title": "莱塔尼亚 · 单人规程20级 · R3 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 51.5,
+  "frames": 515,
+  "maxUnits": 9,
+  "file": "demo_ops/lethania_solo_4_r03.json",
+  "bytes": 179685,
+  "result": {
+   "reason": "cleared",
+   "killed": 8,
+   "total": 8
+  }
+ },
+ {
+  "name": "lethania_solo_4_r04",
+  "title": "莱塔尼亚 · 单人规程20级 · R4 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 62.63,
+  "frames": 627,
+  "maxUnits": 13,
+  "file": "demo_ops/lethania_solo_4_r04.json",
+  "bytes": 250867,
+  "result": {
+   "reason": "cleared",
+   "killed": 6,
+   "total": 10
+  }
+ },
+ {
+  "name": "lethania_solo_4_r05",
+  "title": "莱塔尼亚 · 单人规程20级 · R5 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 45.63,
+  "frames": 457,
+  "maxUnits": 11,
+  "file": "demo_ops/lethania_solo_4_r05.json",
+  "bytes": 209750,
+  "result": {
+   "reason": "cleared",
+   "killed": 6,
+   "total": 6
+  }
+ },
+ {
+  "name": "lethania_solo_4_r06",
+  "title": "莱塔尼亚 · 单人规程20级 · R6 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 74.7,
+  "frames": 747,
+  "maxUnits": 21,
+  "file": "demo_ops/lethania_solo_4_r06.json",
+  "bytes": 412680,
+  "result": {
+   "reason": "cleared",
+   "killed": 26,
+   "total": 26
+  }
+ },
+ {
+  "name": "lethania_solo_4_r07",
+  "title": "莱塔尼亚 · 单人规程20级 · R7 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 77.67,
+  "frames": 777,
+  "maxUnits": 20,
+  "file": "demo_ops/lethania_solo_4_r07.json",
+  "bytes": 474771,
+  "result": {
+   "reason": "cleared",
+   "killed": 27,
+   "total": 30
+  }
+ },
+ {
+  "name": "lethania_solo_4_r08",
+  "title": "莱塔尼亚 · 单人规程20级 · R8 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 89.03,
+  "frames": 891,
+  "maxUnits": 12,
+  "file": "demo_ops/lethania_solo_4_r08.json",
+  "bytes": 430789,
+  "result": {
+   "reason": "cleared",
+   "killed": 5,
+   "total": 8
+  }
+ },
+ {
+  "name": "lethania_solo_4_r09",
+  "title": "莱塔尼亚 · 单人规程20级 · R9 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 84.03,
+  "frames": 841,
+  "maxUnits": 16,
+  "file": "demo_ops/lethania_solo_4_r09.json",
+  "bytes": 476393,
+  "result": {
+   "reason": "cleared",
+   "killed": 17,
+   "total": 17
+  }
+ },
+ {
+  "name": "lethania_solo_4_r10",
+  "title": "莱塔尼亚 · 单人规程20级 · R10 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 87.03,
+  "frames": 871,
+  "maxUnits": 30,
+  "file": "demo_ops/lethania_solo_4_r10.json",
+  "bytes": 672090,
+  "result": {
+   "reason": "cleared",
+   "killed": 66,
+   "total": 21
+  }
+ },
+ {
+  "name": "lethania_solo_4_r11",
+  "title": "莱塔尼亚 · 单人规程20级 · R11 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 93.97,
+  "frames": 940,
+  "maxUnits": 19,
+  "file": "demo_ops/lethania_solo_4_r11.json",
+  "bytes": 594641,
+  "result": {
+   "reason": "cleared",
+   "killed": 29,
+   "total": 29
+  }
+ },
+ {
+  "name": "lethania_solo_4_r12",
+  "title": "莱塔尼亚 · 单人规程20级 · R12 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 76.73,
+  "frames": 768,
+  "maxUnits": 37,
+  "file": "demo_ops/lethania_solo_4_r12.json",
+  "bytes": 813110,
+  "result": {
+   "reason": "cleared",
+   "killed": 105,
+   "total": 32
+  }
+ },
+ {
+  "name": "lethania_solo_4_r13",
+  "title": "莱塔尼亚 · 单人规程20级 · R13 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 65.1,
+  "frames": 651,
+  "maxUnits": 17,
+  "file": "demo_ops/lethania_solo_4_r13.json",
+  "bytes": 401120,
+  "result": {
+   "reason": "cleared",
+   "killed": 13,
+   "total": 13
+  }
+ },
+ {
+  "name": "lethania_solo_4_r14",
+  "title": "莱塔尼亚 · 单人规程20级 · R14 常规领袖 · 阿利斯泰尔，帝国余晖",
+  "kind": "boss",
+  "stageId": "act2autochess_m01",
+  "duration": 24.83,
+  "frames": 249,
+  "maxUnits": 20,
+  "file": "demo_ops/lethania_solo_4_r14.json",
+  "bytes": 203028,
+  "result": {
+   "reason": "cleared",
+   "killed": 7,
+   "total": 20
+  }
+ },
+ {
+  "name": "lethania_solo_4_r15",
+  "title": "莱塔尼亚 · 单人规程20级 · R15 隐秘核心 · 假想敌：胄",
+  "kind": "hidden",
+  "stageId": "act2autochess_m01",
+  "duration": 44.63,
+  "frames": 447,
+  "maxUnits": 23,
+  "file": "demo_ops/lethania_solo_4_r15.json",
+  "bytes": 437446,
+  "result": {
+   "reason": "cleared",
+   "killed": 11,
+   "total": 17
+  }
+ },
+ {
+  "name": "lethania_solo_6_r01",
+  "title": "莱塔尼亚 · 单人规程20级 · R1 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 90,
+  "frames": 900,
+  "maxUnits": 6,
+  "file": "demo_ops/lethania_solo_6_r01.json",
+  "bytes": 206148,
+  "result": {
+   "reason": "timeout",
+   "killed": 3,
+   "total": 4
+  }
+ },
+ {
+  "name": "lethania_solo_6_r02",
+  "title": "莱塔尼亚 · 单人规程20级 · R2 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 38.83,
+  "frames": 389,
+  "maxUnits": 9,
+  "file": "demo_ops/lethania_solo_6_r02.json",
+  "bytes": 128509,
+  "result": {
+   "reason": "cleared",
+   "killed": 10,
+   "total": 10
+  }
+ },
+ {
+  "name": "lethania_solo_6_r03",
+  "title": "莱塔尼亚 · 单人规程20级 · R3 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 92.97,
+  "frames": 930,
+  "maxUnits": 11,
+  "file": "demo_ops/lethania_solo_6_r03.json",
+  "bytes": 354663,
+  "result": {
+   "reason": "cleared",
+   "killed": 8,
+   "total": 8
+  }
+ },
+ {
+  "name": "lethania_solo_6_r04",
+  "title": "莱塔尼亚 · 单人规程20级 · R4 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 51.87,
+  "frames": 519,
+  "maxUnits": 17,
+  "file": "demo_ops/lethania_solo_6_r04.json",
+  "bytes": 277673,
+  "result": {
+   "reason": "cleared",
+   "killed": 10,
+   "total": 10
+  }
+ },
+ {
+  "name": "lethania_solo_6_r05",
+  "title": "莱塔尼亚 · 单人规程20级 · R5 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 48.67,
+  "frames": 487,
+  "maxUnits": 30,
+  "file": "demo_ops/lethania_solo_6_r05.json",
+  "bytes": 378909,
+  "result": {
+   "reason": "cleared",
+   "killed": 53,
+   "total": 16
+  }
+ },
+ {
+  "name": "lethania_solo_6_r06",
+  "title": "莱塔尼亚 · 单人规程20级 · R6 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 69.37,
+  "frames": 694,
+  "maxUnits": 26,
+  "file": "demo_ops/lethania_solo_6_r06.json",
+  "bytes": 411774,
+  "result": {
+   "reason": "cleared",
+   "killed": 21,
+   "total": 21
+  }
+ },
+ {
+  "name": "lethania_solo_6_r07",
+  "title": "莱塔尼亚 · 单人规程20级 · R7 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 75.97,
+  "frames": 760,
+  "maxUnits": 28,
+  "file": "demo_ops/lethania_solo_6_r07.json",
+  "bytes": 580801,
+  "result": {
+   "reason": "cleared",
+   "killed": 30,
+   "total": 30
+  }
+ },
+ {
+  "name": "lethania_solo_6_r08",
+  "title": "莱塔尼亚 · 单人规程20级 · R8 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 78.93,
+  "frames": 790,
+  "maxUnits": 25,
+  "file": "demo_ops/lethania_solo_6_r08.json",
+  "bytes": 520083,
+  "result": {
+   "reason": "cleared",
+   "killed": 23,
+   "total": 29
+  }
+ },
+ {
+  "name": "lethania_solo_6_r09",
+  "title": "莱塔尼亚 · 单人规程20级 · R9 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 86.13,
+  "frames": 862,
+  "maxUnits": 19,
+  "file": "demo_ops/lethania_solo_6_r09.json",
+  "bytes": 580938,
+  "result": {
+   "reason": "cleared",
+   "killed": 17,
+   "total": 17
+  }
+ },
+ {
+  "name": "lethania_solo_6_r10",
+  "title": "莱塔尼亚 · 单人规程20级 · R10 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 95.17,
+  "frames": 952,
+  "maxUnits": 25,
+  "file": "demo_ops/lethania_solo_6_r10.json",
+  "bytes": 781597,
+  "result": {
+   "reason": "cleared",
+   "killed": 28,
+   "total": 28
+  }
+ },
+ {
+  "name": "lethania_solo_6_r11",
+  "title": "莱塔尼亚 · 单人规程20级 · R11 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 104.77,
+  "frames": 1048,
+  "maxUnits": 21,
+  "file": "demo_ops/lethania_solo_6_r11.json",
+  "bytes": 749209,
+  "result": {
+   "reason": "cleared",
+   "killed": 16,
+   "total": 19
+  }
+ },
+ {
+  "name": "lethania_solo_6_r12",
+  "title": "莱塔尼亚 · 单人规程20级 · R12 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 108.77,
+  "frames": 1088,
+  "maxUnits": 35,
+  "file": "demo_ops/lethania_solo_6_r12.json",
+  "bytes": 1105849,
+  "result": {
+   "reason": "cleared",
+   "killed": 33,
+   "total": 34
+  }
+ },
+ {
+  "name": "lethania_solo_6_r13",
+  "title": "莱塔尼亚 · 单人规程20级 · R13 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 83,
+  "frames": 830,
+  "maxUnits": 41,
+  "file": "demo_ops/lethania_solo_6_r13.json",
+  "bytes": 959730,
+  "result": {
+   "reason": "cleared",
+   "killed": 105,
+   "total": 33
+  }
+ },
+ {
+  "name": "lethania_solo_6_r14",
+  "title": "莱塔尼亚 · 单人规程20级 · R14 常规领袖 · “萨米的意志”",
+  "kind": "boss",
+  "stageId": "act2autochess_m03",
+  "duration": 218.67,
+  "frames": 2187,
+  "maxUnits": 23,
+  "file": "demo_ops/lethania_solo_6_r14.json",
+  "bytes": 1427059,
+  "result": {
+   "reason": "cleared",
+   "killed": 29,
+   "total": 29
+  }
+ },
+ {
+  "name": "lethania_solo_6_r15",
+  "title": "莱塔尼亚 · 单人规程20级 · R15 隐秘核心 · 假想敌：胄",
+  "kind": "hidden",
+  "stageId": "act2autochess_m03",
+  "duration": 88.57,
+  "frames": 886,
+  "maxUnits": 22,
+  "file": "demo_ops/lethania_solo_6_r15.json",
+  "bytes": 750499,
+  "result": {
+   "reason": "cleared",
+   "killed": 23,
+   "total": 21
+  }
+ },
+ {
+  "name": "lethania_solo_7_r01",
+  "title": "莱塔尼亚 · 单人规程20级 · R1 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 48.03,
+  "frames": 481,
+  "maxUnits": 5,
+  "file": "demo_ops/lethania_solo_7_r01.json",
+  "bytes": 107248,
+  "result": {
+   "reason": "cleared",
+   "killed": 4,
+   "total": 4
+  }
+ },
+ {
+  "name": "lethania_solo_7_r02",
+  "title": "莱塔尼亚 · 单人规程20级 · R2 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 51.53,
+  "frames": 516,
+  "maxUnits": 8,
+  "file": "demo_ops/lethania_solo_7_r02.json",
+  "bytes": 154665,
+  "result": {
+   "reason": "cleared",
+   "killed": 4,
+   "total": 4
+  }
+ },
+ {
+  "name": "lethania_solo_7_r03",
+  "title": "莱塔尼亚 · 单人规程20级 · R3 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 54.03,
+  "frames": 541,
+  "maxUnits": 10,
+  "file": "demo_ops/lethania_solo_7_r03.json",
+  "bytes": 185991,
+  "result": {
+   "reason": "cleared",
+   "killed": 20,
+   "total": 7
+  }
+ },
+ {
+  "name": "lethania_solo_7_r04",
+  "title": "莱塔尼亚 · 单人规程20级 · R4 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 77.03,
+  "frames": 771,
+  "maxUnits": 11,
+  "file": "demo_ops/lethania_solo_7_r04.json",
+  "bytes": 270304,
+  "result": {
+   "reason": "cleared",
+   "killed": 4,
+   "total": 7
+  }
+ },
+ {
+  "name": "lethania_solo_7_r05",
+  "title": "莱塔尼亚 · 单人规程20级 · R5 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 75.03,
+  "frames": 751,
+  "maxUnits": 11,
+  "file": "demo_ops/lethania_solo_7_r05.json",
+  "bytes": 307388,
+  "result": {
+   "reason": "cleared",
+   "killed": 6,
+   "total": 6
+  }
+ },
+ {
+  "name": "lethania_solo_7_r06",
+  "title": "莱塔尼亚 · 单人规程20级 · R6 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 77.3,
+  "frames": 773,
+  "maxUnits": 22,
+  "file": "demo_ops/lethania_solo_7_r06.json",
+  "bytes": 427774,
+  "result": {
+   "reason": "cleared",
+   "killed": 25,
+   "total": 27
+  }
+ },
+ {
+  "name": "lethania_solo_7_r07",
+  "title": "莱塔尼亚 · 单人规程20级 · R7 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 74.3,
+  "frames": 743,
+  "maxUnits": 20,
+  "file": "demo_ops/lethania_solo_7_r07.json",
+  "bytes": 461587,
+  "result": {
+   "reason": "cleared",
+   "killed": 22,
+   "total": 22
+  }
+ },
+ {
+  "name": "lethania_solo_7_r08",
+  "title": "莱塔尼亚 · 单人规程20级 · R8 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 74.2,
+  "frames": 742,
+  "maxUnits": 25,
+  "file": "demo_ops/lethania_solo_7_r08.json",
+  "bytes": 451608,
+  "result": {
+   "reason": "cleared",
+   "killed": 35,
+   "total": 17
+  }
+ },
+ {
+  "name": "lethania_solo_7_r09",
+  "title": "莱塔尼亚 · 单人规程20级 · R9 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 130.33,
+  "frames": 1304,
+  "maxUnits": 23,
+  "file": "demo_ops/lethania_solo_7_r09.json",
+  "bytes": 914244,
+  "result": {
+   "reason": "cleared",
+   "killed": 32,
+   "total": 32
+  }
+ },
+ {
+  "name": "lethania_solo_7_r10",
+  "title": "莱塔尼亚 · 单人规程20级 · R10 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 172.93,
+  "frames": 1730,
+  "maxUnits": 25,
+  "file": "demo_ops/lethania_solo_7_r10.json",
+  "bytes": 1216741,
+  "result": {
+   "reason": "cleared",
+   "killed": 28,
+   "total": 30
+  }
+ },
+ {
+  "name": "lethania_solo_7_r11",
+  "title": "莱塔尼亚 · 单人规程20级 · R11 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 132.13,
+  "frames": 1322,
+  "maxUnits": 22,
+  "file": "demo_ops/lethania_solo_7_r11.json",
+  "bytes": 1114238,
+  "result": {
+   "reason": "cleared",
+   "killed": 20,
+   "total": 20
+  }
+ },
+ {
+  "name": "lethania_solo_7_r12",
+  "title": "莱塔尼亚 · 单人规程20级 · R12 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 105.83,
+  "frames": 1059,
+  "maxUnits": 21,
+  "file": "demo_ops/lethania_solo_7_r12.json",
+  "bytes": 751886,
+  "result": {
+   "reason": "cleared",
+   "killed": 16,
+   "total": 16
+  }
+ },
+ {
+  "name": "lethania_solo_7_r13",
+  "title": "莱塔尼亚 · 单人规程20级 · R13 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m02",
+  "duration": 100.33,
+  "frames": 1004,
+  "maxUnits": 35,
+  "file": "demo_ops/lethania_solo_7_r13.json",
+  "bytes": 882988,
+  "result": {
+   "reason": "cleared",
+   "killed": 41,
+   "total": 41
+  }
+ },
+ {
+  "name": "lethania_solo_7_r14",
+  "title": "莱塔尼亚 · 单人规程20级 · R14 常规领袖 · 假想敌：铳",
+  "kind": "boss",
+  "stageId": "act2autochess_m02",
+  "duration": 235.07,
+  "frames": 2351,
+  "maxUnits": 16,
+  "file": "demo_ops/lethania_solo_7_r14.json",
+  "bytes": 1259740,
+  "result": {
+   "reason": "cleared",
+   "killed": 22,
+   "total": 22
+  }
+ },
+ {
+  "name": "lethania_solo_7_r15",
+  "title": "莱塔尼亚 · 单人规程20级 · R15 隐秘核心 · 假想敌：管",
+  "kind": "hidden",
+  "stageId": "act2autochess_m02",
+  "duration": 209.23,
+  "frames": 2093,
+  "maxUnits": 16,
+  "file": "demo_ops/lethania_solo_7_r15.json",
+  "bytes": 1512170,
+  "result": {
+   "reason": "cleared",
+   "killed": 34,
+   "total": 22
+  }
+ },
+ {
+  "name": "ursus_coop_1_r01",
+  "title": "乌萨斯 · 4人终极模拟 · R1 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 90,
+  "frames": 900,
+  "maxUnits": 5,
+  "file": "demo_ops/ursus_coop_1_r01.json",
+  "bytes": 193949,
+  "result": {
+   "reason": "timeout",
+   "killed": 2,
+   "total": 3
+  }
+ },
+ {
+  "name": "ursus_coop_1_r02",
+  "title": "乌萨斯 · 4人终极模拟 · R2 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 48.2,
+  "frames": 482,
+  "maxUnits": 11,
+  "file": "demo_ops/ursus_coop_1_r02.json",
+  "bytes": 184436,
+  "result": {
+   "reason": "cleared",
+   "killed": 10,
+   "total": 10
+  }
+ },
+ {
+  "name": "ursus_coop_1_r03",
+  "title": "乌萨斯 · 4人终极模拟 · R3 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 86.47,
+  "frames": 865,
+  "maxUnits": 10,
+  "file": "demo_ops/ursus_coop_1_r03.json",
+  "bytes": 298308,
+  "result": {
+   "reason": "cleared",
+   "killed": 8,
+   "total": 9
+  }
+ },
+ {
+  "name": "ursus_coop_1_r04",
+  "title": "乌萨斯 · 4人终极模拟 · R4 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 60.8,
+  "frames": 608,
+  "maxUnits": 13,
+  "file": "demo_ops/ursus_coop_1_r04.json",
+  "bytes": 267859,
+  "result": {
+   "reason": "cleared",
+   "killed": 10,
+   "total": 10
+  }
+ },
+ {
+  "name": "ursus_coop_1_r05",
+  "title": "乌萨斯 · 4人终极模拟 · R5 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 55.3,
+  "frames": 553,
+  "maxUnits": 22,
+  "file": "demo_ops/ursus_coop_1_r05.json",
+  "bytes": 382785,
+  "result": {
+   "reason": "cleared",
+   "killed": 21,
+   "total": 21
+  }
+ },
+ {
+  "name": "ursus_coop_1_r05_unite",
+  "title": "乌萨斯 · 4人终极模拟 · R5 联防",
+  "kind": "unite",
+  "stageId": "act2autochess_m01",
+  "duration": 39.87,
+  "frames": 399,
+  "maxUnits": 19,
+  "file": "demo_ops/ursus_coop_1_r05_unite.json",
+  "bytes": 294533,
+  "result": {
+   "reason": "cleared",
+   "killed": 5,
+   "total": 5
+  }
+ },
+ {
+  "name": "ursus_coop_1_r06",
+  "title": "乌萨斯 · 4人终极模拟 · R6 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 53.87,
+  "frames": 539,
+  "maxUnits": 17,
+  "file": "demo_ops/ursus_coop_1_r06.json",
+  "bytes": 297987,
+  "result": {
+   "reason": "cleared",
+   "killed": 13,
+   "total": 13
+  }
+ },
+ {
+  "name": "ursus_coop_1_r06_unite",
+  "title": "乌萨斯 · 4人终极模拟 · R6 联防",
+  "kind": "unite",
+  "stageId": "act2autochess_m01",
+  "duration": 59.23,
+  "frames": 593,
+  "maxUnits": 17,
+  "file": "demo_ops/ursus_coop_1_r06_unite.json",
+  "bytes": 455003,
+  "result": {
+   "reason": "cleared",
+   "killed": 1,
+   "total": 1
+  }
+ },
+ {
+  "name": "ursus_coop_1_r07",
+  "title": "乌萨斯 · 4人终极模拟 · R7 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 119.67,
+  "frames": 1197,
+  "maxUnits": 16,
+  "file": "demo_ops/ursus_coop_1_r07.json",
+  "bytes": 580672,
+  "result": {
+   "reason": "cleared",
+   "killed": 10,
+   "total": 10
+  }
+ },
+ {
+  "name": "ursus_coop_1_r07_unite",
+  "title": "乌萨斯 · 4人终极模拟 · R7 联防",
+  "kind": "unite",
+  "stageId": "act2autochess_m01",
+  "duration": 142.9,
+  "frames": 1429,
+  "maxUnits": 23,
+  "file": "demo_ops/ursus_coop_1_r07_unite.json",
+  "bytes": 1132361,
+  "result": {
+   "reason": "cleared",
+   "killed": 3,
+   "total": 9
+  }
+ },
+ {
+  "name": "ursus_coop_1_r08",
+  "title": "乌萨斯 · 4人终极模拟 · R8 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 141.83,
+  "frames": 1419,
+  "maxUnits": 18,
+  "file": "demo_ops/ursus_coop_1_r08.json",
+  "bytes": 855660,
+  "result": {
+   "reason": "cleared",
+   "killed": 10,
+   "total": 19
+  }
+ },
+ {
+  "name": "ursus_coop_1_r09",
+  "title": "乌萨斯 · 4人终极模拟 · R9 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 82.03,
+  "frames": 821,
+  "maxUnits": 14,
+  "file": "demo_ops/ursus_coop_1_r09.json",
+  "bytes": 489063,
+  "result": {
+   "reason": "cleared",
+   "killed": 11,
+   "total": 11
+  }
+ },
+ {
+  "name": "ursus_coop_1_r09_unite",
+  "title": "乌萨斯 · 4人终极模拟 · R9 联防",
+  "kind": "unite",
+  "stageId": "act2autochess_m01",
+  "duration": 78.73,
+  "frames": 788,
+  "maxUnits": 21,
+  "file": "demo_ops/ursus_coop_1_r09_unite.json",
+  "bytes": 673181,
+  "result": {
+   "reason": "cleared",
+   "killed": 11,
+   "total": 25
+  }
+ },
+ {
+  "name": "ursus_coop_1_r10",
+  "title": "乌萨斯 · 4人终极模拟 · R10 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 91.43,
+  "frames": 915,
+  "maxUnits": 16,
+  "file": "demo_ops/ursus_coop_1_r10.json",
+  "bytes": 584553,
+  "result": {
+   "reason": "cleared",
+   "killed": 17,
+   "total": 17
+  }
+ },
+ {
+  "name": "ursus_coop_1_r10_unite",
+  "title": "乌萨斯 · 4人终极模拟 · R10 联防",
+  "kind": "unite",
+  "stageId": "act2autochess_m01",
+  "duration": 76.37,
+  "frames": 764,
+  "maxUnits": 36,
+  "file": "demo_ops/ursus_coop_1_r10_unite.json",
+  "bytes": 1039238,
+  "result": {
+   "reason": "cleared",
+   "killed": 19,
+   "total": 19
+  }
+ },
+ {
+  "name": "ursus_coop_1_r11",
+  "title": "乌萨斯 · 4人终极模拟 · R11 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 108.43,
+  "frames": 1085,
+  "maxUnits": 15,
+  "file": "demo_ops/ursus_coop_1_r11.json",
+  "bytes": 777064,
+  "result": {
+   "reason": "cleared",
+   "killed": 14,
+   "total": 16
+  }
+ },
+ {
+  "name": "ursus_coop_1_r12",
+  "title": "乌萨斯 · 4人终极模拟 · R12 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 78.17,
+  "frames": 782,
+  "maxUnits": 21,
+  "file": "demo_ops/ursus_coop_1_r12.json",
+  "bytes": 699132,
+  "result": {
+   "reason": "cleared",
+   "killed": 36,
+   "total": 36
+  }
+ },
+ {
+  "name": "ursus_coop_1_r12_unite",
+  "title": "乌萨斯 · 4人终极模拟 · R12 联防",
+  "kind": "unite",
+  "stageId": "act2autochess_m01",
+  "duration": 69.6,
+  "frames": 696,
+  "maxUnits": 50,
+  "file": "demo_ops/ursus_coop_1_r12_unite.json",
+  "bytes": 1025208,
+  "result": {
+   "reason": "cleared",
+   "killed": 33,
+   "total": 33
+  }
+ },
+ {
+  "name": "ursus_coop_1_r13",
+  "title": "乌萨斯 · 4人终极模拟 · R13 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 90.3,
+  "frames": 903,
+  "maxUnits": 23,
+  "file": "demo_ops/ursus_coop_1_r13.json",
+  "bytes": 759967,
+  "result": {
+   "reason": "cleared",
+   "killed": 42,
+   "total": 42
+  }
+ },
+ {
+  "name": "ursus_coop_1_r13_unite",
+  "title": "乌萨斯 · 4人终极模拟 · R13 联防",
+  "kind": "unite",
+  "stageId": "act2autochess_m01",
+  "duration": 67.67,
+  "frames": 677,
+  "maxUnits": 41,
+  "file": "demo_ops/ursus_coop_1_r13_unite.json",
+  "bytes": 953821,
+  "result": {
+   "reason": "cleared",
+   "killed": 29,
+   "total": 29
+  }
+ },
+ {
+  "name": "ursus_coop_1_r14",
+  "title": "乌萨斯 · 4人终极模拟 · R14 常规领袖 · 假想敌：胄",
+  "kind": "boss",
+  "stageId": "act2autochess_m01",
+  "duration": 252,
+  "frames": 2520,
+  "maxUnits": 26,
+  "file": "demo_ops/ursus_coop_1_r14.json",
+  "bytes": 2625051,
+  "result": {
+   "reason": "forced",
+   "killed": 33,
+   "total": 28
+  }
+ },
+ {
+  "name": "ursus_coop_1_r15",
+  "title": "乌萨斯 · 4人终极模拟 · R15 隐秘核心 · 假想敌：胄",
+  "kind": "hidden",
+  "stageId": "act2autochess_m01",
+  "duration": 361.3,
+  "frames": 3613,
+  "maxUnits": 29,
+  "file": "demo_ops/ursus_coop_1_r15.json",
+  "bytes": 4167415,
+  "result": {
+   "reason": "cleared",
+   "killed": 50,
+   "total": 42
+  }
+ },
+ {
+  "name": "ursus_solo_1_r01",
+  "title": "乌萨斯 · 单人规程20级 · R1 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 34.3,
+  "frames": 343,
+  "maxUnits": 5,
+  "file": "demo_ops/ursus_solo_1_r01.json",
+  "bytes": 72229,
+  "result": {
+   "reason": "cleared",
+   "killed": 3,
+   "total": 3
+  }
+ },
+ {
+  "name": "ursus_solo_1_r02",
+  "title": "乌萨斯 · 单人规程20级 · R2 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 42,
+  "frames": 420,
+  "maxUnits": 5,
+  "file": "demo_ops/ursus_solo_1_r02.json",
+  "bytes": 94989,
+  "result": {
+   "reason": "cleared",
+   "killed": 4,
+   "total": 4
+  }
+ },
+ {
+  "name": "ursus_solo_1_r03",
+  "title": "乌萨斯 · 单人规程20级 · R3 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 70.17,
+  "frames": 702,
+  "maxUnits": 11,
+  "file": "demo_ops/ursus_solo_1_r03.json",
+  "bytes": 221946,
+  "result": {
+   "reason": "cleared",
+   "killed": 19,
+   "total": 7
+  }
+ },
+ {
+  "name": "ursus_solo_1_r04",
+  "title": "乌萨斯 · 单人规程20级 · R4 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 105.67,
+  "frames": 1057,
+  "maxUnits": 17,
+  "file": "demo_ops/ursus_solo_1_r04.json",
+  "bytes": 393681,
+  "result": {
+   "reason": "cleared",
+   "killed": 12,
+   "total": 13
+  }
+ },
+ {
+  "name": "ursus_solo_1_r05",
+  "title": "乌萨斯 · 单人规程20级 · R5 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 78.43,
+  "frames": 785,
+  "maxUnits": 22,
+  "file": "demo_ops/ursus_solo_1_r05.json",
+  "bytes": 460982,
+  "result": {
+   "reason": "cleared",
+   "killed": 16,
+   "total": 16
+  }
+ },
+ {
+  "name": "ursus_solo_1_r06",
+  "title": "乌萨斯 · 单人规程20级 · R6 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 67.6,
+  "frames": 676,
+  "maxUnits": 18,
+  "file": "demo_ops/ursus_solo_1_r06.json",
+  "bytes": 352420,
+  "result": {
+   "reason": "cleared",
+   "killed": 30,
+   "total": 30
+  }
+ },
+ {
+  "name": "ursus_solo_1_r07",
+  "title": "乌萨斯 · 单人规程20级 · R7 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 85.67,
+  "frames": 857,
+  "maxUnits": 22,
+  "file": "demo_ops/ursus_solo_1_r07.json",
+  "bytes": 530426,
+  "result": {
+   "reason": "cleared",
+   "killed": 23,
+   "total": 28
+  }
+ },
+ {
+  "name": "ursus_solo_1_r08",
+  "title": "乌萨斯 · 单人规程20级 · R8 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 78.83,
+  "frames": 789,
+  "maxUnits": 14,
+  "file": "demo_ops/ursus_solo_1_r08.json",
+  "bytes": 371516,
+  "result": {
+   "reason": "cleared",
+   "killed": 15,
+   "total": 15
+  }
+ },
+ {
+  "name": "ursus_solo_1_r09",
+  "title": "乌萨斯 · 单人规程20级 · R9 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 103.5,
+  "frames": 1035,
+  "maxUnits": 21,
+  "file": "demo_ops/ursus_solo_1_r09.json",
+  "bytes": 670823,
+  "result": {
+   "reason": "cleared",
+   "killed": 21,
+   "total": 21
+  }
+ },
+ {
+  "name": "ursus_solo_1_r10",
+  "title": "乌萨斯 · 单人规程20级 · R10 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 72.5,
+  "frames": 725,
+  "maxUnits": 14,
+  "file": "demo_ops/ursus_solo_1_r10.json",
+  "bytes": 354798,
+  "result": {
+   "reason": "cleared",
+   "killed": 18,
+   "total": 18
+  }
+ },
+ {
+  "name": "ursus_solo_1_r11",
+  "title": "乌萨斯 · 单人规程20级 · R11 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 83.53,
+  "frames": 836,
+  "maxUnits": 20,
+  "file": "demo_ops/ursus_solo_1_r11.json",
+  "bytes": 533592,
+  "result": {
+   "reason": "cleared",
+   "killed": 37,
+   "total": 37
+  }
+ },
+ {
+  "name": "ursus_solo_1_r12",
+  "title": "乌萨斯 · 单人规程20级 · R12 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 75.27,
+  "frames": 753,
+  "maxUnits": 19,
+  "file": "demo_ops/ursus_solo_1_r12.json",
+  "bytes": 459627,
+  "result": {
+   "reason": "cleared",
+   "killed": 33,
+   "total": 33
+  }
+ },
+ {
+  "name": "ursus_solo_1_r13",
+  "title": "乌萨斯 · 单人规程20级 · R13 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 83.7,
+  "frames": 837,
+  "maxUnits": 31,
+  "file": "demo_ops/ursus_solo_1_r13.json",
+  "bytes": 729474,
+  "result": {
+   "reason": "cleared",
+   "killed": 89,
+   "total": 35
+  }
+ },
+ {
+  "name": "ursus_solo_1_r14",
+  "title": "乌萨斯 · 单人规程20级 · R14 常规领袖 · 阿利斯泰尔，帝国余晖",
+  "kind": "boss",
+  "stageId": "act2autochess_m01",
+  "duration": 194.97,
+  "frames": 1950,
+  "maxUnits": 13,
+  "file": "demo_ops/ursus_solo_1_r14.json",
+  "bytes": 1034569,
+  "result": {
+   "reason": "cleared",
+   "killed": 22,
+   "total": 22
+  }
+ },
+ {
+  "name": "ursus_solo_1_r15",
+  "title": "乌萨斯 · 单人规程20级 · R15 隐秘核心 · 假想敌：铳",
+  "kind": "hidden",
+  "stageId": "act2autochess_m01",
+  "duration": 187.63,
+  "frames": 1877,
+  "maxUnits": 16,
+  "file": "demo_ops/ursus_solo_1_r15.json",
+  "bytes": 1712023,
+  "result": {
+   "reason": "cleared",
+   "killed": 20,
+   "total": 20
+  }
+ },
+ {
+  "name": "ursus_solo_2_r01",
+  "title": "乌萨斯 · 单人规程20级 · R1 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 21.63,
+  "frames": 217,
+  "maxUnits": 8,
+  "file": "demo_ops/ursus_solo_2_r01.json",
+  "bytes": 65055,
+  "result": {
+   "reason": "cleared",
+   "killed": 3,
+   "total": 3
+  }
+ },
+ {
+  "name": "ursus_solo_2_r02",
+  "title": "乌萨斯 · 单人规程20级 · R2 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 40.27,
+  "frames": 403,
+  "maxUnits": 9,
+  "file": "demo_ops/ursus_solo_2_r02.json",
+  "bytes": 133967,
+  "result": {
+   "reason": "cleared",
+   "killed": 8,
+   "total": 8
+  }
+ },
+ {
+  "name": "ursus_solo_2_r03",
+  "title": "乌萨斯 · 单人规程20级 · R3 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 63.07,
+  "frames": 631,
+  "maxUnits": 11,
+  "file": "demo_ops/ursus_solo_2_r03.json",
+  "bytes": 237148,
+  "result": {
+   "reason": "cleared",
+   "killed": 3,
+   "total": 8
+  }
+ },
+ {
+  "name": "ursus_solo_2_r04",
+  "title": "乌萨斯 · 单人规程20级 · R4 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 46.87,
+  "frames": 469,
+  "maxUnits": 16,
+  "file": "demo_ops/ursus_solo_2_r04.json",
+  "bytes": 233734,
+  "result": {
+   "reason": "cleared",
+   "killed": 8,
+   "total": 11
+  }
+ },
+ {
+  "name": "ursus_solo_2_r05",
+  "title": "乌萨斯 · 单人规程20级 · R5 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 56.27,
+  "frames": 563,
+  "maxUnits": 23,
+  "file": "demo_ops/ursus_solo_2_r05.json",
+  "bytes": 484345,
+  "result": {
+   "reason": "cleared",
+   "killed": 25,
+   "total": 25
+  }
+ },
+ {
+  "name": "ursus_solo_2_r06",
+  "title": "乌萨斯 · 单人规程20级 · R6 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 61.47,
+  "frames": 615,
+  "maxUnits": 23,
+  "file": "demo_ops/ursus_solo_2_r06.json",
+  "bytes": 518850,
+  "result": {
+   "reason": "cleared",
+   "killed": 18,
+   "total": 21
+  }
+ },
+ {
+  "name": "ursus_solo_2_r07",
+  "title": "乌萨斯 · 单人规程20级 · R7 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 83.5,
+  "frames": 835,
+  "maxUnits": 24,
+  "file": "demo_ops/ursus_solo_2_r07.json",
+  "bytes": 726167,
+  "result": {
+   "reason": "cleared",
+   "killed": 22,
+   "total": 25
+  }
+ },
+ {
+  "name": "ursus_solo_2_r08",
+  "title": "乌萨斯 · 单人规程20级 · R8 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 77.2,
+  "frames": 772,
+  "maxUnits": 18,
+  "file": "demo_ops/ursus_solo_2_r08.json",
+  "bytes": 486811,
+  "result": {
+   "reason": "cleared",
+   "killed": 16,
+   "total": 18
+  }
+ },
+ {
+  "name": "ursus_solo_2_r09",
+  "title": "乌萨斯 · 单人规程20级 · R9 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 74.03,
+  "frames": 741,
+  "maxUnits": 15,
+  "file": "demo_ops/ursus_solo_2_r09.json",
+  "bytes": 395414,
+  "result": {
+   "reason": "cleared",
+   "killed": 10,
+   "total": 10
+  }
+ },
+ {
+  "name": "ursus_solo_2_r10",
+  "title": "乌萨斯 · 单人规程20级 · R10 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 72.93,
+  "frames": 730,
+  "maxUnits": 19,
+  "file": "demo_ops/ursus_solo_2_r10.json",
+  "bytes": 429277,
+  "result": {
+   "reason": "cleared",
+   "killed": 30,
+   "total": 30
+  }
+ },
+ {
+  "name": "ursus_solo_2_r11",
+  "title": "乌萨斯 · 单人规程20级 · R11 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 72.63,
+  "frames": 727,
+  "maxUnits": 16,
+  "file": "demo_ops/ursus_solo_2_r11.json",
+  "bytes": 420771,
+  "result": {
+   "reason": "cleared",
+   "killed": 14,
+   "total": 14
+  }
+ },
+ {
+  "name": "ursus_solo_2_r12",
+  "title": "乌萨斯 · 单人规程20级 · R12 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 69.77,
+  "frames": 698,
+  "maxUnits": 22,
+  "file": "demo_ops/ursus_solo_2_r12.json",
+  "bytes": 496115,
+  "result": {
+   "reason": "cleared",
+   "killed": 55,
+   "total": 55
+  }
+ },
+ {
+  "name": "ursus_solo_2_r13",
+  "title": "乌萨斯 · 单人规程20级 · R13 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m03",
+  "duration": 68.53,
+  "frames": 686,
+  "maxUnits": 18,
+  "file": "demo_ops/ursus_solo_2_r13.json",
+  "bytes": 403430,
+  "result": {
+   "reason": "cleared",
+   "killed": 16,
+   "total": 16
+  }
+ },
+ {
+  "name": "ursus_solo_2_r14",
+  "title": "乌萨斯 · 单人规程20级 · R14 常规领袖 · 假想敌：胄",
+  "kind": "boss",
+  "stageId": "act2autochess_m03",
+  "duration": 262.93,
+  "frames": 2630,
+  "maxUnits": 18,
+  "file": "demo_ops/ursus_solo_2_r14.json",
+  "bytes": 1730054,
+  "result": {
+   "reason": "cleared",
+   "killed": 35,
+   "total": 29
+  }
+ },
+ {
+  "name": "ursus_solo_2_r15",
+  "title": "乌萨斯 · 单人规程20级 · R15 隐秘核心 · 假想敌：胄",
+  "kind": "hidden",
+  "stageId": "act2autochess_m03",
+  "duration": 218.83,
+  "frames": 2189,
+  "maxUnits": 19,
+  "file": "demo_ops/ursus_solo_2_r15.json",
+  "bytes": 1890222,
+  "result": {
+   "reason": "cleared",
+   "killed": 28,
+   "total": 23
+  }
+ },
+ {
+  "name": "ursus_solo_5_r01",
+  "title": "乌萨斯 · 单人规程20级 · R1 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m04",
+  "duration": 33.53,
+  "frames": 336,
+  "maxUnits": 4,
+  "file": "demo_ops/ursus_solo_5_r01.json",
+  "bytes": 75423,
+  "result": {
+   "reason": "cleared",
+   "killed": 4,
+   "total": 4
+  }
+ },
+ {
+  "name": "ursus_solo_5_r02",
+  "title": "乌萨斯 · 单人规程20级 · R2 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m04",
+  "duration": 36.57,
+  "frames": 366,
+  "maxUnits": 8,
+  "file": "demo_ops/ursus_solo_5_r02.json",
+  "bytes": 108396,
+  "result": {
+   "reason": "cleared",
+   "killed": 10,
+   "total": 10
+  }
+ },
+ {
+  "name": "ursus_solo_5_r03",
+  "title": "乌萨斯 · 单人规程20级 · R3 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m04",
+  "duration": 58.57,
+  "frames": 586,
+  "maxUnits": 11,
+  "file": "demo_ops/ursus_solo_5_r03.json",
+  "bytes": 218903,
+  "result": {
+   "reason": "cleared",
+   "killed": 10,
+   "total": 10
+  }
+ },
+ {
+  "name": "ursus_solo_5_r04",
+  "title": "乌萨斯 · 单人规程20级 · R4 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m04",
+  "duration": 65.93,
+  "frames": 660,
+  "maxUnits": 9,
+  "file": "demo_ops/ursus_solo_5_r04.json",
+  "bytes": 238440,
+  "result": {
+   "reason": "cleared",
+   "killed": 5,
+   "total": 5
+  }
+ },
+ {
+  "name": "ursus_solo_5_r05",
+  "title": "乌萨斯 · 单人规程20级 · R5 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m04",
+  "duration": 50.23,
+  "frames": 503,
+  "maxUnits": 15,
+  "file": "demo_ops/ursus_solo_5_r05.json",
+  "bytes": 227049,
+  "result": {
+   "reason": "cleared",
+   "killed": 27,
+   "total": 27
+  }
+ },
+ {
+  "name": "ursus_solo_5_r06",
+  "title": "乌萨斯 · 单人规程20级 · R6 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m04",
+  "duration": 79.6,
+  "frames": 796,
+  "maxUnits": 19,
+  "file": "demo_ops/ursus_solo_5_r06.json",
+  "bytes": 381178,
+  "result": {
+   "reason": "cleared",
+   "killed": 16,
+   "total": 19
+  }
+ },
+ {
+  "name": "ursus_solo_5_r07",
+  "title": "乌萨斯 · 单人规程20级 · R7 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m04",
+  "duration": 62.2,
+  "frames": 622,
+  "maxUnits": 13,
+  "file": "demo_ops/ursus_solo_5_r07.json",
+  "bytes": 290787,
+  "result": {
+   "reason": "cleared",
+   "killed": 23,
+   "total": 23
+  }
+ },
+ {
+  "name": "ursus_solo_5_r08",
+  "title": "乌萨斯 · 单人规程20级 · R8 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m04",
+  "duration": 94.23,
+  "frames": 943,
+  "maxUnits": 14,
+  "file": "demo_ops/ursus_solo_5_r08.json",
+  "bytes": 495175,
+  "result": {
+   "reason": "cleared",
+   "killed": 14,
+   "total": 14
+  }
+ },
+ {
+  "name": "ursus_solo_5_r09",
+  "title": "乌萨斯 · 单人规程20级 · R9 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m04",
+  "duration": 84.13,
+  "frames": 842,
+  "maxUnits": 14,
+  "file": "demo_ops/ursus_solo_5_r09.json",
+  "bytes": 403136,
+  "result": {
+   "reason": "cleared",
+   "killed": 17,
+   "total": 17
+  }
+ },
+ {
+  "name": "ursus_solo_5_r10",
+  "title": "乌萨斯 · 单人规程20级 · R10 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m04",
+  "duration": 80,
+  "frames": 800,
+  "maxUnits": 14,
+  "file": "demo_ops/ursus_solo_5_r10.json",
+  "bytes": 386689,
+  "result": {
+   "reason": "cleared",
+   "killed": 9,
+   "total": 9
+  }
+ },
+ {
+  "name": "ursus_solo_5_r11",
+  "title": "乌萨斯 · 单人规程20级 · R11 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m04",
+  "duration": 77.1,
+  "frames": 771,
+  "maxUnits": 17,
+  "file": "demo_ops/ursus_solo_5_r11.json",
+  "bytes": 431587,
+  "result": {
+   "reason": "cleared",
+   "killed": 13,
+   "total": 13
+  }
+ },
+ {
+  "name": "ursus_solo_5_r12",
+  "title": "乌萨斯 · 单人规程20级 · R12 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m04",
+  "duration": 71.2,
+  "frames": 712,
+  "maxUnits": 23,
+  "file": "demo_ops/ursus_solo_5_r12.json",
+  "bytes": 503940,
+  "result": {
+   "reason": "cleared",
+   "killed": 55,
+   "total": 55
+  }
+ },
+ {
+  "name": "ursus_solo_5_r13",
+  "title": "乌萨斯 · 单人规程20级 · R13 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m04",
+  "duration": 86.03,
+  "frames": 861,
+  "maxUnits": 14,
+  "file": "demo_ops/ursus_solo_5_r13.json",
+  "bytes": 448103,
+  "result": {
+   "reason": "cleared",
+   "killed": 31,
+   "total": 31
+  }
+ },
+ {
+  "name": "ursus_solo_5_r14",
+  "title": "乌萨斯 · 单人规程20级 · R14 常规领袖 · “萨米的意志”",
+  "kind": "boss",
+  "stageId": "act2autochess_m04",
+  "duration": 296.7,
+  "frames": 2967,
+  "maxUnits": 14,
+  "file": "demo_ops/ursus_solo_5_r14.json",
+  "bytes": 1830508,
+  "result": {
+   "reason": "cleared",
+   "killed": 29,
+   "total": 29
+  }
+ },
+ {
+  "name": "ursus_solo_5_r15",
+  "title": "乌萨斯 · 单人规程20级 · R15 隐秘核心 · 假想敌：管",
+  "kind": "hidden",
+  "stageId": "act2autochess_m04",
+  "duration": 342,
+  "frames": 3420,
+  "maxUnits": 16,
+  "file": "demo_ops/ursus_solo_5_r15.json",
+  "bytes": 2514091,
+  "result": {
+   "reason": "forced",
+   "killed": 42,
+   "total": 24
+  }
+ },
+ {
+  "name": "ursus_solo_6_r01",
+  "title": "乌萨斯 · 单人规程20级 · R1 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 32.9,
+  "frames": 329,
+  "maxUnits": 8,
+  "file": "demo_ops/ursus_solo_6_r01.json",
+  "bytes": 86674,
+  "result": {
+   "reason": "cleared",
+   "killed": 6,
+   "total": 6
+  }
+ },
+ {
+  "name": "ursus_solo_6_r02",
+  "title": "乌萨斯 · 单人规程20级 · R2 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 56.87,
+  "frames": 569,
+  "maxUnits": 8,
+  "file": "demo_ops/ursus_solo_6_r02.json",
+  "bytes": 168488,
+  "result": {
+   "reason": "cleared",
+   "killed": 5,
+   "total": 6
+  }
+ },
+ {
+  "name": "ursus_solo_6_r03",
+  "title": "乌萨斯 · 单人规程20级 · R3 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 78.67,
+  "frames": 787,
+  "maxUnits": 12,
+  "file": "demo_ops/ursus_solo_6_r03.json",
+  "bytes": 313879,
+  "result": {
+   "reason": "cleared",
+   "killed": 6,
+   "total": 9
+  }
+ },
+ {
+  "name": "ursus_solo_6_r04",
+  "title": "乌萨斯 · 单人规程20级 · R4 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 62.7,
+  "frames": 627,
+  "maxUnits": 14,
+  "file": "demo_ops/ursus_solo_6_r04.json",
+  "bytes": 262405,
+  "result": {
+   "reason": "cleared",
+   "killed": 8,
+   "total": 9
+  }
+ },
+ {
+  "name": "ursus_solo_6_r05",
+  "title": "乌萨斯 · 单人规程20级 · R5 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 58.27,
+  "frames": 583,
+  "maxUnits": 19,
+  "file": "demo_ops/ursus_solo_6_r05.json",
+  "bytes": 429871,
+  "result": {
+   "reason": "cleared",
+   "killed": 17,
+   "total": 17
+  }
+ },
+ {
+  "name": "ursus_solo_6_r06",
+  "title": "乌萨斯 · 单人规程20级 · R6 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 71.43,
+  "frames": 715,
+  "maxUnits": 23,
+  "file": "demo_ops/ursus_solo_6_r06.json",
+  "bytes": 507833,
+  "result": {
+   "reason": "cleared",
+   "killed": 21,
+   "total": 21
+  }
+ },
+ {
+  "name": "ursus_solo_6_r07",
+  "title": "乌萨斯 · 单人规程20级 · R7 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 69.47,
+  "frames": 695,
+  "maxUnits": 16,
+  "file": "demo_ops/ursus_solo_6_r07.json",
+  "bytes": 396587,
+  "result": {
+   "reason": "cleared",
+   "killed": 17,
+   "total": 17
+  }
+ },
+ {
+  "name": "ursus_solo_6_r08",
+  "title": "乌萨斯 · 单人规程20级 · R8 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 86.33,
+  "frames": 864,
+  "maxUnits": 15,
+  "file": "demo_ops/ursus_solo_6_r08.json",
+  "bytes": 425201,
+  "result": {
+   "reason": "cleared",
+   "killed": 18,
+   "total": 18
+  }
+ },
+ {
+  "name": "ursus_solo_6_r09",
+  "title": "乌萨斯 · 单人规程20级 · R9 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 86.5,
+  "frames": 865,
+  "maxUnits": 16,
+  "file": "demo_ops/ursus_solo_6_r09.json",
+  "bytes": 531997,
+  "result": {
+   "reason": "cleared",
+   "killed": 22,
+   "total": 22
+  }
+ },
+ {
+  "name": "ursus_solo_6_r10",
+  "title": "乌萨斯 · 单人规程20级 · R10 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 72.87,
+  "frames": 729,
+  "maxUnits": 14,
+  "file": "demo_ops/ursus_solo_6_r10.json",
+  "bytes": 383112,
+  "result": {
+   "reason": "cleared",
+   "killed": 20,
+   "total": 20
+  }
+ },
+ {
+  "name": "ursus_solo_6_r11",
+  "title": "乌萨斯 · 单人规程20级 · R11 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 77.73,
+  "frames": 778,
+  "maxUnits": 19,
+  "file": "demo_ops/ursus_solo_6_r11.json",
+  "bytes": 460123,
+  "result": {
+   "reason": "cleared",
+   "killed": 28,
+   "total": 24
+  }
+ },
+ {
+  "name": "ursus_solo_6_r12",
+  "title": "乌萨斯 · 单人规程20级 · R12 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 71.1,
+  "frames": 711,
+  "maxUnits": 15,
+  "file": "demo_ops/ursus_solo_6_r12.json",
+  "bytes": 421476,
+  "result": {
+   "reason": "cleared",
+   "killed": 31,
+   "total": 31
+  }
+ },
+ {
+  "name": "ursus_solo_6_r13",
+  "title": "乌萨斯 · 单人规程20级 · R13 常规战",
+  "kind": "normal",
+  "stageId": "act2autochess_m01",
+  "duration": 80.2,
+  "frames": 802,
+  "maxUnits": 15,
+  "file": "demo_ops/ursus_solo_6_r13.json",
+  "bytes": 428971,
+  "result": {
+   "reason": "cleared",
+   "killed": 34,
+   "total": 34
+  }
+ },
+ {
+  "name": "ursus_solo_6_r14",
+  "title": "乌萨斯 · 单人规程20级 · R14 常规领袖 · “萨米的意志”",
+  "kind": "boss",
+  "stageId": "act2autochess_m01",
+  "duration": 247.43,
+  "frames": 2475,
+  "maxUnits": 12,
+  "file": "demo_ops/ursus_solo_6_r14.json",
+  "bytes": 1276393,
+  "result": {
+   "reason": "cleared",
+   "killed": 27,
+   "total": 27
+  }
+ },
+ {
+  "name": "ursus_solo_6_r15",
+  "title": "乌萨斯 · 单人规程20级 · R15 隐秘核心 · 假想敌：铳",
+  "kind": "hidden",
+  "stageId": "act2autochess_m01",
+  "duration": 209.33,
+  "frames": 2094,
+  "maxUnits": 15,
+  "file": "demo_ops/ursus_solo_6_r15.json",
+  "bytes": 1875067,
+  "result": {
+   "reason": "cleared",
+   "killed": 16,
+   "total": 16
+  }
  }
 ]

@@ -28,6 +28,7 @@ import { reducedMotion } from '../ui/device.js';
 import { recordId, selfRowOf, loadStats, isModdedRecord, recordsOfSeason } from '../ui/stats.js';
 import { UnofficialMark, VersionTag, isModdedRoom } from '../ui/pluginTag.js';
 import { shownVersion, seasonOf } from '../versions.js';
+import { exitReplay } from '../replay.js';
 import { TestMark } from '../ui/testConsole.js';
 import { ladderName } from '../ui/hud.js';
 import { ResultView, resultBonds } from './result.js';
@@ -642,7 +643,8 @@ export function ResultScreen() {
   const content = useStore((s) => s.room?.content ?? null);
   // the official version the match played (DESIGN §35.23): the room's, or the last room's once it is gone
   const version = useStore(shownVersion);
-  const back = () => store.set({ match: emptyMatch() });
+  const replayActive = useStore((s) => s.ui?.replayActive === true);
+  const back = () => (replayActive ? exitReplay() : store.set({ match: emptyMatch() }));
   if (!res) return html`<div class="screen result settle" data-testid="settle-wait"><${Spinner} size="lg" /></div>`;
-  return html`<${SettleFlow} res=${res} pub=${pub} myId=${myId} content=${content} version=${version} backLabel=${hasRoom ? t('返回同盟') : t('返回大厅')} onBack=${back} />`;
+  return html`<${SettleFlow} res=${res} pub=${pub} myId=${myId} content=${content} version=${version} backLabel=${replayActive ? t('退出回放') : hasRoom ? t('返回同盟') : t('返回大厅')} onBack=${back} />`;
 }

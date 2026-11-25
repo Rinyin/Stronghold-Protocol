@@ -63,6 +63,7 @@ import { isCombatPhase } from './ui/gameLogic/phases.js';
 import { registerImportedAssetWorker } from './assetCache.js';
 import { LoadoutHost } from './screens/loadout.js';
 import { StatsHost, useStatsOpen } from './screens/stats.js';
+import { ReplayHost, parseReplayParam, initReplayFromUrl, isReplayActive } from './replay.js';
 import { CoveredVersionVote } from './ui/versionVote.js';
 import { installRehearsal } from './battle/rehearsal.js';
 import { recordResult, installStatsRecorder } from './ui/stats.js';
@@ -252,27 +253,30 @@ function wireNet() {
     });
   });
   net.on('clock', (c) => store.set({ clock: { offset: c.offset, rtt: c.rtt, synced: c.synced } }));
-  net.on('welcome', onWelcome);
+  net.on('welcome', (msg) => { if (!isReplayActive()) onWelcome(msg); });
   net.on('helloError', (err) => {
     if (err.code === 'SESSION_IN_USE') identity.rejectToken();
-    toastError(err);
+    if (!isReplayActive()) toastError(err);
   });
-  net.on('replaced', () => toast(t('该身份已在其他页面登录，本页已断开'), 'warn', { ttl: 6000 }));
-  net.on('unhandledError', (err) => toastError(err));
-  net.on('room.state', onRoomState);
+  net.on('replaced', () => { if (!isReplayActive()) toast(t('该身份已在其他页面登录，本页已断开'), 'warn', { ttl: 6000 }); });
+  net.on('unhandledError', (err) => { if (!isReplayActive()) toastError(err); });
+  net.on('room.state', (msg) => { if (!isReplayActive()) onRoomState(msg); });
   net.on('room.closed', (msg) => {
+    if (isReplayActive()) return;
     backToLobby();
     const known = Object.hasOwn(CLOSE_REASON, String(msg.reason)) ? CLOSE_REASON[msg.reason] : null;
     toast(known ? t(known) : typeof msg.reason === 'string' && msg.reason.length < 60 ? t('同盟已关闭：{reason}', { reason: msg.reason }) : t('同盟已关闭'), 'warn');
   });
-  net.on('m.public', (msg) => { matchAt = Date.now(); store.patch('match', { public: payload(msg) }); maybeFinishRestore(); });
-  net.on('m.private', (msg) => { matchAt = Date.now(); store.patch('match', { private: payload(msg) }); });
+  net.on('m.public', (msg) => { if (isReplayActive()) return; matchAt = Date.now(); store.patch('match', { public: payload(msg) }); maybeFinishRestore(); });
+  net.on('m.private', (msg) => { if (isReplayActive()) return; matchAt = Date.now(); store.patch('match', { private: payload(msg) }); });
   net.on('m.layer', (msg) => {
+    if (isReplayActive()) return;
     const s = store.get();
     if (selectRoute(s) === 'game' && msg.playerId === s.me?.playerId) audio.layerGain(msg.bondId, msg.add);
   });
-  net.on('m.field', (msg) => store.patch('match', { field: payload(msg) }));
+  net.on('m.field', (msg) => { if (!isReplayActive()) store.patch('match', { field: payload(msg) }); });
   net.on('m.result', (msg) => {
+    if (isReplayActive()) return;
     const res = payload(msg);
     store.patch('match', { result: res });
     // 本机统计 (PR #323): every arrival, including the lobby's result replay after a reconnect / reload —
@@ -286,12 +290,13 @@ function wireNet() {
     if (s.room?.test !== true && s.match.public?.test !== true) recordResult(res, { myId: s.me.playerId, roomMode: s.room?.mode ?? null, vs: s.room?.content?.vs ?? null, content: s.room?.content ?? null, version: isDefaultVersion(version) ? null : version, now: Date.now() });
   });
   net.on('m.toast', (msg) => {
+    if (isReplayActive()) return;
     const kind = ['info', 'success', 'warn', 'error'].includes(msg.kind) ? msg.kind : 'info';
     // msgid + params (server ≥ 0.2.0) or the text itself as a msgid, in the current language
     toast(translateWire(msg), kind);
   });
   net.on('m.ticker', (msg) => {
-    if (typeof msg.text !== 'string') return;
+    if (isReplayActive() || typeof msg.text !== 'string') return;
     const text = tickerText(msg);
     // type, player + the round it came in: a BOSS_HIT line is dropped once its boss round is over and superseded by the
     // same player's next one (ui/ticker.js tickerLineLive / tickerSupersedes)
@@ -302,6 +307,7 @@ function wireNet() {
     store.set((s) => ({ ticker: [...s.ticker.slice(-(TICKER_KEEP - 1)), { id: ++seq, text, at: Date.now(), type, playerId, round: s.match?.public?.round ?? null, priority }] }));
   });
   net.on('m.emote', (msg) => {
+    if (isReplayActive()) return;
     store.set((s) => ({ emotes: [...s.emotes.slice(-(EMOTE_KEEP - 1)), { seq: ++seq, playerId: msg.playerId, id: msg.id, at: Date.now() }] }));
   });
 
@@ -374,6 +380,7 @@ function App() {
     <${ReleaseNotesHost} />
     <${LoadoutHost} />
     <${StatsHost} />
+    <${ReplayHost} />
     <${VoteOverOverlays} />
   </div>`;
 }
@@ -431,12 +438,13 @@ async function boot() {
   const identityReady = identity.init();
 
   const pendingJoin = parseRoomParam(location.search);
+  const replayParam = parseReplayParam(location.search);
   const savedName = sanitizeName(identity.loadName());
   const entered = identity.wasEntered() && !!savedName;
   store.set((s) => ({
     me: { ...s.me, name: savedName },
     session: { entered },
-    ui: { ...s.ui, pendingJoin },
+    ui: { ...s.ui, pendingJoin: replayParam ? null : pendingJoin },
   }));
 
   wireNet();
@@ -477,6 +485,7 @@ async function boot() {
   data.load('local').catch(() => {});
 
   const connectWhenReady = identityReady.then(() => {
+    if (replayParam?.mode === 'play') return;
     if (entered) net.setName(savedName);
     else net.connect();
   });
@@ -485,6 +494,7 @@ async function boot() {
   await Promise.all([waitForFonts(1200), connectWhenReady, langReady]);
   const root = document.getElementById('app');
   render(html`<${App} />`, root);
+  if (replayParam) initReplayFromUrl(replayParam);
 
   const splash = document.getElementById('boot');
   if (splash) {
@@ -497,7 +507,7 @@ async function boot() {
   // past it before their first click: test/e2e/client.mjs passEntryFilm)
   const entryFilm = import('./ui/entryFilm.js')
     .then((m) => m.playEntryFilm({
-      skip: () => selectRoute(store.get()) === 'game',
+      skip: () => selectRoute(store.get()) === 'game' || !!replayParam || isReplayActive(),
       regulation: () => seasonOf(startupVersion(store.get())) === REGULATION_SEASON,
     }))
     .catch((err) => console.warn('[app] entry film unavailable', err));
@@ -508,7 +518,7 @@ async function boot() {
   // so a running game is never thrown away.
   try {
     startBuildGuard({
-      inMatch: () => selectRoute(store.get()) === 'game',
+      inMatch: () => selectRoute(store.get()) === 'game' || isReplayActive(),
       onStale: ({ waiting }) => { if (waiting) store.patch('ui', { buildStale: true }); },
       // the same /healthz names how many plugins the server has: the title screen shows it before any hello
       onHealth: (h) => {

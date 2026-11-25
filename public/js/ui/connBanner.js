@@ -12,8 +12,8 @@ import { useDocClass } from './device.js';
 import { t } from '../../../shared/i18n.js';
 
 /** Whether the banner shows for this connection state (mirrors the early returns below). */
-export function bannerVisible(conn, entered, restoring, buildStale = false) {
-  if (!entered || !conn) return false;
+export function bannerVisible(conn, entered, restoring, buildStale = false, replayActive = false) {
+  if (replayActive || !entered || !conn) return false;
   if (conn.status === 'online') return !!restoring || !!buildStale;
   if (!conn.everOnline && (conn.status === 'connecting' || conn.status === 'handshaking' || conn.status === 'idle')) return false;
   return true;
@@ -24,9 +24,10 @@ export function ConnectionBanner() {
   const entered = useStore((s) => s.session.entered);
   const restoring = useStore((s) => s.ui.restoring);
   const buildStale = useStore((s) => !!s.ui.buildStale);
-  useTicker(conn.status === 'reconnecting' ? 500 : 0);
-  useDocClass('sp-conn', bannerVisible(conn, entered, restoring, buildStale));
-  if (!entered) return null;
+  const replayActive = useStore((s) => !!s.ui.replayActive);
+  useTicker(!replayActive && conn.status === 'reconnecting' ? 500 : 0);
+  useDocClass('sp-conn', bannerVisible(conn, entered, restoring, buildStale, replayActive));
+  if (replayActive || !entered) return null;
   if (conn.status === 'online' && !restoring && !buildStale) return null;
   if (conn.status === 'online' && restoring) {
     return html`<div class="conn-banner" role="status"><${Icon} name="refresh" /><span>${t('正在同步同盟状态…')}</span></div>`;
