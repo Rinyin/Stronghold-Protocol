@@ -515,8 +515,6 @@ test('the worker answers only hashed asset GET, and its copy matches the module'
   assert.ok(sw.includes(`const IMPORTED_ASSET_CACHE = '${IMPORTED_ASSET_CACHE}';`));
   assert.ok(sw.includes(`const IMPORTED_ASSET_CACHE_PREFIX = '${IMPORTED_ASSET_CACHE_PREFIX}';`));
   assert.ok(sw.includes(`const IMPORTED_ASSET_PATH = ${IMPORTED_ASSET_PATH};`));
-  assert.equal(sw.includes('.put('), false);
-
   const origin = 'http://127.0.0.1:9';
   const deleted = [];
   const fetched = [];
@@ -524,6 +522,7 @@ test('the worker answers only hashed asset GET, and its copy matches the module'
   let skipWaiting = 0;
   let claimed = 0;
   const listeners = {};
+  const waitPromises = [];
   const sandbox = {
     self: {
       location: { origin },
@@ -541,7 +540,13 @@ test('the worker answers only hashed asset GET, and its copy matches the module'
             const hit = stored.get(key);
             return hit ? new Response(hit) : undefined;
           },
-          async put() { throw new Error('network responses must not be cached'); },
+          async put(request, response) {
+            const key = typeof request === 'string' ? request : request.url;
+            stored.set(key, await response.text());
+          },
+          async keys() {
+            return [...stored.keys()].map((u) => ({ url: u }));
+          },
         };
       },
       async keys() { return ['sp-imported-assets-v0', IMPORTED_ASSET_CACHE, 'other-cache']; },
@@ -549,7 +554,10 @@ test('the worker answers only hashed asset GET, and its copy matches the module'
     },
     fetch: async (request) => {
       fetched.push(request.url);
-      return new Response('from-network');
+      if (request.url.includes('/nocache.png')) {
+        return new Response('fresh-only', { status: 200, headers: { 'Cache-Control': 'no-cache', 'Content-Type': 'image/png' } });
+      }
+      return new Response('from-network', { status: 200, headers: { 'Content-Type': 'image/png' } });
     },
     URL: globalThis.URL,
     Response: globalThis.Response,
@@ -613,10 +621,23 @@ test('the worker answers only hashed asset GET, and its copy matches the module'
 
   const miss = new Request(`${origin}/assets/~0123456789abcdef/miss.png`);
   let missPromise = null;
-  listeners.fetch({ request: miss, respondWith(p) { missPromise = p; } });
+  listeners.fetch({ request: miss, respondWith(p) { missPromise = p; }, waitUntil(p) { waitPromises.push(p); } });
   assert.equal(await (await missPromise).text(), 'from-network');
+  await Promise.all(waitPromises.splice(0));
   assert.equal(fetched.length, fetchedBeforeHit + 1);
   assert.equal(fetched.at(-1), miss.url);
+  // Second request for the same hashed asset hits Cache Storage without hitting the network again.
+  let cachedMissPromise = null;
+  listeners.fetch({ request: miss, respondWith(p) { cachedMissPromise = p; }, waitUntil(p) { waitPromises.push(p); } });
+  assert.equal(await (await cachedMissPromise).text(), 'from-network');
+  assert.equal(fetched.length, fetchedBeforeHit + 1);
+  // A no-cache response must not be persisted.
+  const noCacheReq = new Request(`${origin}/assets/~0123456789abcdef/nocache.png`);
+  let noCachePromise = null;
+  listeners.fetch({ request: noCacheReq, respondWith(p) { noCachePromise = p; }, waitUntil(p) { waitPromises.push(p); } });
+  assert.equal(await (await noCachePromise).text(), 'fresh-only');
+  await Promise.all(waitPromises.splice(0));
+  assert.equal(stored.has(`${origin}/assets/~0123456789abcdef/nocache.png`), false);
 
   // The page already asked Cache Storage. A cache-only probe must not be answered here, or the HTTP cache stays hidden.
   const fetchedBeforeProbe = fetched.length;
