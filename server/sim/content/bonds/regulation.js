@@ -16,6 +16,7 @@ import { tileKeyOf } from '../../targeting.js';
 import { msg } from '../../../../shared/i18n.js';
 import { bbCap } from '../../../../shared/plugins/officialBounds.js';
 import { captureLethaniaBirthMode, lethaniaSummon } from './lethania.js';
+import { ursusTempExtra } from '../garrisons/regulation.js';
 
 const num = S.num;
 
@@ -105,25 +106,20 @@ function onLayers(battle, pid, bondId, fn) {
   st.map.get(k).push(fn);
   if (st.hooked) return;
   st.hooked = true;
-  battle.on('layerGain', (c) => {
+  const schedule = (c) => {
     const key = `${c.playerId}|${c.bondId}`;
     const list = st.map.get(key);
     if (!list || st.pending.has(key)) return;
     st.pending.add(key);
     battle.after(0, () => { st.pending.delete(key); for (const f of list) f(); });
-  }, { priority: -100 });
+  };
+  battle.on('layerGain', schedule, { priority: -100 });
+  battle.on('tempLayerGain', schedule, { priority: -100 });
 }
 
-/** Temp layers (乌萨斯 kill node `_isTemp`). Not normal layers; a garrison may convert them later. */
+/** Temp layers stored in battle._perPlayer[pid].tempLayerGains (乌萨斯 kill node `_isTemp` + 烈夏 + 多功能补剂). */
 export function tempBondLayers(battle, pid, bondId) {
-  const st = S.battleStore(battle, 'bonds:reg:temp', () => ({}));
-  return num(st[`${pid}|${bondId}`]);
-}
-function addTemp(battle, pid, bondId, n) {
-  if (!(n > 0)) return;
-  const st = S.battleStore(battle, 'bonds:reg:temp', () => ({}));
-  const k = `${pid}|${bondId}`;
-  st[k] = num(st[k]) + n;
+  return num(battle?._perPlayer?.[pid]?.tempLayerGains?.[bondId], 0);
 }
 
 function enemyRaw(battle, id) {
@@ -225,68 +221,170 @@ function installSargon2(battle, pid, effectId, members) {
   const power = reached(battle, pid, 'sargonShip', bbOf('sargonShip', effectId, K.sargonPower).power_bond_char_cnt);
   const set = new Set(members);
   const maxStacks = Math.max(1, Math.floor(num(bb.max_buff_stack_cnt, 25)));
+  const sandTiles = new Set();
+  const slowKey = 'act3autochess_bond_eff_sargon_power[tile_buff][slow]';
+  const magKey = 'act3autochess_bond_eff_sargon_power[tile_buff][mag_damage]';
+  const mag2Key = 'act3autochess_bond_eff_sargon_power[tile_buff][mag_damage_2]';
+  const inSand = (e) => sandTiles.size > 0 && S.onKeys(e, sandTiles);
+  const inBoostedSand = (e) => inSand(e) && members.some((m) => S.onField(m) && m.skill && m.skill.active && S.inRange(m, e));
+  const refreshSlow = () => {
+    if (!power) return;
+    const L = S.bondLayers(battle, pid, 'sargonShip');
+    const baseSlow = scaled(tile, `${slowKey}.slow_base`, `${slowKey}.slow_per_stack`, L, `${slowKey}.slow_max`);
+    const slowCap = num(tile[`${slowKey}.slow_max`], baseSlow * 2);
+    for (const e of battle.enemies) {
+      if (!e.alive) continue;
+      if (!inSand(e)) {
+        if (e.findBuff && e.findBuff('bond:sargon:slow')) battle.removeBuff(e, 'bond:sargon:slow');
+        continue;
+      }
+      const slow = inBoostedSand(e) ? Math.min(slowCap, baseSlow + baseSlow) : baseSlow;
+      battle.addBuff(e, { key: 'bond:sargon:slow', duration: 1.25, refresh: 'replace', mods: { moveMul: Math.max(0, 1 - slow) } });
+    }
+  };
   battle.on('skillStart', ({ unit }) => {
     if (!set.has(unit)) return;
     const L = S.bondLayers(battle, pid, 'sargonShip');
     const dur = num(bb.base_time) + num(bb.time_per_stack) * L;
-    if (!(dur > 0)) return;
-    for (const m of members) {
-      if (!S.onField(m)) continue;
-      battle.addBuff(m, {
-        key: 'bond:sargon', duration: dur, refresh: 'independent', maxStacks,
-        mods: { aspd: num(bb.base_attack_speed) },
-      });
+    if (dur > 0) {
+      for (const m of members) {
+        if (!S.onField(m)) continue;
+        battle.addBuff(m, {
+          key: 'bond:sargon', duration: dur, refresh: 'independent', maxStacks,
+          mods: { aspd: num(bb.base_attack_speed) },
+        });
+      }
+    }
+    if (power) {
+      const keys = unit.rangeKeySet && unit.rangeKeySet.size ? unit.rangeKeySet : unit.rangeKeys;
+      if (keys) for (const k of keys) sandTiles.add(k);
+      refreshSlow();
     }
   });
   if (!power) return;
-  const slowKey = 'act3autochess_bond_eff_sargon_power[tile_buff][slow]';
-  const magKey = 'act3autochess_bond_eff_sargon_power[tile_buff][mag_damage]';
-  const mag2Key = 'act3autochess_bond_eff_sargon_power[tile_buff][mag_damage_2]';
-  const covered = () => {
-    const out = [];
-    for (const e of battle.enemies) {
-      if (!e.alive) continue;
-      if (members.some((m) => S.onField(m) && S.inRange(m, e))) out.push(e);
-    }
-    return out;
-  };
-  const skillOn = () => members.some((m) => S.onField(m) && m.skill && m.skill.active);
-  const refreshSlow = () => {
-    const L = S.bondLayers(battle, pid, 'sargonShip');
-    let slow = scaled(tile, `${slowKey}.slow_base`, `${slowKey}.slow_per_stack`, L, `${slowKey}.slow_max`);
-    if (skillOn()) slow = Math.min(num(tile[`${slowKey}.slow_max`], slow), slow + slow);
-    const inside = new Set(covered());
-    for (const e of battle.enemies) {
-      if (!e.alive) continue;
-      if (!inside.has(e)) { if (e.findBuff && e.findBuff('bond:sargon:slow')) battle.removeBuff(e, 'bond:sargon:slow'); continue; }
-      battle.addBuff(e, { key: 'bond:sargon:slow', duration: 1.25, refresh: 'replace', mods: { moveMul: Math.max(0, 1 - slow) } });
-    }
-  };
-  refreshSlow();
+  battle.on('skillEnd', ({ unit }) => {
+    if (set.has(unit)) refreshSlow();
+  });
   battle.every(1, refreshSlow);
   const iv = num(tile[`${magKey}.interval`], 5);
   if (iv > 0) {
     battle.every(iv, () => {
+      if (!sandTiles.size) return;
       const L = S.bondLayers(battle, pid, 'sargonShip');
       const amount = scaled(tile, `${magKey}.magic_damage_base`, `${magKey}.magic_damage_per_stack`, L, `${magKey}.magic_damage_max`);
       const bind = num(tile[`${magKey}.unmovable_duration`], 0);
       if (!(amount > 0)) return;
-      for (const e of covered()) {
+      for (const e of battle.enemies) {
+        if (!e.alive || !inSand(e)) continue;
         battle.dealDamage({ source: null, target: e, amount, type: 'arts', attackType: 'BUFF', tags: ['bond:sargon', 'periodic'] });
         if (e.alive && bind > 0) battle.applyStatus(e, 'bind', { duration: bind, source: null });
       }
     });
   }
-  // mag_damage_2 triggerInterval is 1s (buff template), and only while the skill aura buff is on the enemy.
+  // mag_damage_2 triggerInterval is 1s (buff template), and only on sand tiles inside a casting 萨尔贡 member's range.
   battle.every(1, () => {
-    if (!skillOn()) return;
+    if (!sandTiles.size) return;
     const L = S.bondLayers(battle, pid, 'sargonShip');
     const amount = scaled(tile, `${mag2Key}.magic_damage_base`, `${mag2Key}.magic_damage_per_stack`, L, `${mag2Key}.magic_damage_max`);
     if (!(amount > 0)) return;
-    for (const e of covered()) {
+    for (const e of battle.enemies) {
+      if (!e.alive || !inBoostedSand(e)) continue;
       battle.dealDamage({ source: null, target: e, amount, type: 'arts', attackType: 'BUFF', tags: ['bond:sargon', 'periodic'] });
     }
   });
+}
+
+function kjeragGiantKit(raw, tb) {
+  const st = raw.stats || {};
+  const skills = Array.isArray(raw.skills) ? raw.skills : [];
+  const sk = (key) => skills.find((s) => s && s.prefabKey === key) || null;
+  const blockCnt = num(tb['BlockEnemy.block_cnt'], 3);
+  const snowyR = num(tb['BlockEnemy.attack@ability_range_radius'], 1.5);
+  const giantR = num(st.rangeRadius, 2.4);
+  const switchR = num(sk('Switch2Snowy')?.bb?.range_radius, 0.8);
+  const switchIv = num(tb['SwitchMode.interval'], 5);
+  const splashR = num(sk('PowerAttack')?.bb?.range_radius, 1.1);
+  const frozenScale = num(tb['FrozenBreak.atk_scale'], 3.5);
+  const attractSp = num(sk('Attract')?.spCost, 18);
+  const attractR = num(sk('Attract')?.bb?.range_radius, 1.5);
+  // [ASSUMED] Attract duration is not on the enemy blackboard; 3s matches the mode's standard attract pulse.
+  const attractDur = 3;
+  return {
+    trait: {
+      attack: 'ranged',
+      dmgType: st.dmgType ?? 'arts',
+      projectile: 'none',
+      canHitFly: true,
+      attackRangeRadius: snowyR,
+      splashRadius: splashR,
+      splashScale: 1,
+    },
+    install(battle, unit) {
+      unit.mem.giantMode = 'snowy';
+      unit.mem.giantIdle = 0;
+      unit.mem.giantAttractSp = 0;
+      const setMode = (mode) => {
+        if (unit.mem.giantMode === mode) return;
+        unit.mem.giantMode = mode;
+        if (mode === 'giant') {
+          unit.profile.attackRangeRadius = giantR;
+          battle.addBuff(unit, { key: 'bond:kjerag:giantMode', persist: true, refresh: 'replace', mods: { blockCnt: -blockCnt } });
+          battle.releaseBlocked(unit);
+        } else {
+          unit.profile.attackRangeRadius = snowyR;
+          battle.removeBuff(unit, 'bond:kjerag:giantMode');
+        }
+      };
+      // 【覆雪坐定】 FrozenBreak: attacks against frozen enemies deal 3.5× arts damage and dispel freeze.
+      battle.on('hit', (c) => {
+        if (c.source !== unit || unit.mem.giantMode !== 'snowy' || !c.dmg || !c.dmg.isAttack) return;
+        const t = c.target;
+        if (!t || t.side !== 'enemy' || !t.alive || !t.s?.flags?.freeze) return;
+        if (frozenScale > 0) c.dmg.mul *= frozenScale;
+        c.dmg.kjeragFrozenBreak = true;
+      }, { owner: unit });
+      battle.on('damaged', (c) => {
+        if (c.source !== unit || !c.dmg || !c.dmg.kjeragFrozenBreak) return;
+        if (c.target && c.target.alive) battle.removeBuff(c.target, 'freeze');
+      }, { owner: unit });
+      battle.on('tick', ({ dt }) => {
+        if (!unit.alive || !unit.deployed || !unit.canAct) return;
+        const near = (unit.blocking && unit.blocking.length > 0)
+          || battle.foesInColliderRadius(unit.x, unit.y, switchR).some((e) => e.alive && !e.isFlying);
+        if (unit.mem.giantMode === 'giant') {
+          if (near) {
+            setMode('snowy');
+            unit.mem.giantIdle = 0;
+          }
+          return;
+        }
+        // In 【覆雪坐定】 mode: switch to 【覆雪苏醒】 (2.4 ranged splash) if no nearby ground foe for SwitchMode.interval.
+        if (near) {
+          unit.mem.giantIdle = 0;
+        } else {
+          unit.mem.giantIdle += dt;
+          if (switchIv > 0 && unit.mem.giantIdle + 1e-9 >= switchIv && battle.enemies.some((e) => e.alive && !e.hidden)) {
+            setMode('giant');
+            unit.mem.giantIdle = 0;
+            return;
+          }
+        }
+        // 【神迹之声】 Attract: every attractSp seconds in 【覆雪坐定】, attract enemies within attractR.
+        if (attractSp > 0 && attractR > 0) {
+          unit.mem.giantAttractSp += dt;
+          if (unit.mem.giantAttractSp + 1e-9 >= attractSp) {
+            const foes = battle.foesInColliderRadius(unit.x, unit.y, attractR).filter((e) => e.alive);
+            if (foes.length) {
+              unit.mem.giantAttractSp = 0;
+              for (const e of foes) {
+                battle.applyStatus(e, 'attract', { duration: attractDur, source: unit, point: { x: unit.x, y: unit.y } });
+              }
+            }
+          }
+        }
+      }, { owner: unit });
+    },
+  };
 }
 
 function installKjerag2(battle, pid, effectId, members) {
@@ -305,14 +403,26 @@ function installKjerag2(battle, pid, effectId, members) {
     const tb = talentBb(raw);
     const step = num(tb['BondBuff.stackStep'], 0);
     const steps = step > 0 ? Math.floor(S.bondLayers(battle, pid, 'kjeragShip') / step) : 0;
-    // BondBuff on the enemy talent: ATK / HP scale by floor(layers / stackStep). The official summon is a
-    // controller trap on mode change; this remake has no controller, so one allied token at battle start is
-    // [ASSUMED]. SwitchMode and FrozenBreak stay on the enemy record and are not run here.
+    // BondBuff on the enemy talent: ATK / HP scale by floor(layers / stackStep). Starts in 【覆雪坐定】 (block 3,
+    // 1.5 radius, 1.1 arts splash, 3.5× FrozenBreak + dispel, 18s Attract) and switches to 【覆雪苏醒】 (2.4 ranged
+    // arts splash, block 0) when idle for SwitchMode.interval without a nearby ground foe.
     const atkMul = 1 + num(tb['BondBuff.base_atk']) + num(tb['BondBuff.attack_per_stack']) * steps;
     const hpMul = 1 + num(tb['BondBuff.base_max_hp']) + num(tb['BondBuff.max_hp_per_stack']) * steps;
     const st = raw.stats || {};
+    const def = {
+      ...raw,
+      id: GIANT,
+      name: raw.name ?? GIANT,
+      profession: 'CASTER',
+      attackKind: 'ranged',
+      dmgType: st.dmgType ?? 'arts',
+      canHitFly: true,
+      rangeGrid: [[0, 0]],
+      immunities: { ...(st.immunities || {}), frozen: true },
+    };
     battle.spawnToken(anchor, GIANT, tile[0], tile[1], {
-      def: raw, anySource: true,
+      def, anySource: true,
+      kit: kjeragGiantKit(raw, tb),
       stats: {
         atk: num(st.atk) * atkMul,
         maxHp: num(st.maxHp) * hpMul,
@@ -321,6 +431,10 @@ function installKjerag2(battle, pid, effectId, members) {
     });
   }, { once: true });
 }
+
+const ABNORMAL_STATUSES = new Set([
+  'stun', 'cold', 'freeze', 'fear', 'attract', 'groundbind', 'palsy', 'sleep', 'levitate', 'bind', 'tremble',
+]);
 
 function installSiracusa2(battle, pid, effectId, members) {
   const bb = bbOf('siracusaShip', effectId, K.siracusa);
@@ -338,9 +452,14 @@ function installSiracusa2(battle, pid, effectId, members) {
   });
   if (!six) return;
   const prob = num(bb.prob, 0);
+  // PRTS 叙拉古 6人: 0.2s internal cooldown per operator on the random abnormal roll (not exposed on the blackboard).
+  const abCd = 0.2;
   battle.on('damaged', (c) => {
     const u = c.source, t = c.target, dmg = c.dmg;
     if (!set.has(u) || !t || t.side !== 'enemy' || !t.alive || rider(dmg) || tagged(dmg, 'bond:siracusa')) return;
+    const now = battle.time;
+    if (now < num(u.mem.siraAbCd, -Infinity) - 1e-9) return;
+    u.mem.siraAbCd = now + abCd;
     if (!(battle.rng() < prob)) return;
     const L = S.bondLayers(battle, pid, 'siracusaShip');
     const dur = scaled(bb, 'ab_buff_duration_base', 'ab_buff_duration_per_stack', L, 'ab_buff_duration_max');
@@ -364,15 +483,26 @@ function installSiracusa2(battle, pid, effectId, members) {
   });
 }
 function abnormalCount(u) {
+  const seen = new Set();
+  if (Array.isArray(u.buffs)) {
+    for (const b of u.buffs) {
+      if (b.status && ABNORMAL_STATUSES.has(b.status)) seen.add(b.status);
+      else if (b.palsy) seen.add('palsy');
+    }
+  }
   const f = u.s?.flags || {};
-  let n = 0;
-  if (f.stun) n++;
-  if (f.cold) n++;
-  if (f.fear) n++;
-  if (f.attract) n++;
-  if (f.groundbind) n++;
-  if (u.buffs && u.buffs.some((b) => b.status === 'palsy' || b.palsy)) n++;
-  return n;
+  if (f.cold) seen.add('cold');
+  if (f.freeze) seen.add('freeze');
+  if (f.fear) seen.add('fear');
+  if (f.attract) seen.add('attract');
+  if (f.groundbind) seen.add('groundbind');
+  if (f.sleep) seen.add('sleep');
+  if (f.levitate) seen.add('levitate');
+  if (f.bind) seen.add('bind');
+  if (f.tremble) seen.add('tremble');
+  // freeze and levitate also set flags.stun to stop actions; only count stun when not solely from those.
+  if (f.stun && !seen.has('freeze') && !seen.has('levitate')) seen.add('stun');
+  return seen.size;
 }
 
 function installKazimierz2(battle, pid, effectId, members) {
@@ -415,6 +545,8 @@ function installVictoria2(battle, pid, effectId, members) {
   onLayers(battle, pid, 'victoriaShip', apply);
   if (!reached(battle, pid, 'victoriaShip', bb.power_bond_char_cnt)) return;
   const set = new Set(members);
+  // bondeffect_victoria_2 (洛洛) has no tier cap in PRTS or blackboard; override lendItemEffects's legacy default (5).
+  const maxTier = num(bb.filter_item_level, 99);
   battle.on('skillStart', ({ unit }) => {
     if (!set.has(unit) || !S.itemsOf(unit).length) return;
     const L = S.bondLayers(battle, pid, 'victoriaShip');
@@ -422,7 +554,7 @@ function installVictoria2(battle, pid, effectId, members) {
     if (!(duration > 0) || typeof lendItemEffects !== 'function') return;
     for (const a of S.alliesAround(battle, unit, S.N8)) {
       if (!S.isOp(a)) continue;
-      lendItemEffects(battle, unit, a, { duration });
+      lendItemEffects(battle, unit, a, { maxTier, duration });
     }
   });
 }
@@ -463,32 +595,36 @@ function installUrsus(battle, pid, effectId, members) {
     const killer = c.killer;
     const who = killer && killer.kind === 'token' ? killer.ownerUnit : killer;
     if (!set.has(who)) return;
-    const n = six ? num(bb['temp_bond_stack_cnt[power]'], 4) : num(bb.temp_bond_stack_cnt, 2);
-    const extra = num(bb.extra_bond_stack_cnt, 0);
-    addTemp(battle, pid, 'ursusShip', n + (extra > 0 ? extra : 0));
+    const base = six ? num(bb['temp_bond_stack_cnt[power]'], 4) : num(bb.temp_bond_stack_cnt, 2);
+    const extra = ursusTempExtra(battle, pid) + Math.max(0, num(bb.extra_bond_stack_cnt, 0));
+    battle.addTempLayers(pid, 'ursusShip', base + extra);
   });
-  battle.on('hit', (c) => {
+  if (!six) return;
+  const bleedDur = Math.max(1, Math.round(num(bb.bleed_duration, 10)));
+  // PRTS 乌萨斯 6人: convert a share of post-mitigation phys/arts damage taken into independent 10s HP-loss bleeds;
+  // each bleed stops if its damage source dies or the operator leaves the field.
+  battle.on('hpDamage', (c) => {
     const u = c.target, dmg = c.dmg;
-    if (!set.has(u) || !dmg || dmg.type === 'true' || tagged(dmg, 'bond:ursus')) return;
+    if (!set.has(u) || !dmg || !(c.amount > 0)) return;
+    if ((dmg.type !== 'phys' && dmg.type !== 'arts') || tagged(dmg, 'bond:ursus') || tagged(dmg, 'bond:stead:share')) return;
     const L = S.bondLayers(battle, pid, 'ursusShip');
     const r = scaled(bb, 'damage_one_minus_base', 'damage_one_minus_per_stack', L, 'damage_one_minus_max');
     const cut = Math.max(0, Math.min(num(bb.damage_one_minus_max, 1), r));
     if (!(cut > 0)) return;
-    const beforeMul = num(dmg.mul, 1);
-    dmg.mul = beforeMul * (1 - cut);
-    const bleed = Math.abs(num(dmg.amount) * beforeMul * cut) / 10;
+    const before = c.amount;
+    const transferred = before * cut;
+    c.amount = before - transferred;
+    const perTick = transferred / bleedDur;
+    if (!(perTick > 0)) return;
     const src = c.source;
-    if (!(bleed > 0) || !src) return;
-    if (u.mem.ursusBleed) u.mem.ursusBleed.cancel();
+    const seq = u.deploySeq;
     let ticks = 0;
     const timer = battle.every(1, () => {
       ticks++;
-      if (ticks > 10 || !u.alive || !src.alive) { timer.cancel(); return; }
-      battle.dealDamage({ source: src, target: u, amount: bleed, type: 'true', tags: ['bond:ursus', 'periodic'] });
+      if (ticks > bleedDur || !u.alive || u.deploySeq !== seq || (src && !src.alive)) { timer.cancel(); return; }
+      battle.dealHPLose({ source: src, target: u, amount: perTick, type: 'true', tags: ['bond:ursus', 'periodic'] });
     }, { owner: u, immediate: true });
-    u.mem.ursusBleed = timer;
-  });
-  if (!six) return;
+  }, { priority: -1000 });
   battle.every(1, () => {
     const L = S.bondLayers(battle, pid, 'ursusShip');
     const scale = num(bb.atk_scale_base) + num(bb.atk_scale_per_stack) * L;
@@ -528,28 +664,33 @@ function installIberia(battle, pid, effectId, members) {
     const now = battle.time;
     if (now < num(stamp.get(who), -Infinity)) return;
     stamp.set(who, now + 0.2);
-    const st = t.mem.iberia || (t.mem.iberia = { stacks: 0, until: 0, atk: 0, slow: 0, slowUntil: 0, timer: null });
+    const st = t.mem.iberia || (t.mem.iberia = { stacks: 0, until: 0, atk: 0, who, slow: 0, slowUntil: 0, timer: null });
     st.stacks = Math.min(dotCap, st.stacks + 1);
     st.until = now + num(bb.dot_duration, 10);
     st.atk = num(who.s.atk);
+    st.who = who;
     st.power = six;
-    const slowMax = num(bb[`${speedKey}.max_stack_cnt`], 20);
-    st.slow = Math.min(slowMax, st.slow + 1);
-    st.slowUntil = now + num(bb[`${speedKey}.speed_duration`], 10);
-    const move = num(bb[`${speedKey}.move_speed`], -0.04);
-    battle.addBuff(t, {
-      key: 'bond:iberia:slow', duration: num(bb[`${speedKey}.speed_duration`], 10), refresh: 'replace',
-      // [ASSUMED] move_speed is an additive attribute-style factor (1 + value × stacks), floored at 0.
-      mods: { moveMul: Math.max(0, 1 + move * st.slow) },
-    });
-    const prob = num(bb.prob_base) + num(bb.prob_per_stack) * S.bondLayers(battle, pid, 'iberiaShip');
-    if (battle.rng() < prob) {
-      const radius = num(bb.range_radius, 1);
-      const amount = num(bb.atk_scale, 0) * st.atk;
-      if (amount > 0) {
-        for (const e of battle.enemies) {
-          if (!e.alive || e === t || !inRadius(e, t.x, t.y, radius)) continue;
-          battle.dealDamage({ source: who, target: e, amount, type: 'arts', isSplash: true, tags: ['bond:iberia', 'addition'] });
+    if (six) {
+      if (now > st.slowUntil + 1e-9) st.slow = 0;
+      const slowMax = num(bb[`${speedKey}.max_stack_cnt`], 20);
+      const slowDur = num(bb[`${speedKey}.speed_duration`], 10);
+      st.slow = Math.min(slowMax, st.slow + 1);
+      st.slowUntil = now + slowDur;
+      const move = num(bb[`${speedKey}.move_speed`], -0.04);
+      battle.addBuff(t, {
+        key: 'bond:iberia:slow', duration: slowDur, refresh: 'replace',
+        // [ASSUMED] move_speed is an additive attribute-style factor (1 + value × stacks), floored at 0.
+        mods: { moveMul: Math.max(0, 1 + move * st.slow) },
+      });
+      const prob = num(bb.prob_base) + num(bb.prob_per_stack) * S.bondLayers(battle, pid, 'iberiaShip');
+      if (battle.rng() < prob) {
+        const radius = num(bb.range_radius, 1.7);
+        const amount = num(bb.atk_scale, 0) * st.atk;
+        if (amount > 0) {
+          for (const e of battle.enemies) {
+            if (!e.alive || e === t || !inRadius(e, t.x, t.y, radius)) continue;
+            battle.dealDamage({ source: who, target: e, amount, type: 'arts', isSplash: true, tags: ['bond:iberia', 'addition'] });
+          }
         }
       }
     }
@@ -562,7 +703,8 @@ function installIberia(battle, pid, effectId, members) {
       let scale = (num(bb.dot_atk_scale_base) + num(bb.dot_atk_scale_per_stack) * L) * st.stacks;
       if (st.power) scale += scale; // template BlackboardAdd of the scale onto itself when is_power > 0
       if (scale > 0) {
-        battle.dealDamage({ source: who, target: t, amount: scale * st.atk, type: 'arts', tags: ['bond:iberia', 'dot', 'periodic'] });
+        // PRTS 伊比利亚: the ongoing arts DoT is arts HP loss (mitigated by RES, ignores dodge/barriers/damage-res).
+        battle.dealHPLose({ source: st.who, target: t, amount: scale * st.atk, type: 'arts', tags: ['bond:iberia', 'dot', 'periodic'] });
       }
     }, { owner: t });
   });
@@ -571,6 +713,27 @@ function installIberia(battle, pid, effectId, members) {
 function installLethania(battle, pid, effectId, members) {
   const bb = bbOf('lethaniaShip', effectId, K.lethania);
   const power = reached(battle, pid, 'lethaniaShip', bb.power_bond_char_cnt);
+  const chorusAuraPer = () => {
+    const raw = enemyRaw(battle, CHORUS);
+    const tb = talentBb(raw);
+    const base = num(tb['Aura.base_attack_speed'], 20);
+    const per = num(tb['Aura.attack_speed_per_stack'], 0);
+    const step = num(tb['Aura.stackStep'], 10);
+    const steps = per && step > 0 ? Math.floor(S.bondLayers(battle, pid, 'lethaniaShip') / step) : 0;
+    return base + per * steps;
+  };
+  const syncChorusAura = () => {
+    if (!power) return;
+    let cnt = 0;
+    for (const u of battle.allyUnits) {
+      if (u.ownerId === pid && u.alive && u.kind === 'token' && u.defId === CHORUS) cnt++;
+    }
+    const aspd = cnt > 0 ? chorusAuraPer() * cnt : 0;
+    for (const m of members) {
+      if (aspd > 0) S.passiveBuff(battle, m, 'bond:lethania:chorusAura', { aspd });
+      else battle.removeBuff(m, 'bond:lethania:chorusAura');
+    }
+  };
   const apply = () => {
     const mods = S.directMods({ atk: num(bb.atk_base) + num(bb.atk_per_stack) * S.bondLayers(battle, pid, 'lethaniaShip') });
     for (const u of members) S.passiveBuff(battle, u, 'bond:lethania', mods);
@@ -579,6 +742,7 @@ function installLethania(battle, pid, effectId, members) {
         S.passiveBuff(battle, u, 'bond:lethania', mods);
       }
     }
+    syncChorusAura();
   };
   apply();
   onLayers(battle, pid, 'lethaniaShip', apply);
@@ -611,8 +775,6 @@ function installLethania(battle, pid, effectId, members) {
     if (!u) return;
     if (id === NOTE) captureLethaniaBirthMode(battle, u);
     const tb = talentBb(raw);
-    const aspd = num(tb['Aura.base_attack_speed']);
-    if (aspd) S.passiveBuff(battle, u, 'bond:lethania:aura', { aspd });
     const ratio = num(tb['Bleeding.hp_ratio']);
     const iv = num(tb['Bleeding.interval'], 1);
     if (ratio > 0 && iv > 0) {
@@ -625,7 +787,9 @@ function installLethania(battle, pid, effectId, members) {
   };
   battle.on('death', (c) => {
     const u = c.unit;
-    if (!u || c.reason !== 'killed') return;
+    if (!u) return;
+    if (u.side === 'ally' && u.kind === 'token' && u.ownerId === pid && u.defId === CHORUS) syncChorusAura();
+    if (c.reason !== 'killed') return;
     if (u.side === 'enemy') { summonOne(u); return; }
     if (power && u.side === 'ally' && u.kind === 'op' && u.ownerId === pid) summonOne(u);
   });
@@ -634,12 +798,44 @@ function installLethania(battle, pid, effectId, members) {
 function installDoc(battle, pid, effectId, members) {
   const bb = bbOf('docShip', effectId, K.doc);
   const three = reached(battle, pid, 'docShip', bb.power_bond_char_cnt);
+  const syncShelter = () => {
+    if (!three) return;
+    const L = S.bondLayers(battle, pid, 'docShip');
+    const res = num(bb.damage_res_base) + num(bb.damage_res_per_stack) * L;
+    const covered = new Map();
+    if (res > 0) {
+      for (const m of members) {
+        if (!S.onField(m)) continue;
+        for (const a of battle.allyUnits) {
+          if (!a.alive || a.ownerId !== pid || !S.isOp(a) || !S.inRange(m, a)) continue;
+          const prev = covered.get(a) || 0;
+          if (res > prev) covered.set(a, res);
+        }
+      }
+    }
+    for (const a of battle.allyUnits) {
+      if (a.ownerId !== pid || !S.isOp(a)) continue;
+      const v = covered.get(a) || 0;
+      if (v > 0 && a.alive) {
+        // PRTS 庇护 (ba.protect): reduces physical and arts damage taken (strongest of overlapping members), never true/elemental.
+        const mul = Math.max(0, 1 - v);
+        battle.addBuff(a, { key: 'bond:doc:res', mods: { physTakenMul: mul, artsTakenMul: mul }, refresh: 'replace' });
+      } else if (a.findBuff && a.findBuff('bond:doc:res')) {
+        battle.removeBuff(a, 'bond:doc:res');
+      }
+    }
+  };
+  if (three) {
+    battle.on('battleStart', syncShelter);
+    battle.on('deploy', (c) => { if (c.unit && c.unit.ownerId === pid && S.isOp(c.unit)) syncShelter(); });
+    battle.on('death', (c) => { if (c.unit && c.unit.ownerId === pid && S.isOp(c.unit)) syncShelter(); });
+    onLayers(battle, pid, 'docShip', syncShelter);
+    battle.every(0.25, syncShelter);
+  }
   battle.every(1, () => {
     const L = S.bondLayers(battle, pid, 'docShip');
     const healR = num(bb.heal_base) + num(bb.heal_per_stack) * L;
     const epR = num(bb.ep_heal_base) + num(bb.ep_heal_per_stack) * L;
-    const res = three ? num(bb.damage_res_base) + num(bb.damage_res_per_stack) * L : 0;
-    const covered = new Map();
     for (const m of members) {
       if (!S.onField(m)) continue;
       const atk = num(m.s.atk);
@@ -648,16 +844,9 @@ function installDoc(battle, pid, effectId, members) {
         // [ASSUMED] overlapping members each heal; HP and element recovery stack.
         if (healR > 0) battle.heal({ source: m, target: a, amount: healR * atk });
         if (epR > 0) battle.healElement({ target: a, amount: epR * atk });
-        if (res > 0) {
-          const prev = covered.get(a) || 0;
-          if (res > prev) covered.set(a, res);
-        }
       }
     }
-    for (const [a, v] of covered) {
-      // [ASSUMED] 庇护 is damage_res as damage taken (strongest of overlapping members, not summed).
-      S.passiveBuff(battle, a, 'bond:doc:res', { dmgTakenMul: Math.max(0, 1 - v) });
-    }
+    if (three) syncShelter();
   });
 }
 

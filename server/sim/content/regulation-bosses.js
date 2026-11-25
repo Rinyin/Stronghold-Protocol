@@ -276,7 +276,8 @@ function kitMech(ab) {
         spawnArmorPair(b, e);
       },
       hitIn(c, b, e) {
-        if (!(cut > 0) || cut >= 1 || !c.source) return;
+        const ty = c.dmg && c.dmg.type;
+        if ((ty !== 'phys' && ty !== 'arts') || !(cut > 0) || cut >= 1 || !c.source) return;
         const side = Math.sign(c.source.x - e.x);
         if (side === 0) return;
         for (const a of livingOf(b, ARMOR, e.id)) {
@@ -344,13 +345,15 @@ function pickByHp(b, enemy, maxTarget, batch) {
   return picked;
 }
 
-function refreshEvade(b, e, ab) {
+function refreshEvade(b, e, a, ab) {
   const ratio = tv(ab, 'Evade.hp_ratio', 0.25);
   const prob = tv(ab, 'Evade.prob', 0);
   const dur = tv(ab, 'Evade.duration', 15);
   if (!(ratio > 0) || !(prob > 0)) return;
   const steps = Math.floor((1 - e.hpRatio) / ratio + 1e-9);
-  if (steps <= 0) return;
+  const prev = a.evadeSteps ?? 0;
+  if (steps <= prev) return;
+  a.evadeSteps = steps;
   b.addBuff(e, { key: 'reg:evade', duration: dur, refresh: 'replace', mods: { dodgePhys: prob, dodgeArts: prob } });
 }
 
@@ -365,7 +368,7 @@ function kitSpider(ab) {
     {
       spawn(b, e) { e.profile.noAttack = true; },
       tick(b, e, a, dt) {
-        refreshEvade(b, e, ab);
+        refreshEvade(b, e, a, ab);
         if (!canCast(e, false, b)) return;
         P.acc += dt;
         if (!(P.acc >= e.s.interval)) return;
@@ -388,7 +391,7 @@ function kitSpider(ab) {
         e.lastAttackAt = b.time;
         if (e.stats) e.stats.attacks++;
       },
-      taken(c, b, e) { refreshEvade(b, e, ab); },
+      taken(c, b, e, a) { refreshEvade(b, e, a, ab); },
     },
     timed(net, (b, e) => {
       const n = bb(net, 'max_target', 2);
@@ -615,6 +618,8 @@ function kitBeast(ab) {
         for (const u of areaAllies(b, e, e.x, e.y, tramR)) hurt(b, e, u, e.s.atk * tramS, 'phys');
       },
       hitIn(c, b, e) {
+        const ty = c.dmg && c.dmg.type;
+        if (ty !== 'phys' && ty !== 'arts') return;
         const stopped = !!(e.blockedBy || e.s.flags.noMove || (e.route && e.route.waitLeft > 0));
         const dr = stopped ? low : high;
         c.dmg.mul *= Math.max(0, 1 - dr);

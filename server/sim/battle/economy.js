@@ -51,10 +51,11 @@ export class BattleEconomy {
 
   /**
    * Temporary bond layers (规程). Not written into layerGains and not announced on `layerGain`, so a garrison extra
-   * does not recurse. The field is created only when a positive amount is stored. No-op when gains are disabled
-   * (联防 / boss / hidden) and when the amount is not a positive finite number.
+   * does not recurse. Stored on both `pp.tempLayerGains` (for post-battle converters such as 折桠 / 乌啾) and
+   * `ps.bonds[bondId].tempLayers` (when `live !== false`, so live battle formulas read permanent + temp layers
+   * immediately via `support.bondLayers`). No-op when gains are disabled (联防 / boss / hidden) or amount ≤ 0.
    */
-  addTempLayers(playerId, bondId, n) {
+  addTempLayers(playerId, bondId, n, opts = null) {
     if (!this.flags.layerGainsEnabled || !(n > 0) || !Number.isFinite(n) || playerId == null) return 0;
     if (typeof bondId !== 'string' || !bondId) return 0;
     const pp = this._pp(playerId);
@@ -62,8 +63,17 @@ export class BattleEconomy {
     const add = Math.min(1e4, Math.floor(n));
     if (!(add > 0)) return 0;
     if (!pp.tempLayerGains) pp.tempLayerGains = {};
-    pp.tempLayerGains[bondId] = Math.min(1e4, (pp.tempLayerGains[bondId] ?? 0) + add);
-    return add;
+    const prev = pp.tempLayerGains[bondId] ?? 0;
+    const next = Math.min(1e4, prev + add);
+    const added = next - prev;
+    if (!(added > 0)) return 0;
+    pp.tempLayerGains[bondId] = next;
+    const ps = this.getPlayer(playerId);
+    if ((!opts || opts.live !== false) && ps && ps.bonds[bondId]) {
+      ps.bonds[bondId].tempLayers = (ps.bonds[bondId].tempLayers ?? 0) + added;
+    }
+    if (this._hooks.tempLayerGain) this.emit('tempLayerGain', { playerId, bondId, n: added });
+    return added;
   }
 
   /**

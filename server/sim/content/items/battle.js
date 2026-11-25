@@ -638,6 +638,9 @@ const BY_BUFF = {
         if (n <= 0) continue;
         b.layers = num(b.layers) + n;
         got.set(id, have + n);
+        // Record in tempLayerGains (for post-battle converters such as 折桠/乌啾) and notify live refreshers
+        // without double-adding to b.tempLayers (this item manages its own live delta on b.layers for dispose).
+        battle.addTempLayers(u.ownerId, id, n, { live: false });
       }
     });
     S.onDispose(() => {

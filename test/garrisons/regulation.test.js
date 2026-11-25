@@ -840,6 +840,44 @@ test('sleepstun: bond_self pays the carrier; bond_allinrange pays the operator b
   assert.equal(lg(behind, 'yanShip'), 1);
 });
 
+test('妮芙 garrison_99_a/b (check_ab_flag = 33) stacks swiftShip on fear entry, not freeze, up to battle cap', () => {
+  const normal = battle(
+    [{ id: 'nymph', g: ['garrison_99_a'], row: 10, col: 4, bonds: ['ursusShip', 'swiftShip'] }],
+    { swiftShip: B(0) },
+  );
+  const op = normal.unit('nymph');
+  const inRange = normal.spawn('e_dummy', { pos: [10, 5] });
+  const far = normal.spawn('e_dummy', { pos: [12, 9] });
+  // Freeze must not trigger check_ab_flag = 33 (regression: AB_FLAG_STATUS previously mapped 33 → 'freeze').
+  normal.b.applyStatus(inRange, 'freeze', { duration: 2, source: op });
+  assert.equal(lg(normal, 'swiftShip'), 0, 'freeze does not trigger fear garrison');
+  // Out-of-range fear does not trigger.
+  normal.b.applyStatus(far, 'fear', { duration: 2, source: op });
+  assert.equal(lg(normal, 'swiftShip'), 0, 'out-of-range fear does not trigger');
+  // First fear entry adds +4; refreshing an active fear does not re-trigger.
+  normal.b.applyStatus(inRange, 'fear', { duration: 3, source: op });
+  assert.equal(lg(normal, 'swiftShip'), 4, 'garrison_99_a adds +4 swiftShip on fear entry');
+  normal.b.applyStatus(inRange, 'fear', { duration: 3, source: op });
+  assert.equal(lg(normal, 'swiftShip'), 4, 'refreshing active fear does not double-count');
+  // Additional distinct enemies entering fear cap at 20 layers per battle.
+  for (let i = 0; i < 6; i++) {
+    const e = normal.spawn('e_dummy', { pos: [10, 5] });
+    normal.b.applyStatus(e, 'fear', { duration: 2, source: op });
+  }
+  assert.equal(lg(normal, 'swiftShip'), 20, 'garrison_99_a caps at 20 swiftShip layers per battle');
+
+  const elite = battle(
+    [{ id: 'nymph_b', g: ['garrison_99_b'], row: 10, col: 4, bonds: ['ursusShip', 'swiftShip'] }],
+    { swiftShip: B(0) },
+  );
+  const opB = elite.unit('nymph_b');
+  for (let i = 0; i < 6; i++) {
+    const e = elite.spawn('e_dummy', { pos: [10, 5] });
+    elite.b.applyStatus(e, 'fear', { duration: 2, source: opB });
+  }
+  assert.equal(lg(elite, 'swiftShip'), 40, 'garrison_99_b adds +8 per fear entry up to 40 cap');
+});
+
 test('tempLayerGains is optional on the result wire and rejected when it is not a real bond', () => {
   const spec = buildBattleSpec({
     battleId: 'x', fieldId: 'n:p', kind: 'normal', round: 3, stageId: 's', timeLimit: 120,

@@ -291,38 +291,47 @@ describe('规程·序列Ⅰ bonds', { concurrency: 1 }, () => {
     close(h.unit('reg_yan_old').s.atk, 500 * 1.23, '盟约 yan atk');
   });
 
-  test('萨尔贡_2: ASPD on skill, slow in range, magic pulses', (t) => {
+  test('萨尔贡_2: ASPD on skill, sand created on skill start, boosted while skill is active', (t) => {
     const main = effectParams('bondeffect_sargon_2', 'act3autochess_bond_eff_sargon');
     assert.equal(main.base_attack_speed, 12);
     assert.equal(main.base_time, 5);
     const slow = fight(t, {
       bonds: { sargonShip: bond(6, 0) },
-      pieces: [piece('reg_sar', ['sargonShip'], { rangeGrid: [[0, 0], [-1, 0]] })],
+      pieces: [piece('reg_sar', ['sargonShip'], { rangeGrid: [[0, 0], [-1, 0]], stats: { atk: 0 } })],
     });
     slow.step();
     const e = tank(slow, [9, 4]);
-    slow.run(1.1);
-    const buff = e.findBuff('bond:sargon:slow');
-    assert.ok(buff, 'slow while in range');
-    close(buff.mods.moveMul, 0.8, 'slow 0.2');
+    const hpPre = e.hp;
+    slow.run(5.2);
+    assert.equal(e.findBuff('bond:sargon:slow'), null, 'no sand slow before any skill is cast');
+    close(hpPre - e.hp, 0, 'no sand magic pulse before skill creates sand');
     const u = slow.unit('reg_sar');
     assert.ok(u.skill.activate('test', { free: true }));
-    slow.run(1.1);
+    slow.step();
     const stacks = u.buffs.filter((b) => b.key === 'bond:sargon');
     assert.ok(stacks.length >= 1 && stacks.length <= 25);
     close(stacks[0].mods.aspd, 12, 'aspd');
     const slowed = e.findBuff('bond:sargon:slow');
+    assert.ok(slowed, 'sand slow activates on skill start');
     close(slowed.mods.moveMul, 0.6, 'slow doubles while a skill is up');
+    u.skill.end('test');
+    slow.step();
+    const afterSkill = e.findBuff('bond:sargon:slow');
+    assert.ok(afterSkill, 'sand remains after skill ends');
+    close(afterSkill.mods.moveMul, 0.8, 'sand returns to base 20% slow after skill ends');
 
     const mag = fight(t, {
       bonds: { sargonShip: bond(6, 0) },
       pieces: [piece('reg_sar_m', ['sargonShip'], { rangeGrid: [[0, 0], [-1, 0]] })],
     });
     const em = tank(mag, [9, 4]);
-    mag.step(); // the opening swing lands on the first tick; bat 100 holds the next one
+    mag.step();
+    const um = mag.unit('reg_sar_m');
+    assert.ok(um.skill.activate('test', { free: true }));
+    um.skill.end('test');
     const hp = em.hp;
     mag.run(5.2);
-    close(hp - em.hp, 5000, 'magic every 5s');
+    close(hp - em.hp, 5000, 'magic every 5s once sand is created');
 
     const mag2 = fight(t, {
       bonds: { sargonShip: bond(6, 0) },
@@ -404,19 +413,47 @@ describe('规程·序列Ⅰ bonds', { concurrency: 1 }, () => {
     assert.equal(!!e.s.flags.cold, true);
   });
 
-  test('谢拉格 giant scales by floor(layers / stackStep)', (t) => {
+  test('谢拉格 giant scales by floor(layers / stackStep), switches modes, breaks freeze for 3.5×, attracts', (t) => {
     const h = fight(t, {
       bonds: { kjeragShip: bond(6, 3) },
-      pieces: [piece('reg_kj3', ['kjeragShip'])],
+      pieces: [piece('reg_kj3', ['kjeragShip'], { stats: { atk: 0 } })],
     });
     h.step();
     const g = h.b.allyUnits.find((u) => u.defId === GIANT && u.alive);
     assert.ok(g);
     close(g.s.atk, 920 * 1.51, 'giant atk one step');
     close(g.s.maxHp, 21000 * 1.02, 'giant hp one step');
+    assert.equal(g.mem.giantMode, 'snowy');
+    assert.equal(g.s.blockCnt, 3);
+    // Attacking a frozen enemy in 【覆雪坐定】 deals 3.5× arts damage and dispels freeze.
+    const frozen = tank(h, [g.tileR, g.tileC + 1]);
+    h.b.applyStatus(frozen, 'freeze', { duration: 10, source: null });
+    assert.equal(!!frozen.s.flags.freeze, true);
+    const hp0 = frozen.hp;
+    h.runUntil(() => frozen.hp < hp0, 4);
+    assert.equal(!!frozen.s.flags.freeze, false, 'FrozenBreak dispels freeze');
+    // Freeze lowers RES by 15 (30 → -15 on 0-RES dummy → clamped 0 RES in calc), so base 3.5× giant ATK.
+    close(hp0 - frozen.hp, g.s.atk * 3.5, 'FrozenBreak deals 3.5× giant ATK', 2);
+    h.b.kill(frozen, null);
+
+    // Without a nearby ground enemy for 5s, giant switches to 【覆雪苏醒】 (block 0, 2.4 ranged splash).
+    const far = tank(h, [g.tileR, g.tileC + 2]);
+    h.run(5.2);
+    assert.equal(g.mem.giantMode, 'giant', 'switches to giant mode after 5s idle');
+    assert.equal(g.s.blockCnt, 0);
+    assert.equal(g.profile.attackRangeRadius, 2.4);
+
+    // An enemy within 0.8 switches back to 【覆雪坐定】 (block 3), and Attract fires within its 18s cycle.
+    const closeFoe = tank(h, [g.tileR, g.tileC + 0.5]);
+    h.step();
+    assert.equal(g.mem.giantMode, 'snowy', 'switches back to snowy mode when enemy enters 0.8');
+    assert.equal(g.s.blockCnt, 3);
+    assert.equal(far.alive, true);
+    const attracted = h.runUntil(() => !!closeFoe.s.flags.attract, 19);
+    assert.equal(attracted, true, 'Attract pulls enemies within 1.5');
   });
 
-  test('叙拉古_2: ASPD on deploy, a random abnormal at 6, true pulse around two abnormals', (t) => {
+  test('叙拉古_2: ASPD on deploy, 0.2s abnormal CD, freeze counts as 1 abnormal (not 2)', (t) => {
     const bb = effectParams('bondeffect_siracusa_2', 'act3autochess_bond_eff_siracusa');
     assert.equal(bb.base_attack_speed, 25);
     assert.equal(bb.damage_value_base, 800);
@@ -438,20 +475,34 @@ describe('规程·序列Ⅰ bonds', { concurrency: 1 }, () => {
     close(ha - a.hp, 800, 'pulse hits the afflicted enemy');
     close(hb - b.hp, 800, 'pulse hits a neighbour inside 1.1');
 
-    let found = false;
-    for (let seed = 1; seed <= 40 && !found; seed++) {
-      const s = fight(t, {
-        seed,
-        bonds: { siracusaShip: bond(6, 0) },
-        pieces: [piece('reg_sir_r', ['siracusaShip'], { rangeGrid: [[0, 0], [-1, 0]] })],
-      });
-      s.step();
-      const m = s.unit('reg_sir_r');
-      const e = tank(s, [9, 4]);
-      s.b.dealDamage({ source: m, target: e, amount: 10, type: 'phys' });
-      if (abnormal(e)) found = true;
-    }
-    assert.equal(found, true);
+    // Freeze alone (which also sets flags.stun) must count as 1 abnormal, not 2; freeze + fear triggers the pulse.
+    const fz = tank(h, [11, 14]);
+    h.b.applyStatus(fz, 'freeze', { duration: 5, source: null });
+    const hf0 = fz.hp;
+    h.run(1.1);
+    close(hf0 - fz.hp, 0, 'freeze alone is only 1 abnormal');
+    h.b.applyStatus(fz, 'fear', { duration: 5, source: null });
+    const hf1 = fz.hp;
+    h.run(1.1);
+    close(hf1 - fz.hp, 800, 'freeze + fear is 2 abnormals and triggers the true pulse');
+
+    // 0.2s internal cooldown: with forced rng = 0, a second hit at the same timestamp must not roll again.
+    const cd = fight(t, {
+      bonds: { siracusaShip: bond(6, 0) },
+      pieces: [piece('reg_sir_cd', ['siracusaShip'], { rangeGrid: [[0, 0], [-1, 0]] })],
+    });
+    cd.step();
+    const m = cd.unit('reg_sir_cd');
+    const e1 = tank(cd, [9, 4]);
+    const e2 = tank(cd, [9, 5]);
+    cd.b.rng = () => 0;
+    cd.b.dealDamage({ source: m, target: e1, amount: 10, type: 'phys' });
+    cd.b.dealDamage({ source: m, target: e2, amount: 10, type: 'phys' });
+    assert.equal(abnormal(e1), true, 'first hit triggers abnormal');
+    assert.equal(abnormal(e2), false, 'second hit within 0.2s is blocked by CD');
+    cd.run(0.25);
+    cd.b.dealDamage({ source: m, target: e2, amount: 10, type: 'phys' });
+    assert.equal(abnormal(e2), true, 'hit after 0.2s triggers abnormal');
   });
 
   test('叙拉古 swapped to bondeffect_siracusa deploys in stealth and has no abnormal pulse', (t) => {
@@ -566,6 +617,37 @@ describe('规程·序列Ⅰ bonds', { concurrency: 1 }, () => {
     assert.ok(itemGrants(h2.b, h2.unit('reg_vic_n')).some((g) => g.lent), 'shared equip');
   });
 
+  test('维多利亚_2 (洛洛) shares tier-6 red equipment to the 8 surrounding allies without a tier-5 cap', (t) => {
+    const lance = v3().items.chess_item_6_01_e_a;
+    const glory = v3().items.chess_item_6_12_e_a;
+    assert.equal(lance?.tier, 6);
+    assert.equal(glory?.tier, 6);
+    const h = fight(t, {
+      bondId: 'victoriaShip', effectId: 'bondeffect_victoria_2',
+      bonds: { victoriaShip: bond(6, 0) },
+      pieces: [
+        piece('reg_vic2_t6', ['victoriaShip'], { col: 4, items: [lance.id, glory.id] }),
+        piece('reg_vic2_ally', [], { col: 5, skill: null }),
+        piece('reg_vic2_far', [], { col: 7, skill: null }),
+      ],
+    });
+    h.step();
+    const vic = h.unit('reg_vic2_t6');
+    const ally = h.unit('reg_vic2_ally');
+    const far = h.unit('reg_vic2_far');
+    close(ally.s.atk, 500, 'neighbour starts at base ATK');
+    assert.ok(vic.skill.activate('test', { free: true }));
+    const lentIds = itemGrants(h.b, ally).filter((g) => g.lent).map((g) => g.id).sort();
+    assert.deepEqual(lentIds, [lance.id, glory.id].sort(), 'both tier-6 red equips are lent to 8-neighbour');
+    close(ally.s.atk, 500 * (1 + 0.5 + 0.5), 'neighbour gains +50% + +50% ATK from lent tier-6 equips');
+    close(ally.s.maxHp, 2000 * 1.6, 'neighbour gains +60% max HP from lent 天马之耀');
+    assert.equal(itemGrants(h.b, far).length, 0, 'unit outside 8 surrounding tiles does not receive shared equips');
+    // Default share_equip_duration_base = 30s at 0 layers: lent equips expire afterwards.
+    h.run(31);
+    assert.equal(itemGrants(h.b, ally).filter((g) => g.lent).length, 0, 'lent tier-6 equips expire after duration');
+    close(ally.s.atk, 500, 'neighbour returns to base ATK after expiry');
+  });
+
   test('阿戈尔 redeploys at 6 and stays down at 5; 阿戈尔_2 switches from the bench instead', (t) => {
     const low = fight(t, {
       bonds: { egirShip: bond(5, 0, 1) },
@@ -602,13 +684,13 @@ describe('规程·序列Ⅰ bonds', { concurrency: 1 }, () => {
     assert.equal(living(h2, 'reg_eg_b').length, 1);
   });
 
-  test('乌萨斯: standing stats, damage cut and bleed, temp layers, block arts at 6', (t) => {
+  test('乌萨斯: standing stats, temp layers live & settled (with 塔露拉), 6-only independent post-mitigation bleed, block arts', (t) => {
     const bb = params(v3().bonds.ursusShip, 'act3autochess_bond_eff_ursus');
     assert.equal(bb.atk_base, 0.35);
     assert.equal(bb.damage_one_minus_base, 0.15);
     assert.equal(bb.temp_bond_stack_cnt, 2);
     const h = fight(t, {
-      bonds: { ursusShip: bond(1, 0, 1) },
+      bonds: { ursusShip: bond(3, 0, 1) },
       pieces: [piece('reg_ur', ['ursusShip'])],
     });
     h.step();
@@ -618,24 +700,56 @@ describe('规程·序列Ⅰ bonds', { concurrency: 1 }, () => {
     const foe = tank(h, [9, 8]);
     const hp = u.hp;
     h.b.dealDamage({ source: foe, target: u, amount: 100, type: 'phys' });
-    close(hp - u.hp, 85, '15% cut');
-    h.step();
-    close(hp - u.hp, 86.5, 'bleed 1.5 on the next step');
-    const hpT = u.hp;
-    h.b.dealDamage({ source: foe, target: u, amount: 50, type: 'true' });
-    close(hpT - u.hp, 50, 'true damage is not cut');
+    close(hp - u.hp, 100, '3-member ursus does NOT trigger 6-member bleed cut');
     const victim = tank(h, [9, 16]);
     h.b.dealDamage({ source: u, target: victim, amount: 1e9, type: 'true' });
     assert.equal(victim.alive, false);
     assert.equal(tempBondLayers(h.b, 'p1', 'ursusShip'), 2);
+    assert.equal(h.b.result().perPlayer.p1.tempLayerGains.ursusShip, 2, 'written into battle tempLayerGains');
+    assert.equal(h.b.result().perPlayer.p1.layerGains.ursusShip || 0, 0, 'temp layers do not pollute permanent layerGains');
+    h.step();
+    close(u.s.atk, 500 * (1 + 0.35 + 0.0075 * 2), 'temp layers apply live in battle');
 
+    // 塔露拉 garrison (garrison_23_a: +2 extra temp layers on kill)
+    const talPiece = piece('reg_ur_tal', ['ursusShip']);
+    talPiece.rec.garrisonIds = ['garrison_23_a'];
+    const hTal = fight(t, {
+      bonds: { ursusShip: bond(3, 0, 1) },
+      pieces: [talPiece],
+    });
+    hTal.step();
+    const talVictim = tank(hTal, [9, 16]);
+    hTal.b.dealDamage({ source: hTal.unit('reg_ur_tal'), target: talVictim, amount: 1e9, type: 'true' });
+    assert.equal(hTal.b.result().perPlayer.p1.tempLayerGains.ursusShip, 4, '3 ursus (2) + 塔露拉 (2) = 4 temp layers');
+
+    // 6 乌萨斯: post-mitigation bleed, independent timers, stops when source dies, true dmg untouched, block arts, +4 kill temp
     const h6 = fight(t, {
       bonds: { ursusShip: bond(6, 0) },
-      pieces: [piece('reg_ur6', ['ursusShip'])],
+      pieces: [piece('reg_ur6', ['ursusShip'], { def: 500, hp: 5000 })],
     });
     h6.step();
     const m = h6.unit('reg_ur6');
-    const e = tank(h6, [9, 8]);
+    const foeA = tank(h6, [9, 8]);
+    const foeB = tank(h6, [9, 9]);
+    // 1500 phys vs 500 DEF = 1000 post-mitigation; 15% cut = 850 immediate + 150 bleed (15/s for 10s).
+    const hp0 = m.hp;
+    h6.b.dealDamage({ source: foeA, target: m, amount: 1500, type: 'phys' });
+    close(hp0 - m.hp, 850, '15% cut on post-mitigation 1000 damage');
+    // Second smaller hit from foeB (600 phys vs 500 DEF = 100 → 85 immediate + 1.5/s bleed) must NOT cancel foeA's 15/s bleed!
+    h6.b.dealDamage({ source: foeB, target: m, amount: 600, type: 'phys' });
+    close(hp0 - m.hp, 850 + 85, 'second hit cut independently');
+    h6.step();
+    close(hp0 - m.hp, 850 + 85 + 15 + 1.5, 'both independent bleeds tick together');
+    // Kill foeA: foeA bleed stops, foeB bleed continues.
+    h6.b.kill(foeA, null);
+    const hpAfterKillA = m.hp;
+    h6.run(1.05);
+    close(hpAfterKillA - m.hp, 1.5, 'only living source foeB continues bleeding');
+    const hpT = m.hp;
+    h6.b.dealDamage({ source: foeB, target: m, amount: 50, type: 'true' });
+    close(hpT - m.hp, 50, 'true damage is not cut');
+
+    const e = tank(h6, [9, 10]);
     h6.b.on('tick', () => { m.blocking = [e]; });
     const before = e.hp;
     h6.run(1.1);
@@ -645,11 +759,37 @@ describe('规程·序列Ⅰ bonds', { concurrency: 1 }, () => {
     assert.equal(tempBondLayers(h6.b, 'p1', 'ursusShip'), 4);
   });
 
-  test('伊比利亚: slow, DoT, per-source interval, splash', (t) => {
+  test('伊比利亚: 3-tier DoT is arts HP loss (ignores dodge), 6-tier gates slow & splash', (t) => {
     const bb = params(v3().bonds.iberiaShip, 'act3autochess_bond_eff_iberia[enemy]');
     assert.equal(bb.dot_atk_scale_base, 0.11);
     assert.equal(bb.atk_scale, 3);
     assert.equal(bb.range_radius, 1.7);
+
+    // 3 伊比利亚: no slow, no splash, 1× arts HP-loss DoT that ignores 100% arts dodge (e.g. 假想敌：茧).
+    const h3 = fight(t, {
+      seed: 1,
+      bonds: { iberiaShip: bond(3, 0, 1) },
+      pieces: [piece('reg_ib3', ['iberiaShip'])],
+    });
+    h3.step();
+    const u3 = h3.unit('reg_ib3');
+    const primary3 = tank(h3, [9, 8]);
+    const other3 = tank(h3, [9, 9]);
+    const otherStart = other3.hp;
+    for (let i = 0; i < 20; i++) {
+      h3.b.dealDamage({ source: u3, target: primary3, amount: 10, type: 'true' });
+      h3.run(0.21);
+    }
+    assert.equal(primary3.findBuff('bond:iberia:slow'), null, '3-tier iberia does not slow');
+    assert.equal(other3.hp, otherStart, '3-tier iberia does not splash');
+    // Give primary3 100% arts dodge: arts HP-loss DoT must still land!
+    h3.b.addBuff(primary3, { key: 'test:dodge', persist: true, mods: { dodgeArts: 1 } });
+    primary3.mem.iberia.stacks = 1;
+    const hpDodge = primary3.hp;
+    h3.run(1.05);
+    close(hpDodge - primary3.hp, 0.11 * u3.s.atk, 'DoT is arts HP loss and ignores 100% arts dodge');
+
+    // 6 伊比利亚: slow, 2× DoT, per-source 0.2s interval, and 300% ATK splash.
     const h = fight(t, {
       bonds: { iberiaShip: bond(6, 0) },
       pieces: [piece('reg_ib', ['iberiaShip'])],
@@ -662,7 +802,7 @@ describe('规程·序列Ⅰ bonds', { concurrency: 1 }, () => {
     h.b.dealDamage({ source: u, target: e, amount: 10, type: 'phys' });
     const slow = e.findBuff('bond:iberia:slow');
     assert.ok(slow);
-    close(slow.mods.moveMul, 0.96, 'one slow stack');
+    close(slow.mods.moveMul, 0.96, 'one slow stack at 6-tier');
     assert.equal(e.mem.iberia.stacks, 1);
     const hp = e.hp;
     h.run(1.1);
@@ -671,24 +811,13 @@ describe('规程·序列Ⅰ bonds', { concurrency: 1 }, () => {
     h.b.dealDamage({ source: u, target: e, amount: 10, type: 'phys' });
     assert.equal(e.mem.iberia.stacks, 2);
 
-    let splashed = false;
-    const hs = fight(t, {
-      seed: 1,
-      bonds: { iberiaShip: bond(1, 0, 1) },
-      pieces: [piece('reg_ib2', ['iberiaShip'])],
-    });
-    hs.step();
-    const src = hs.unit('reg_ib2');
-    const primary = tank(hs, [9, 8]);
-    const other = tank(hs, [9, 9]);
-    const start = other.hp;
-    for (let i = 0; i < 40 && other.hp === start; i++) {
-      hs.b.dealDamage({ source: src, target: primary, amount: 10, type: 'phys' });
-      hs.run(0.21);
+    const start = n.hp;
+    for (let i = 0; i < 40 && n.hp === start; i++) {
+      h.b.dealDamage({ source: u, target: e, amount: 10, type: 'phys' });
+      h.run(0.21);
     }
-    splashed = other.hp < start;
-    assert.equal(splashed, true);
-    assert.ok(start - other.hp >= 3 * src.s.atk - 1, 'splash is 3× atk arts');
+    assert.ok(n.hp < start, '6-tier iberia splashes');
+    assert.ok(start - n.hp >= 3 * u.s.atk - 1, 'splash is 3× atk arts');
   });
 
   test('莱塔尼亚: no opening summon; a killed enemy summons an owned note at its death tile center', (t) => {
@@ -1251,12 +1380,18 @@ describe('规程·序列Ⅰ bonds', { concurrency: 1 }, () => {
     assertLethaniaRuntime(h);
   });
 
-  test('莱塔尼亚: a chorus advances at range, attacks with arts, and holds its ranged position', (t) => {
+  test('莱塔尼亚: a chorus buffs Lethania operators ASPD (not itself), double-strikes every 4th attack, and holds ranged position', (t) => {
     const h = fight(t, {
       bonds: { lethaniaShip: bond(6, 700) },
-      pieces: [piece('reg_le_chorus_member', ['lethaniaShip'], { row: 12, col: 2, skill: null, rangeGrid: [[0, 0]] })],
+      pieces: [
+        piece('reg_le_chorus_member', ['lethaniaShip'], { row: 12, col: 2, skill: null, rangeGrid: [[0, 0]] }),
+        piece('reg_le_chorus_guest', [], { row: 12, col: 3, skill: null, rangeGrid: [[0, 0]] }),
+      ],
     });
     h.step();
+    const member = h.unit('reg_le_chorus_member');
+    const guest = h.unit('reg_le_chorus_guest');
+    close(member.s.aspd, 100, 'member base aspd before chorus');
     const corpse = tank(h, [10, 8]);
     h.b.kill(corpse, null);
     const [chorus] = lethaniaSummons(h);
@@ -1267,13 +1402,30 @@ describe('规程·序列Ⅰ bonds', { concurrency: 1 }, () => {
     assert.equal(chorus.profile.attackRangeRadius, 2.4);
     assert.equal(!!chorus.profile.requiresBlocking, false);
     close(chorus.s.moveSpeed, 0.5, 'chorus movement speed');
-    close(chorus.s.aspd, 120, 'chorus aura attack speed');
+    close(chorus.s.aspd, 100, 'chorus does not buff itself');
+    close(member.s.aspd, 120, 'chorus grants +20 aspd to Lethania operators');
+    close(guest.s.aspd, 100, 'non-Lethania operators do not receive chorus aspd');
+    // Second chorus stacks to +40, then dying drops back to +20.
+    const corpse2 = tank(h, [10, 9]);
+    h.b.kill(corpse2, null);
+    const two = lethaniaSummons(h);
+    assert.equal(two.length, 2);
+    close(member.s.aspd, 140, 'two choruses stack to +40 aspd');
+    h.b.kill(two[1], null);
+    close(member.s.aspd, 120, 'killing one chorus returns aspd to +20');
     h.run(1.1);
     close(chorus.hp, 8500 - 850, 'chorus true bleed');
 
     const target = tank(h, [10.29, 4.6]);
     const hits = [];
-    h.b.on('hit', (c) => { if (c.source === chorus && c.target === target) hits.push(c.dmg.type); });
+    const byAtk = new Map();
+    h.b.on('hit', (c) => {
+      if (c.source === chorus && c.target === target) {
+        hits.push(c.dmg.type);
+        const k = c.dmg.attackId;
+        byAtk.set(k, (byAtk.get(k) || 0) + 1);
+      }
+    });
     const initialDistance = Math.abs(target.x - chorus.x) + Math.abs(target.y - chorus.y);
     h.run(2.5);
     const movingDistance = Math.abs(target.x - chorus.x) + Math.abs(target.y - chorus.y);
@@ -1285,6 +1437,12 @@ describe('规程·序列Ⅰ bonds', { concurrency: 1 }, () => {
     const stopped = [chorus.x, chorus.y];
     h.run(0.6);
     assert.deepEqual([chorus.x, chorus.y], stopped, 'chorus stays in range instead of walking into the target');
+    // Keep chorus alive long enough to perform 4 attacks (3 normal + 1 double-strike)
+    chorus.hp = chorus.s.maxHp;
+    h.b.addBuff(chorus, { key: 'test:keep', duration: 20, mods: { hpRegen: 2000 } });
+    assert.ok(h.runUntil(() => byAtk.size >= 4, 15), 'chorus completes 4 attacks');
+    const counts = [...byAtk.values()].slice(0, 4);
+    assert.deepEqual(counts, [1, 1, 1, 2], 'after 3 attacks, 4th attack strikes twice');
     assert.equal(h.b.errorCount, 0, JSON.stringify(h.b.errors));
     assertLethaniaRuntime(h);
   });
@@ -1420,18 +1578,45 @@ describe('规程·序列Ⅰ bonds', { concurrency: 1 }, () => {
     const h3 = fight(t, {
       bonds: { docShip: bond(3, 0, 2) },
       pieces: [
-        piece('reg_doc_p', ['docShip'], { col: 4, rangeGrid: [[0, 0], [0, 1]] }),
-        piece('reg_doc_q', ['docShip'], { col: 5, rangeGrid: [[0, 0], [0, -1]] }),
+        piece('reg_doc_p', ['docShip'], { col: 4, rangeGrid: [[0, 0], [0, 1]], hp: 5000 }),
+        piece('reg_doc_q', ['docShip'], { col: 5, rangeGrid: [[0, 0], [0, -1]], hp: 5000 }),
+        piece('reg_doc_ally', [], { col: 6, rangeGrid: [[0, 0]], hp: 5000 }),
       ],
     });
     h3.step();
     const p = h3.unit('reg_doc_p');
+    const q = h3.unit('reg_doc_q');
     h3.b.dealElementDamage({ source: null, target: p, amount: 100, element: 'burn' });
     h3.run(1.1);
     close(gauges(p), 20, 'two members each heal 40 element');
-    const before = p.hp;
+    const beforePhys = p.hp;
+    h3.b.dealDamage({ source: null, target: p, amount: 1000, type: 'phys' });
+    close(beforePhys - p.hp, 850, 'shelter cuts phys by 15%, not 30%');
+    const beforeArts = p.hp;
+    h3.b.dealDamage({ source: null, target: p, amount: 1000, type: 'arts' });
+    close(beforeArts - p.hp, 850, 'shelter cuts arts by 15%');
+    const beforeTrue = p.hp;
     h3.b.dealDamage({ source: null, target: p, amount: 1000, type: 'true' });
-    close(before - p.hp, 850, 'shelter 15%, not 30%');
+    close(beforeTrue - p.hp, 1000, 'shelter does not reduce true damage');
+    const beforeElem = p.hp;
+    h3.b.dealDamage({ source: null, target: p, amount: 1000, type: 'elemental', element: 'burn' });
+    close(beforeElem - p.hp, 1000, 'shelter does not reduce elemental damage');
+    // Out-of-range ally does not get shelter; killing both doc members removes shelter from surviving units.
+    assert.equal(h3.unit('reg_doc_ally').findBuff('bond:doc:res'), null, 'ally outside doc range has no shelter');
+    h3.b.kill(q, null);
+    assert.ok(p.findBuff('bond:doc:res'), 'p still covers itself while alive');
+    const h3c = fight(t, {
+      bonds: { docShip: bond(3, 0, 2) },
+      pieces: [
+        piece('reg_doc_src', ['docShip'], { col: 4, rangeGrid: [[0, 0], [0, 1]], hp: 5000 }),
+        piece('reg_doc_rcv', [], { col: 5, rangeGrid: [[0, 0]], hp: 5000 }),
+      ],
+    });
+    h3c.step();
+    const rcv = h3c.unit('reg_doc_rcv');
+    assert.ok(rcv.findBuff('bond:doc:res'), 'ally inside doc range has shelter');
+    h3c.b.kill(h3c.unit('reg_doc_src'), null);
+    assert.equal(rcv.findBuff('bond:doc:res'), null, 'shelter is removed once covering doc member dies');
   });
 
   test('奥术 rider arts, RES floor at 3, stealth stripped in range', (t) => {

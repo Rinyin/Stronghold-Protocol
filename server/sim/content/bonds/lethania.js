@@ -32,15 +32,17 @@ export function lethaniaSummon(id, raw) {
     // healing abilities and direct healing received becomes 0, while HP regeneration (生命回复速度) still works.
     abnormal: ['healFree'],
   };
+  const sk1 = Array.isArray(raw?.skills) ? raw.skills.find((s) => s && s.prefabKey === 'Sk1') : null;
+  const doubleAfter = Math.max(0, Math.floor(Number(sk1?.spCost) || 0));
   return {
     def,
     anySource: true,
     stats: { moveSpeed, rangeRadius: radius, blockCnt },
-    kit: summonKit({ ranged, radius }),
+    kit: summonKit({ ranged, radius, doubleAfter }),
   };
 }
 
-function summonKit({ ranged, radius }) {
+function summonKit({ ranged, radius, doubleAfter = 0 }) {
   return {
     trait: {
       attack: ranged ? 'ranged' : 'melee',
@@ -49,6 +51,9 @@ function summonKit({ ranged, radius }) {
       canHitFly: ranged,
       attackRangeRadius: radius,
       ...(ranged ? { strictAttackRange: true } : {}),
+      ...(doubleAfter > 0 ? {
+        hitsFn: (_b, unit, info) => (info && info.attackId != null && unit.mem.chorusDoubleId === info.attackId ? 2 : 1),
+      } : {}),
     },
     install(battle, unit) {
       unit.mem.lethaniaPursuit = true;
@@ -57,6 +62,20 @@ function summonKit({ ranged, radius }) {
       // Upgrade players.js's `trait:abnormal` (which sets noHeal for abnormal: ['healFree']) to also carry
       // healFree so non-regen self heals are blocked as well, while HP regeneration (regen: true) still applies.
       battle.addBuff(unit, { key: 'trait:abnormal', flags: { noHeal: true, healFree: true }, persist: true, allowDead: true, refresh: 'replace' });
+      if (doubleAfter > 0) {
+        // PRTS / enemy_9026_acltm Sk1 (spCost 3): after 3 attacks, the next attack strikes twice.
+        unit.mem.chorusAtkSp = 0;
+        battle.on('beforeAttack', (c) => {
+          if (c.attacker !== unit) return;
+          if (unit.mem.chorusAtkSp >= doubleAfter) {
+            unit.mem.chorusDoubleId = (battle._attackSeq || 0) + 1;
+            unit.mem.chorusAtkSp = 0;
+          } else {
+            unit.mem.chorusDoubleId = null;
+            unit.mem.chorusAtkSp++;
+          }
+        }, { owner: unit });
+      }
       battle.on('tick', ({ dt }) => moveTowardTarget(battle, unit, dt), { owner: unit });
     },
   };

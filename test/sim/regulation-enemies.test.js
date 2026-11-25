@@ -122,19 +122,68 @@ test('茧 volley hits the highest-HP operators and evade stacks from missing hea
   assert.ok(ops[2].hp < 3000);
   assert.equal(ops[0].hp, 4500);
 
-  const base = fight();
+  const base = fight({ timeLimit: 45 });
   const s = put(base, SPIDER, [9, 8]);
   s.hp = s.s.maxHp * 0.75;
   base.step(1);
   assert.equal(s.s.dodgePhys, 0.5);
   assert.equal(s.s.dodgeArts, 0.5);
+  // Evade lasts 15s per 25% threshold and must NOT refresh indefinitely below 75% HP.
+  base.run(15.5);
+  assert.equal(s.s.dodgePhys, 0, 'evade expires after 15s at 75% HP');
+  assert.equal(s.s.dodgeArts, 0);
+  // Crossing 50% triggers a fresh 15s evade window.
+  s.hp = s.s.maxHp * 0.5;
+  base.step(1);
+  assert.equal(s.s.dodgePhys, 0.5, 'evade retriggers at 50% HP');
+  base.run(15.5);
+  assert.equal(s.s.dodgePhys, 0, '50% evade expires after 15s');
 
-  const hid = fight();
+  const hid = fight({ timeLimit: 45 });
   const s2 = put(hid, SPIDER_2, [9, 8]);
   s2.hp = s2.s.maxHp * 0.75;
   hid.step(1);
   assert.equal(s2.s.dodgePhys, 0.8);
   assert.equal(s2.s.dodgeArts, 0.8);
+  hid.run(15.5);
+  assert.equal(s2.s.dodgePhys, 0, 'hidden cocoon evade expires after 15s');
+});
+
+test('械 and 矩兽 hitIn damage reduction only cuts phys and arts, never true or elemental', () => {
+  const hm = fight({ units: [{ chessId: 't_gun', row: 9, col: 5 }] });
+  hm.step(1);
+  const gun = hm.allies()[0];
+  assert.ok(gun, 'gun deployed');
+  const mech = put(hm, MECH, [9, 8]);
+  mech.hp = mech.s.maxHp * 0.49;
+  hm.step(2);
+  // Armor pair spawns at x=7 and x=9; gun at col 5 is on the left side (x < mech.x), blocked by left armor.
+  const hpPhys = mech.hp;
+  hm.b.dealDamage({ source: gun, target: mech, amount: 2000, type: 'phys' });
+  assert.ok(hpPhys - mech.hp < 1000, 'mech armor cuts phys from its side');
+  const hpTrue = mech.hp;
+  hm.b.dealDamage({ source: gun, target: mech, amount: 1000, type: 'true' });
+  assert.equal(hpTrue - mech.hp, 1000, 'mech armor does not cut true damage');
+  const hpElem = mech.hp;
+  hm.b.dealDamage({ source: gun, target: mech, amount: 1000, type: 'elemental', element: 'burn' });
+  assert.equal(hpElem - mech.hp, 1000, 'mech armor does not cut elemental damage');
+
+  const hb = fight({ units: [{ chessId: 't_gun', row: 9, col: 5 }] });
+  hb.step(1);
+  const gunB = hb.allies()[0];
+  assert.ok(gunB, 'gunB deployed');
+  const beast = put(hb, BEAST, [9, 10]);
+  hb.step(1);
+  // Moving / unblocked beast has phys/arts resistance (low when waiting on route: 0.35), never true/elemental.
+  const bArts = beast.hp;
+  hb.b.dealDamage({ source: gunB, target: beast, amount: 1000, type: 'arts' });
+  assert.ok(bArts - beast.hp < 900 * 0.7, 'beast cuts arts damage');
+  const bTrue = beast.hp;
+  hb.b.dealDamage({ source: gunB, target: beast, amount: 1000, type: 'true' });
+  assert.equal(bTrue - beast.hp, 1000, 'beast does not cut true damage');
+  const bElem = beast.hp;
+  hb.b.dealDamage({ source: gunB, target: beast, amount: 1000, type: 'elemental', element: 'burn' });
+  assert.equal(bElem - beast.hp, 1000, 'beast does not cut elemental damage');
 });
 
 test('鳍 holds a damage cut while it is not blocked', () => {
